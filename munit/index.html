@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>µnit — C Unit Testing Framework</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,700,200,100,300,500,600,800,900" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,700italic,900,400italic,300italic" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css" integrity="sha384-K8lP71JMoujuXyZ0fbe7SBGTMzO6WU8ASdAxYOrhm56q8uK69DM4zlgI1Y5xxYU4" crossorigin="anonymous">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js" integrity="sha384-WjA2DPUbFZAMTGY9VgnrXDzTWftx2UdemTBfSKXYsabWWcJQ7Vo6vbd8ewXJbsmx" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/cpp.min.js" integrity="sha384-eapp1kMr8eEo8i+I6v0qpzbiTN2UlhK3z28jo+t3X0HaJumCBnTdo4EHrRJxHlRf" crossorigin="anonymous"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" integrity="sha384-EaUkI/FiMJtEXWAl0dCczvbFvjfzsIF1UNKGJvu9p5JIG71Kih7/kQJvYbBL7HOn" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.3/jquery.sticky.min.js" integrity="sha384-VrOibyGLSuTRXsqsa+34L5HtHxo1dP3eZLPOiaLxnEeBatoXw4V3oc5jOeSMKSsn" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container-fluid banner text-center" id="banner">
+      <div class="row">
+        <div class="col-md-12 line">
+          <div class="tablebox">
+            <div class="banner-text" id="bannertext">
+              <h1 class="hostyle" id="heads">µnit</h1>
+              <p class="pstyle">Unit testing framework for C.</p>
+              <a href="#about" class="page-scroll arrow"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar menubar" id="menu">
+      <div class="container">
+        <div class="navbar-header">
+    	  <button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target="#myNavbar">
+	    <span class="glyphicon glyphicon-align-justify"></span>
+	  </button>
+          <a class="navbar-brand logo" href="#">µnit</a>
+        </div>
+        <div>
+    	  <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
+            <ul class="nav nav-tabs navbar-nav navbar-right" role="tablist">
+              <li><a href="#about">About</a></li>
+              <li><a href="#download">Download</a></li>
+              <li><a href="#documentation">Documentation</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#support">Support</a></li>
+              <li><a href="https://github.com/nemequ/munit/"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <section id="about" class="container">
+      <div class="row h2box">
+	  <p>What the…?</p>
+        <h2>About <a href="#about" class="anchor"><i class="fa fa-link"></i></a></h2>
+      </div>
+
+      <div class="row">
+	<p class="lead">
+	  µnit is a small and portable unit testing framework for C
+	  which includes pretty much everything you might expect from
+	  a C testing framework, plus a few pleasant surprises,
+	  wrapped in a nice API.
+	</p>
+
+	<p>
+	  <iframe src="https://ghbtns.com/github-btn.html?user=nemequ&repo=munit&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+	</p>
+
+	<dl class="dl-features dl-larger">
+	  <dt>Trivial to integrate</dt>
+	  <dd>
+	    With a single source file and a single header, integrating
+	    µnit into your build system is trivial.  No special
+	    arguments or feature-detection required.
+	  </dd>
+
+	  <dt>Reproducible cross-platform pseudo-random number generation</dt>
+	  <dd>
+	    Increase test coverage without making tests take forever,
+	    or sacrificing reproducibility.
+	  </dd>
+
+	  <dt>Parameterized tests</dt>
+	  <dd>
+	    Write once, run an exponential number of times (once each
+	    for every possible combinantion of parameter values).
+	  </dd>
+
+	  <dt>Timing information, including both wall-clock and CPU time</dt>
+	  <dd>
+	    Let your unit tests double as a performance indicator and
+	    help track performance regressions.
+	  </dd>
+
+	  <dt>Hide <em>stderr</em>, unless a test fails.</dt>
+	  <dd>
+	    Leave your debugging messages in place; if your test
+	    passes they will be hidden, but if it fails you'll have
+	    valuable debugging information.
+	  </dd>
+
+	  <dt>Nested suites</dt>
+	  <dd>
+	    Organize your tests into suites, then your suites into
+	    suites of suites, then your suites of suites into suites
+	    of suites of suites…
+	  </dd>
+
+	  <dt>Powerful CLI</dt>
+	  <dd>
+	    A powerful CLI lets you bend your tests to your will
+	    without having to change the code.
+	  </dd>
+
+	  <dt>Lots of handy assertion macros</dt>
+	  <dd>
+	    All the assertion macros you would expect from any modern
+	    unit testing framework for C…  plus a few others.
+	  </dd>
+
+	  <dt>Your idea here</dt>
+	  <dd>
+	    µnit is still very actively developed, and we're accepting
+	    feature requests.  If you have an idea that you'd like to
+	    see integrated we would be happy to talk about it on
+	    <a href="https://github.com/nemequ/munit/issues">our issue
+	    tracker</a>.
+	  </dd>
+	</dl>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="container">
+	<div class="row h2box">
+	  <p>Get it while it's hot.</p>
+          <h2>Download <a href="#download" class="anchor"><i class="fa fa-link"></i></a></h2>
+	</div>
+      </div>
+
+      <div class="container">
+	<p>
+	  µnit is intended to be copied into your code or, if you use
+	  git, included as a submodule.
+	</p>
+      </div>
+
+      <div class="container">
+	<dl class="dl-horizontal spacious">
+	  <dt>Git</dt>
+	  <dd>
+	    <p>
+	      <code>git clone <a href="https://github.com/nemequ/munit.git">https://github.com/nemequ/munit.git</a></code>
+	    </p>
+	    <p>
+
+	    </p>
+	    <ul class="list-inline">
+	      <li>
+		Linux and OS X: <a href="https://travis-ci.org/nemequ/munit/builds"><img alt="Travis CI status" src="https://travis-ci.org/nemequ/munit.svg?branch=master" /></a>
+	      </li>
+	      <li>
+		Windows: <a href="https://ci.appveyor.com/project/quixdb/munit/history"><img alt="AppVeyor status" src="https://ci.appveyor.com/api/projects/status/db515g5ifcwjohq7/branch/master?svg=true" /></a>
+	      </li>
+	    </ul>
+	  </dd>
+
+	  <dt>Tarballs</dt>
+	  <dd><a href="https://github.com/nemequ/munit/archive/master.zip">master</a></dd>
+	</dl>
+      </div>
+    </section>
+
+    <section id="documentation">
+      <div class="container">
+	<div class="row h2box">
+	  <p>What can µnit do for you?</p>
+          <h2>Documentation <a href="#documentation" class="anchor"><i class="fa fa-link"></i></a></h2>
+	</div>
+
+	<div class="row">
+	  <div class="col-md-12">
+	    <p class="lead">
+	      If you're reading this, you <em>probably</em> already
+	      know what unit testing is and why you should be doing
+	      it, so let's just dive right in and start explaining how
+	      to use µnit.  If you'd like to skip the lengthy prose
+	      and just start with a heavily documented example, see
+	      the <a href="https://github.com/nemequ/munit/blob/master/example.c">example.c</a>
+	      file distributed with µnit.
+	    </p>
+	  </div>
+	</div>
+
+	<div class="row itembox-items">
+	  <div class="col-md-1 itembox-icon">
+	    <i class="fa fa-hashtag fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#getting-started">Getting Started</a></h3>
+            <p>
+              With a single source file and a single header, getting
+              started is trivial!
+            </p>
+	  </div>
+
+	  <div class="col-md-1 col-md-offset-1 itembox-icon">
+	    <i class="fa fa-exclamation fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#assertions">Assertions</a></h3>
+            <p>
+	      It's terribly difficult to have good unit tests without
+	      actually testing anything.
+            </p>
+	  </div>
+	</div>
+
+	<div class="row itembox-items">
+	  <div class="col-md-1 itembox-icon">
+	    <i class="fa fa-random fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#prng">Pseudo-Random Numbers</a></h3>
+            <p>
+              Built-in support for generating <em>and
+	      reproducing</em> random numbers across different
+              platforms, helps increase coverage without bug-hunting
+              guesswork.
+            </p>
+	  </div>
+
+	  <div class="col-md-1 col-md-offset-1 itembox-icon">
+	    <i class="fa fa-cube fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#tests-and-suites">Tests &amp; Suites</a></h3>
+            <p>
+	      Once you have a few tests, group them together into a
+	      suite.
+            </p>
+	  </div>
+	</div>
+
+	<div class="row itembox-items">
+	  <div class="col-md-1 itembox-icon">
+	    <i class="fa fa-laptop fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#running-tests">Running Your Tests</a></h3>
+            <p>
+	      Expose your code to the CLI, and learn how to bend it to
+	      your will.
+            </p>
+	  </div>
+
+	  <div class="col-md-1 col-md-offset-1 itembox-icon">
+	    <i class="fa fa-clone fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#parameterized-tests">Parameterized Tests</a></h3>
+            <p>
+	      Automatically run tests in multiple configurations.
+            </p>
+	  </div>
+	</div>
+
+	<div class="row itembox-items">
+	  <div class="col-md-1 itembox-icon">
+	    <i class="fa fa-cubes fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#suites-of-suites">Suites of Suites</a></h3>
+            <p>
+	      Combine multiple suites for an easy way to manage tests
+	      for larger projects.
+            </p>
+	  </div>
+
+	  <div class="col-md-1 col-md-offset-1 itembox-icon">
+	    <i class="fa fa-rocket fa-4x"></i>
+	  </div>
+	  <div class="col-md-4">
+            <h3><a href="#miscellaneous">Miscellaneous</a></h3>
+            <p>
+	      Minor features like memory allocation, convenience macros, etc.
+            </p>
+	  </div>
+	</div>
+      </div>
+
+      <section id="getting-started">
+	<div class="container">
+	  <h3>Getting Started <a href="#getting-started" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    µnit is designed to be easy to use.  Just
+	    add <var>munit.c</var> to your sources,
+	    include <var>munit.h</var>, and you're good to go:
+	  </p>
+
+<pre><code class="c">#include "munit/munit.h"
+
+void main(void) {
+  /* Use µnit here. */
+}</code></pre>
+	</div>
+      </section>
+
+      <section id="assertions">
+	<div class="container">
+	  <h3>Assertions <a href="#assertions" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    Assertions are a fundamental part of any unit testing
+	    framework, and µnit is no exception.  If you've used other
+	    unit testing frameworks you probably know roughly what to
+	    expect, but if you're used to the standard
+	    library's <code>assert()</code> function then you're in
+	    for a treat.
+	  </p>
+
+	  <p>
+	    Let's say you want to test two values for equality:
+	  </p>
+
+<pre><code class="c">void your_function(int foo, int bar) {
+  assert(foo == bar);
+}</code></pre>
+
+	  <p>What happens when <code class="c">foo != bar</code>?</p>
+
+	  <pre>srcfile.c:5: your_function: Assertion `foo == bar' failed.</pre>
+
+	  <p>
+	    When you want to debug this, the first thing you probably
+	    ask yourself is, &quot;What were the values
+	    of <var>foo</var> and <var>bar</var>?&quot;
+	    Alas, <code>assert</code> knows not, and you must fire up
+	    a debugger (or add some <code>printf</code>s).
+	  </p>
+
+	  <p>
+	    Now, lets look at what happens if you use µnit's assertion
+	    macros:
+	  </p>
+
+<pre><code class="c">void your_function(int foo, int bar) {
+  munit_assert_int(foo, ==, bar);
+}</code></pre>
+
+<pre>ERROR&gt; srcfile.c:5: assertion failed: foo == bar (1729 == 1701)</pre>
+
+	  <p>
+	    The values of <var>foo</var> and <var>bar</var> are shown!
+	    No debuggers, and no printfs.
+	  </p>
+
+	  <p>
+	    Of course we don't stop at <code>int</code>.  There is
+	    a <code>munit_assert_<var>type</var></code> macro for:
+	  </p>
+
+	  <ul class="indent">
+	    <li><code>char</code></li>
+	    <li><code>unsigned char</code> (&quot;uchar&quot;)</li>
+	    <li><code>short</code></li>
+	    <li><code>unsigned short</code> (&quot;ushort&quot;)</li>
+	    <li><code>int</code></li>
+	    <li><code>unsigned int</code> (&quot;uint&quot;)</li>
+	    <li><code>long int</code> (&quot;long&quot)</li>
+	    <li><code>unsigned long int</code> (&quot;ulong&quot;)</li>
+	    <li><code>long long int</code> (&quot;llong&quot)</li>
+	    <li><code>unsigned long long int</code> (&quot;ullong&quot;)</li>
+	    <li><code>size_t</code> (&quot;size&quot;)</li>
+	    <li><code>float</code></li>
+	    <li><code>double</code></li>
+	    <li><code>void*</code> (&quot;ptr&quot;)</li>
+	    <li><code>int8_t</code> (&quot;int8&quot;)</li>
+	    <li><code>uint8_t</code> (&quot;uint8&quot;)</li>
+	    <li><code>int16_t</code> (&quot;int16&quot;)</li>
+	    <li><code>uint16_t</code> (&quot;uint16&quot;)</li>
+	    <li><code>int32_t</code> (&quot;int32&quot;)</li>
+	    <li><code>uint32_t</code> (&quot;uint32&quot;)</li>
+	    <li><code>int64_t</code> (&quot;int64&quot;)</li>
+	    <li><code>uint64_t</code> (&quot;uint64&quot;)</li>
+	  </ul>
+
+	  <p>
+	    Additionally, there are several more specialized macros
+	    for different common types:
+	  </p>
+
+	  <dl>
+	    <dt><code>munit_assert_double_equal(double a, double b, int precision)</code></dt>
+	    <dd>
+	      <p>
+		Assert that two doubles are equal within a tolerance
+		of 1.0×10<sup>-<var>precision</var></sup>.  For
+		example, 3.141592654 and 3.141592653589793 are
+		considered equal with a precision of 9 but not 10.
+	      </p>
+	    </dd>
+
+	    <dt><code>munit_assert_string_equal(const char* a, const char* b)</code></dt>
+	    <dd>
+	      <p>
+		Assert that two strings are equivalent
+		(<i>i.e.</i>, <code class="c">strcmp(a,b) == 0</code>,
+		not <code>a == b</code>).
+	      </p>
+	    </dd>
+
+	    <dt><code>munit_assert_string_not_equal(const char* a, const char* b)</code></dt>
+	    <dd>
+	      <p>
+		Like <code>munit_assert_string_equal</code>, but make
+		sure they <em>aren't</em> equivalent.
+	      </p>
+	    </dd>
+
+	    <dt><code>munit_assert_memory_equal(size_t size, const void* a, const void* b)</code></dt>
+	    <dd>
+	      <p>
+		A personal favorite, this will make sure two blocks of
+		memory contain the same data.  Failures messages will
+		tell you the offset of the first non-equal byte.
+	      </p>
+	    </dd>
+
+	    <dt><code>munit_assert_memory_not_equal(size_t size, const void* a, const void* b)</code></dt>
+	    <dd>
+	      <p>
+		Make sure two blocks of memory <em>don't</em> contain
+		the same data.
+	      </p>
+	    </dd>
+
+	    <dt><code>munit_assert_ptr_equal(void* a, void* b)</code></dt>
+	    <dd>
+	      <p>Another way of writing <code>munit_assert_ptr(a, ==, b)</code></p>
+	    </dd>
+
+	    <dt><code>munit_assert_ptr_not_equal(void* a, void* b)</code></dt>
+	    <dd>
+	      <p>Another way of writing <code>munit_assert_ptr(a, !=, b)</code></p>
+	    </dd>
+
+	    <dt><code>munit_assert_null(const void* ptr)</code></dt>
+	    <dd>
+	      <p>Another way of writing <code>munit_assert_ptr(ptr, ==, NULL)</code></p>
+	    </dd>
+
+	    <dt><code>munit_assert_not_null(const void* ptr)</code></dt>
+	    <dd>
+	      <p>Another way of writing <code>munit_assert_ptr(ptr, !=, NULL)</code></p>
+	    </dd>
+
+	    <dt><code>munit_assert_true(bool value)</code></dt>
+	    <dd>
+	      <p>Check that the boolean value is true.</p>
+	    </dd>
+
+	    <dt><code>munit_assert_false(bool value)</code></dt>
+	    <dd>
+	      <p>Check that the boolean value is false.</p>
+	    </dd>
+	  </dl>
+
+	  <p>
+	    Additionally, µnit contains a <code>munit_assert()</code>
+	    macro, which is similar to <code>assert</code> but uses
+	    µnit's logging facilities, for those cases where more
+	    specialized macros will not work.
+	  </p>
+
+	  <p>
+	    Finally, if you
+	    define <var>MUNIT_ENABLE_ASSERT_ALIASES</var> prior to
+	    including <var>munit.h</var>, versions of all the
+	    assertion macros without the &quot;munit_&quot; prefix
+	    will be defined.  For example:
+	  </p>
+
+	  <pre><code class="c">#define MUNIT_ENABLE_ASSERT_ALIASES
+#include "munit/munit.h"
+
+void main(int argc, char** argv) {
+  assert_int(argc, ==, 1);
+}</code></pre>
+	</div>
+      </section>
+
+      <section id="prng">
+	<div class="container">
+	  <h3>Pseudo-Random Numbers <a href="#prng" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    One feature that is often overlooked in testing frameworks
+	    is pseudo-random number generation.  Being able to
+	    randomize tests a bit is a great way to increase the
+	    coverage of your tests without the performance
+	    implications of testing every possible value.
+	  </p>
+
+	  <p>
+	    If you've never used random numbers in tests before, you
+	    might be terrified of the implications for
+	    reproducibility; if the tests are randomized then you
+	    can't reproduce failures, and if you can't reproduce
+	    failures how can you be expected to fix them?  Fear not,
+	    this is where seeding comes in!  Every time the test suite
+	    is run, a 32-bit seed value is written to the console in
+	    hexidecimal notation.  If you see a failure you can simply
+	    <a href="#--seed">plug that number back into the test
+	    runner</a> and the PRNG will output the same values as it
+	    did in the failing tests.
+	  </p>
+
+	  <p>
+	    So, why not just use C's <code>rand</code>
+	    and <code>srand</code> functions?  The PRNG functions
+	    built into C are platform-specific.  Even if you use the
+	    same seed, if your test machine is different from your
+	    development machine (e.g., if you're using a CI service)
+	    it's likely you will be unable to reproduce the same
+	    failure with the same seed.  To combat this, µnit contains
+	    a simple PRNG which will output the same values in the
+	    same order on all platforms.
+	  </p>
+
+	  <p>
+	    Of course, we've also added a few convenience functions on
+	    top of just generating random numbers.  Here is the whole
+	    API:
+	  </p>
+
+	  <dl>
+	    <dt><code>int munit_rand_int_range(int min, int max)</code></dt>
+	    <dd>
+	      <p>
+		This is probably the function you are looking for.  It
+		will generate a random value between min and max
+		(inclusive).  The difference between min and max must
+		be ≤ 2<sup>31</sup>−1.
+	      </p>
+	    </dd>
+
+	    <dt><code>uint32_t munit_rand_uint32(void)</code></dt>
+	    <dd>
+	      <p>
+		Generate a random value, between 0 and 2<sup>32</sup>−1
+		(inclusive).
+	      </p>
+	    </dd>
+
+	    <dt><code>double munit_rand_double(void)</code></dt>
+	    <dd>
+	      <p>
+		Generate a random double-precision value between 0 and 1.
+	      </p>
+	    </dd>
+
+	    <dt><code>void munit_rand_memory(size_t size, uint8_t buffer[])</code></dt>
+	    <dd>
+	      <p>
+		Fill a buffer with however much random data you want.
+	      </p>
+	    </dd>
+
+	    <dt><code>void munit_rand_seed(uint32_t seed)</code></dt>
+	    <dd>
+	      <p>
+		Seed the random number with the supplied value.  You
+		probably don't want to use this, since the CLI will
+		handle seeding for you, but it's there if you do.
+	      </p>
+	    </dd>
+	  </dl>
+	</div>
+      </section>
+
+      <section id="tests-and-suites">
+	<div class="container">
+	  <h3>Tests &amp; Suites <a href="#suites" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    Now that you have the hang of how to test code, lets take
+	    a look at how to structure test cases for µnit.  First,
+	    each test should be a separate function with the following
+	    prototype:
+	  </p>
+
+	  <pre><code class="c">MunitResult my_test(const MunitParameter params[], void* user_data_or_fixture);</code></pre>
+
+	  <p>
+	    The name of the test (<var>my_test</var> in this case)
+	    doesn't matter; it's for your internal use only.  As for
+	    the arguments, we'll get back to them soon.
+	  </p>
+
+	  <p>
+	    There are four possible results in µnit which can be
+	    returned from a test:
+	  </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>MUNIT_OK</dt>
+	    <dd>The test passed.</dd>
+
+	    <dt>MUNIT_SKIP</dt>
+	    <dd>
+	      The test was skipped for some reason.  It will not be
+	      counted as a success or failure, and will not cause the
+	      suite to fail.
+	    </dd>
+
+	    <dt>MUNIT_FAIL</dt>
+	    <dd>
+	      The test failed.  If an assertion fails, this is the
+	      result.
+	    </dd>
+
+	    <dt>MUNIT_ERROR</dt>
+	    <dd>
+	      There was an error in code that you weren't trying to
+	      test.  For example, maybe a test downloads a file from
+	      the internet and parses it; if your test can't connect
+	      to the server you may want to use ERROR instead of FAIL.
+	    </dd>
+	  </dl>
+
+	  <p>
+	    Each thing you want to test should be a separate function.
+	    It can be tempting to just have the test suite call one
+	    function and have that function test everything, but it
+	    will make your life harder in the long run.
+	  </p>
+
+	  <h4 id="MunitTest">The <code>MunitTest</code> struct</h4>
+
+	  <p>
+	    Once you have a test case (or, even better, more than
+	    one!) it's time to put them together in a suite.  First,
+	    you'll want to create an array of <code>MunitTest</code>s:
+	  </p>
+
+	  <pre><code class="c">MunitTest tests[] = {
+  {
+    "/my-test", /* name */
+    my_test, /* test */
+    NULL, /* setup */
+    NULL, /* tear_down */
+    MUNIT_TEST_OPTION_NONE, /* options */
+    NULL /* parameters */
+  },
+  /* Mark the end of the array with an entry where the test
+   * function is NULL */
+  { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+};</code></pre>
+
+	  <p>
+	    The <var>name</var> is a human-readable identifier for the
+	    test.  The convention for µnit is to start each name with
+	    a forward slash, but technically it's not required.
+	    Actually, as long as there are no NULL characters in the
+	    name you can technically do pretty much whatever you want.
+	  </p>
+
+	  <p>
+	    The second field, <var>test</var>, is just the function
+	    you created earlier.
+	  </p>
+
+	  <p>
+	    We'll come back to <var>setup</var>
+	    and <var>tear_down</var> in a minute.  <var>options</var>
+	    is a bitmask of options; currently the only values are:
+	  </p>
+
+	  <dl>
+	    <dt>MUNIT_TEST_OPTION_NONE</dt>
+	    <dd>
+	      Use the default options; 0 works here, too, but some
+	      compilers might emit a warning.
+	    </dd>
+
+	    <dt>MUNIT_TEST_OPTION_SINGLE_ITERATION</dt>
+	    <dd>
+	      µnit includes the ability to run tests multiple times, a
+	      feature we'll discuss in a bit more detail soon.  For
+	      now, however, just know that this can be disabled on a
+	      per-test basis with this flag.
+	    </dd>
+	  </dl>
+
+	  <h4 id="setup-and-tear-down">Setup and tear-down functions</h4>
+
+	  <p>
+	    If a setup function is provided as part of a test, it is
+	    called before the test function is invoked, and the return
+	    value of the setup function is passed as
+	    the <var>user_data_or_fixture</var> parameter to the test
+	    function.
+	  </p>
+
+	  <p>
+	    Similarly, if a tear down function is provided, it will be
+	    called after the test function with the fixture argument
+	    set to the return value of the setup function.
+	  </p>
+
+	  <p>
+	    This is commonly used to initialize and destroy structures
+	    and resources used by the test.  For example:
+	  </p>
+
+	  <pre><code class="c">
+static void*
+test_setup(const MunitParameter params[], void* user_data) {
+  return strdup("Hello, world!");
+}
+
+static void
+test_tear_down(void* fixture) {
+  free(fixture);
+}
+
+static MunitResult
+test(const MunitParameter params[], void* fixture) {
+  char* str = (char*) fixture;
+  munit_assert_string_equal(str, "Hello, world!");
+  return MUNIT_OK;
+}</code></pre>
+
+	  <h4 id="MunitSuite">The <code>MunitSuite</code> struct</h4>
+
+	  <p>
+	    Once you have your array of tests, it's time to put them
+	    in a test suite:
+	  </p>
+
+	  <pre><code class="c">static const MunitSuite suite = {
+  "/my-tests", /* name */
+  tests, /* tests */
+  NULL, /* suites */
+  1, /* iterations */
+  MUNIT_SUITE_OPTION_NONE /* options */
+};</code></pre>
+
+	  <p>
+	    Like the test name, the suite name typically begins with a
+	    forward slash, though it's not required.  When you run the
+	    suite, the suite name will be concatenated with the test
+	    name to determine the full test name.  For example, the
+	    name of the test in this suite will be
+	    &quot;/my-tests/my-test&quot;.
+	  </p>
+
+	  <p>
+	    The second field, <var>tests</var>, is the array of tests
+	    you created earlier.
+	  </p>
+
+	  <p>
+	    The <var>suites</var> field allows you to embed one test
+	    suite in another.  For our simple example we've set it to
+	    &quot;NULL&quot; to indicate there are no sub-suites, but
+	    in practice you'll commonly want to use this feature to
+	    help organize tests for larger projects where it's
+	    convenient to split your unit tests across multiple files.
+	  </p>
+
+	  <p>
+	    Another interesting use case for nested suites is projects
+	    which include other projects.  If both projects use µnit
+	    it becomes easy to include the sub-project's unit tests
+	    when running the parent's.
+	  </p>
+
+	  <p>
+	    After <var>suites</var> is <var>iterations</var>.
+	    Generally you'll want a single iteration of each test, but
+	    if your tests are fast include randomization, or the
+	    possibility of a race condition, you might want to run
+	    each test multiple times.
+	  </p>
+
+	  <p>
+	    Finally, there is the <var>options</var> field.  Currently
+	    there are no suite-level options, but this field is
+	    provided for future expansion.
+	  </p>
+
+	  <h4 id="munit_main">Calling <code>munit_main</code></h4>
+
+	  <p>
+	    Once you have your suite ready to go, all that is left is
+	    to call <code>munit_main()</code>, which will parse any
+	    command line arguments and run the suite:.  The prototype
+	    looks like:
+	  </p>
+
+	  <pre><code class="c">int
+munit_suite_main(const MunitSuite* suite,
+                 void* user_data,
+                 int argc,
+                 const char* argv[]);</code></pre>
+
+	  <p>
+	    Most of this is probably pretty self-explanitory; you pass
+	    it a pointer to the suite, as well as the command line
+	    arguments.  We'll (finally) talk
+	    about <var>user_data</var> in the next section, but for
+	    now you can just pass &quot;NULL&quot;.
+	  </p>
+
+	  <p>
+	    The return value will be &quot;EXIT_FAILURE&quot; if any
+	    tests fail, or &quot;EXIT_SUCCESS&quot; if all tests
+	    succeed.  This makes the value suitable for returning
+	    directly from your <code>main()</code> function.
+	  </p>
+
+	  <p>
+	    In the simplest case you'll end up with something like
+	    this:
+	  </p>
+
+	  <pre><code class="c">int main (int argc, const char* argv[]) {
+  return munit_main(&suite, NULL, argc, argv);
+}</code></pre>
+
+	  <h4 id="user-data-and-fixtures">User Data and Fixtures</h4>
+
+	  <p>
+	    You've probably noticed that we've been basically ignoring
+	    some arguments; namely, <var>user_data</var>
+	    and <var>parameters</var>.  We're going to continue
+	    ignoring <var>parameters</var> for now (we'll get to them
+	    in the <a href="#parameterized-tests">Parameterized Tests</a>
+	    section), but it's finally time to talk
+	    about <var>user_data</var>.
+	  </p>
+
+	  <p>
+	    If there is no setup function in a test,
+	    the <var>user_data</var> parameter which you pass
+	    to <code>munit_main()</code> is passed to the test
+	    function as the <var>user_data_or_fixture</var> parameter.
+	  </p>
+
+	  <p>
+	    If there <em>is</em> a setup function,
+	    the <var>user_data</var> parameter you pass
+	    to <code>munit_main()</code> is passed as
+	    the <var>user_data</var> parameter to the setup function,
+	    and the return value of the setup function is
+	    passed <em>instead</em> of <var>user_data</var> to the
+	    test.
+	  </p>
+	</div>
+      </section>
+
+      <section id="parameterized-tests">
+	<div class="container">
+	  <h3>Parameterized Tests <a href="#parameterized-tests" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    Parameterized tests help you run a single test many times
+	    with slightly different inputs.  The idea is that you
+	    create a list of parameters and possible values, and your
+	    test is run once for every possible combination of
+	    parameters.
+	  </p>
+
+	  <p>
+	    As an example, let's say you create two pareters,
+	    called <var>foo</var> and <var>bar</var>, and each
+	    parameter has three possible values; <var>foo</var> can be
+	    &quot;one&quot;, &quot;two&quot;, or &quot;three&quot;,
+	    and <var>bar</var> can be &quot;red&quot;,
+	    &quot;green&quot;, &quot;blue&quot;,.  This yields 9
+	    possible combinations:
+	  </p>
+
+	  <ul class="indent">
+	    <li><var>foo</var>=&quot;one&quot;, <var>bar</var>=&quot;red&quot;</li>
+	    <li><var>foo</var>=&quot;one&quot;, <var>bar</var>=&quot;green&quot;</li>
+	    <li><var>foo</var>=&quot;one&quot;, <var>bar</var>=&quot;blue&quot;</li>
+	    <li><var>foo</var>=&quot;two&quot;, <var>bar</var>=&quot;red&quot;</li>
+	    <li><var>foo</var>=&quot;two&quot;, <var>bar</var>=&quot;green&quot;</li>
+	    <li><var>foo</var>=&quot;two&quot;, <var>bar</var>=&quot;blue&quot;</li>
+	    <li><var>foo</var>=&quot;three&quot;, <var>bar</var>=&quot;red&quot;</li>
+	    <li><var>foo</var>=&quot;three&quot;, <var>bar</var>=&quot;green&quot;</li>
+	    <li><var>foo</var>=&quot;three&quot;, <var>bar</var>=&quot;blue&quot;</li>
+	  </ul>
+
+	  <p>
+	    Of course, you may have far more parameters and/or many
+	    more possible values.
+	  </p>
+
+	  <h4 id="MunitParameterEnum"><code>MunitParameterEnum</code></h4>
+
+	  <p>
+	    To add parameters to your tests, you'll need to create an
+	    array of <code>MunitParameterEnum</code>s.  The structure
+	    is very simple:
+	  </p>
+
+	  <pre><code class="c">typedef struct {
+  char*  name;
+  char** values;
+} MunitParameterEnum;</code></pre>
+
+	  <p>
+	    The <var>name</var> field should be the name of the
+	    parameter—for our above example, the first parameter name
+	    would be &quot;foo&quot; and the second
+	    &quot;bar&quot;.  <var>values</var> is a NULL-terminated
+	    array of strings representing the possible values of that
+	    parameter.  So, we might end up with something like:
+	  </p>
+
+	  <pre><code class="c">static char* foo_params[] = {
+  "one", "two", "three", NULL
+};
+
+static char* bar_params[] = {
+  "red", "green", "blue", NULL
+};
+
+static MunitParameterEnum test_params[] = {
+  { "foo", foo_params },
+  { "bar", bar_params },
+  { NULL, NULL },
+};</code></pre>
+
+	  <p>
+	    Then, simply set the <var>parameters</var> field of
+	    your <code>MunitTest</code> struct
+	    to <var>test_params</var> (or whatever you called your
+	    array), and you're done!
+	  </p>
+
+	  <h4>Any-Valued Parameter</h4>
+
+	  <p>
+	    In addition to &quot;normal&quot; parameters, µnit
+	    supports leaving the <var>values</var> field as NULL to
+	    indicate that the parameter may have <em>any</em> value.
+	    Any-valued parameters will not cause additional tests to
+	    be run, they are merely a way to allow people using
+	    the <abbr title="Command Line Interface">CLI</abbr> to
+	    specify a value.
+	  </p>
+
+	  <p>
+	    Any-valued parameters are primarily useful for when there
+	    are a huge number of potential parameters.  Usually you'll
+	    want to use the PRNG to choose values randomly, but it may
+	    be helpful to provide a parameter to override that
+	    behavior and instead use a specified value.
+	  </p>
+	</div>
+      </section>
+
+      <section id="running-tests">
+	<div class="container">
+	  <h3>Running Your Tests <a href="#running-tests" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    Once you have an executable for your tests compiled,
+	    running them is a relatively straightforward process.
+	    Simple running the executable will run all the tests and
+	    give you a report of the result, which is all many people
+	    will ever want.  However, the CLI contains some features
+	    which may prove useful…
+	  </p>
+
+	  <p>
+	    First, lets take a look at some sample output, which comes
+	    from
+	    the <a href="https://github.com/nemequ/munit/blob/master/example.c">example.c</a>
+	    in the µnit repository:
+	  </p>
+
+	  <pre class="terminal">Running test suite with seed 0x4f78f287...
+/example/compare                     [ <span class="terminal-green">OK</span>    ] [ 0.00000908 / 0.00000650 CPU ]
+/example/rand                        [ <span class="terminal-green">OK</span>    ] [ 0.00001886 / 0.00001704 CPU ]
+/example/parameters
+  foo=one, bar=red                   [ <span class="terminal-green">OK</span>    ] [ 0.00001201 / 0.00001016 CPU ]
+  foo=one, bar=green                 [ <span class="terminal-green">OK</span>    ] [ 0.00001104 / 0.00000970 CPU ]
+  foo=one, bar=blue                  [ <span class="terminal-green">OK</span>    ] [ 0.00001222 / 0.00001034 CPU ]
+  foo=two, bar=red                   [ <span class="terminal-green">OK</span>    ] [ 0.00001271 / 0.00001039 CPU ]
+  foo=two, bar=green                 [ <span class="terminal-green">OK</span>    ] [ 0.00001131 / 0.00001004 CPU ]
+  foo=two, bar=blue                  [ <span class="terminal-green">OK</span>    ] [ 0.00001159 / 0.00001047 CPU ]
+  foo=three, bar=red                 [ <span class="terminal-green">OK</span>    ] [ 0.00001180 / 0.00000991 CPU ]
+  foo=three, bar=green               [ <span class="terminal-green">OK</span>    ] [ 0.00001110 / 0.00000925 CPU ]
+  foo=three, bar=blue                [ <span class="terminal-green">OK</span>    ] [ 0.00000901 / 0.00000824 CPU ]
+11 of 11 (100%) tests successful, 0 (0%) test skipped.</pre>
+
+	  <p>
+	    The first piece of information presented is the random
+	    seed.  If you use the <a href="#prng">PRNG</a> in your
+	    tests, you can use this value to make the PRNG reproduce
+	    the same sequence (using
+	    the <a href="--seed"><code>--seed</code></a> parameter) in
+	    successive runs, hopefully allowing you to reproduce the
+	    failure.
+	  </p>
+
+	  <p>
+	    Next, we have the list of three tests which were run.  As
+	    you can see, the first two tests have information on the
+	    result (in this case, all tests passed so you see
+	    &quot;OK&quot;) as well as how long the test took to run,
+	    in both wall-clock time (the first number) and CPU time.
+	  </p>
+
+	  <p>
+	    The third test is a bit different, since it uses
+	    parameters.  Each combination of parameters is listed on
+	    its own line, with its own result and timing information.
+	  </p>
+
+	  <p>
+	    Finally, there is a brief summary of the results.
+	  </p>
+
+	  <p>
+	    Next, lets take a look at the command line options you can
+	    supply to µnit, and what they all do.  Note that you can
+	    also get a list, along with some brief documentation, by
+	    passing the <code>--help</code> option.
+	  </p>
+
+	  <h4 id="--seed">--seed</h4>
+
+	  <p>
+	    If you're trying to reproduce a failure you'll probably
+	    want to use the <code>--seed</code> parameter.  Set it to
+	    the same value that was used before; for example, the
+	    output above used the seed &quot;0x4f78f287&quot;.  To
+	    recreate the same test conditions, you should run:
+	  </p>
+
+	  <pre class="terminal">./test-runner --seed 0x4f78f287</pre>
+
+	  <h4 id="--iterations">--iterations N</h4>
+
+	  <p>
+	    The <var>iterations</var> option allows you to run each
+	    test a N times (unless the test includes
+	    the <code>MUNIT_TEST_OPTION_SINGLE_ITERATION</code> flag).
+	    For tests run multiple times, both the average and
+	    cumulative timing information will be included.  For
+	    example:
+	  </p>
+
+	  <pre class="terminal">Running test suite with seed 0xa9ae01fb...
+/example/compare                     [  <span class="terminal-green">OK</span>    ] [ 0.00000153 / 0.00000154 CPU ]
+                                         Total: [ 0.02645989 / 0.02659637 CPU ]
+/example/rand                        [  <span class="terminal-green">OK</span>    ] [ 0.00000363 / 0.00000367 CPU ]
+/example/parameters
+  foo=one, bar=red                   [  <span class="terminal-green">OK</span>    ] [ 0.00000123 / 0.00000125 CPU ]
+                                         Total: [ 0.02123751 / 0.02157195 CPU ]
+  foo=one, bar=green                 [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000114 CPU ]
+                                         Total: [ 0.01970051 / 0.01974722 CPU ]
+  foo=one, bar=blue                  [  <span class="terminal-green">OK</span>    ] [ 0.00000110 / 0.00000111 CPU ]
+                                         Total: [ 0.01906747 / 0.01916830 CPU ]
+  foo=two, bar=red                   [  <span class="terminal-green">OK</span>    ] [ 0.00000111 / 0.00000112 CPU ]
+                                         Total: [ 0.01919546 / 0.01933590 CPU ]
+  foo=two, bar=green                 [  <span class="terminal-green">OK</span>    ] [ 0.00000111 / 0.00000112 CPU ]
+                                         Total: [ 0.01927790 / 0.01937041 CPU ]
+  foo=two, bar=blue                  [  <span class="terminal-green">OK</span>    ] [ 0.00000113 / 0.00000112 CPU ]
+                                         Total: [ 0.01951630 / 0.01938922 CPU ]
+  foo=three, bar=red                 [  <span class="terminal-green">OK</span>    ] [ 0.00000113 / 0.00000113 CPU ]
+                                         Total: [ 0.01957777 / 0.01959911 CPU ]
+  foo=three, bar=green               [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000113 CPU ]
+                                         Total: [ 0.01969819 / 0.01954282 CPU ]
+  foo=three, bar=blue                [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000113 CPU ]
+                                         Total: [ 0.01968101 / 0.01953382 CPU ]
+11 of 11 (100%) tests successful, 0 (0%) test skipped.</pre>
+
+	  <h4 id="--param">--param name value</h4>
+
+	  <p>
+	    You can specify any number of parameters by repeatedly
+	    providing the <code>--param</code> argument.  If you do
+	    this, only the value you provide will be tested for each
+	    parameter you provide.  For example, if you were to
+	    specify <code>--param foo two</code>, the output would
+	    change to something like:
+	  </p>
+
+	  <pre class="terminal">Running test suite with seed 0x1baed9f5...
+/example/compare                     [ <span class="terminal-green">OK</span>    ] [ 0.00000678 / 0.00000461 CPU ]
+/example/rand                        [ <span class="terminal-green">OK</span>    ] [ 0.00002074 / 0.00001861 CPU ]
+/example/parameters
+  foo=two, bar=red                   [ <span class="terminal-green">OK</span>    ] [ 0.00001271 / 0.00001146 CPU ]
+  foo=two, bar=green                 [ <span class="terminal-green">OK</span>    ] [ 0.00001348 / 0.00001174 CPU ]
+  foo=two, bar=blue                  [ <span class="terminal-green">OK</span>    ] [ 0.00001257 / 0.00001073 CPU ]
+5 of 5 (100%) tests successful, 0 (0%) test skipped.</pre>
+
+	  <p>
+	    If you specify both the foo and bar parameters
+	    (<code>--param foo two --param bar red</code>), you'll
+	    see something like:
+	  </p>
+
+	  <pre class="terminal">Running test suite with seed 0x8cda69c5...
+/example/compare                     [ <span class="terminal-green">OK</span>    ] [ 0.00000573 / 0.00000360 CPU ]
+/example/rand                        [ <span class="terminal-green">OK</span>    ] [ 0.00001138 / 0.00000953 CPU ]
+/example/parameters
+  foo=two, bar=red                   [ <span class="terminal-green">OK</span>    ] [ 0.00001362 / 0.00001148 CPU ]
+3 of 3 (100%) tests successful, 0 (0%) test skipped.</pre>
+
+	  <h4 id="--list">--list</h4>
+
+	  <p>
+	    <code>--list</code> will show you a list of all the available tests.
+	  </p>
+
+	  <h4 id="--list-params">--list-params</h4>
+
+	  <p>
+	    <code>--list-params</code> is similar
+	    to <code>--list</code>, but it will also include a list of
+	    all available parameters and possible values for each
+	    test.
+	  </p>
+
+	  <h4 id="--single">--single</h4>
+
+	  <p>
+	    By default, every possible combination of parameters is
+	    executed.  If the <code>--single</code> option is provided
+	    then each test will instead be run in a single
+	    (randomized) configuration.  Note that using the same seed
+	    will cause the same parameter values to be used.
+	  </p>
+
+	  <h4 id="--log-visible">--log-visible debug|info|warning|error</h4>
+
+	  <p>
+	    We haven't talked about the message logging API yet; we'll
+	    do that in the <a href="#miscellaneous">Miscellaneous</a>
+	    section.  For now, just know that you can choose what
+	    level of messages to show by passing this option.
+	  </p>
+
+	  <h4 id="--log-fatal">--log-fatal debug|info|warning|error</h4>
+
+	  <p>
+	    Similar to <code>--log-visible</code>, except that instead
+	    of controlling what message level are <em>visible</em>,
+	    this option controls what message level causes the test to
+	    fail.
+	  </p>
+
+	  <h4 id="--no-fork">--no-fork</h4>
+
+	  <p>
+	    By default, µnit will fork before executing a test, then
+	    run the test in the child process.  This provides numerous
+	    benefits:
+	  </p>
+
+	  <ul class="indent">
+	    <li>Allows testing to continue even if a test crashes or aborts.</li>
+	    <li>
+	      Allows tools such
+	      as <a href="https://github.com/google/sanitizers">AddressSanitizer</a>
+	      and <a href="http://valgrind.org/">Valgrind</a> to
+	      provide much better, and more timely, results.
+	    </li>
+	    <li>Helps isolate tests from one another.</li>
+	  </ul>
+
+	  <p>
+	    Unfortunately, it provides a few (comparitively unimportant) drawbacks.
+	  </p>
+
+	  <ul class="indent">
+	    <li>Per-test setup and tear down time increases.</li>
+	    <li>
+	      Harder to use with a debugger.  Note that for GDB this
+	      isn't necessary; you can
+	      <a href="https://sourceware.org/gdb/onlinedocs/gdb/Forks.html">set
+	      follow-fork-mode to child</code></a>; I'm sure other
+	      debuggers have similar facilities.
+	    </li>
+	  </ul>
+
+	  <p>
+	    If you would like to disable forking you can do so with
+	    this option.  Note that
+	    forking <a href="https://github.com/nemequ/munit/issues/2">is
+	    not supported on Windows</a>, thus this option is
+	    unavailable on that platform.
+	  </p>
+
+	  <h4 id="--fatal-failures">--fatal-failures</h4>
+
+	  <p>
+	    Exit the test suite immediately if any tests fail instead
+	    of trying to also check the remaining suites.
+	  </p>
+
+	  <h4 id="--show-stderr">--show-stderr</h4>
+
+	  <p>
+	    One handy feature of µnit is the ability to hide the
+	    standard error output of tests which pass, allowing you to
+	    include debugging output in your tests which will only be
+	    shown if the test fails.
+	  </p>
+
+	  <p>
+	    This feature works by redirecting stderr to a temporary
+	    file and, after the test has completed, it will only
+	    splice the contents of that file to its own stderr if the
+	    test failed.
+	  </p>
+
+	  <p>
+	    There are some drawbacks, so it can be disabled if you
+	    choose:
+	  </p>
+
+	  <ul class="indent">
+	    <li>Output is buffered until the test completes.</li>
+	    <li>
+	      If forking is disabled stderr will simply be swallowed
+	      if the test crashes, since the test runner doesn't have
+	      an opportunity to splice the temporary file onto its
+	      stderr.
+	    </li>
+	  </ul>
+
+	  <h4 id="--color">--color auto|always|never</h4>
+
+	  <p>
+	    Control whether or not colors are used when printing the
+	    test results (green for success, yellow for skipped, and
+	    red for failed or errored).
+	  </p>
+
+	  <dl>
+	    <dt>auto</dt>
+	    <dd>
+	      The default value, µnit will attempt to detect whether
+	      or not colors are supported.  On most operating systems
+	      this is determined solely by the <code>isatty()</code>
+	      function, on Windows it will also check for the presence
+	      of the <var>ANSICON</var> envirnment variable.
+	    </dd>
+
+	    <dt>always</dt>
+	    <dd>Always use colors.</dd>
+
+	    <dt>never</dt>
+	    <dd>Never use colors.</dd>
+	  </dl>
+
+	  <h4 id="--help">--help</h4>
+
+	  <p>
+	    Print a brief description of the available command line
+	    options and exit.
+	  </p>
+	</div>
+      </section>
+
+      <section id="suites-of-suites">
+	<div class="container">
+	  <h3>Suites of Suites <a href="#suites-of-suites" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <p>
+	    µnit includes the ability to nest suites of tests into
+	    other suites this is primarily used to make it easier to
+	    split your tests across multiple files, but it could also
+	    be used to import tests from another project.  For
+	    example, if projects A and B both use µnit, and project B
+	    uses project A (perhaps as a git submodule), it could be
+	    possible for project B to include project A's tests in
+	    their own.
+	  </p>
+
+	  <p>
+	    This feature is relatively straightforward;
+	    each <code>MunitSuite</code> has a <var>suites</var> field
+	    which can hold an array of sub-suites.
+	  </p>
+
+	  <p>
+	    When using this feature, keep in mind that prefixes are
+	    appended to, not replaced, as the runner descends through
+	    the suites.  For example, if your top-level suite has a
+	    &quot;foo&quot; prefix, and you embed a sub-suite with a
+	    &quot;bar&quot; prefix, tests in the sub-suite will be
+	    named like &quot;/foo/bar/baz&quot; and
+	    &quot;/foo/bar/qux&quot;, not &quot;/bar/baz&quot; and
+	    &quot;/bar/qux&quot;.
+	  </p>
+	</div>
+      </section>
+
+      <section id="miscellaneous">
+	<div class="container">
+	  <h3>Miscellaneous <a href="#miscellaneous" class="anchor"><i class="fa fa-link"></i></a></h3>
+
+	  <h4 id="memory-allocation"></h4>
+
+	  <p>
+	    µnit contains a set of macros for memory allocation.
+	    Using them is, of course, completely optional; they're
+	    effectively the same thing as calling the built-in memory
+	    allocation functions (<code>malloc</code>
+	    and <code>calloc</code>) followed by
+	    an <code>munit_assert_not_null</code> call on the result.
+	    Additionally, all memory will be cleared.
+	  </p>
+
+	  <dl>
+	    <dt><code>void* munit_malloc(size_t size)</code></dt>
+	    <dd>Like <code>malloc()</code>, except the memory is cleared and guaranteed to be non-NULL</dd>
+
+	    <dt><code>void* munit_calloc(size_t nmemb, size_t size)</code></dt>
+	    <dd>Like <code>calloc()</code>, except the memory is guaranteed to be non-NULL</dd>
+
+	    <dt><code>Type* munit_new(Type)</code></dt>
+	    <dd>A small convenience macro which is equivalent to calling <code>munit_malloc(sizeof(Type))</code></dd>
+
+	    <dt><code>Type* munit_newa(Type, size_t nmemb)</code></dt>
+	    <dd>A small convenience macro for creating an array of objects, equivalent to calling <code>munit_calloc(nmemb, sizeof(Type))</code></dd>
+	  </dl>
+
+	  <p>
+	    Memory returned by any of these functions can be
+	    deallocated by calling <code>free()</code>.  Memory
+	    allocated by <code>munit_new()</code>
+	    or <code>munit_newa()</code> will be cast to the
+	    appropriate return type.
+	  </p>
+
+	  <h4 id="message-logging">Message Logging</h4>
+
+	  <p>
+	    µnit includes a small message logging utility which can be
+	    used to log messages at four different severities:
+	  </p>
+
+	  <dl>
+	    <dt><var>MUNIT_LOG_DEBUG</var></dt>
+	    <dd>Debugging messages, which are hidden by default (see the <a href="#--log-visible">--log-visible</a> option).</dd>
+
+	    <dt><var>MUNIT_LOG_INFO</var></dt>
+	    <dd>Informational messages.</dd>
+
+	    <dt><var>MUNIT_LOG_WARNING</var></dt>
+	    <dd>Warnings.</dd>
+
+	    <dt><var>MUNIT_LOG_ERROR</var></dt>
+	    <dd>Errors, which are fatal by default (see the <a href="#--log-fatal">--log-fatal</a> option).</dd>
+	  </dl>
+
+	  <p>
+	    The logging functions are:
+	  </p>
+
+	  <dl>
+	    <dt><code>void munit_logf(MunitLogLevel level, const char* fmt, ...)</code></dt>
+	    <dd><code>printf</code>-style function to log a message with the specified level.</dd>
+
+	    <dt><code>void munit_log(MunitLogLevel level, const char* message)</code></dt>
+	    <dd>Log a message with the specified level.</dd>
+
+	    <dt><code>void munit_errorf(const char* fmt, ...)</code></dt>
+	    <dd><code>printf</code>-style function to log an error.</dd>
+
+	    <dt><code>void munit_error(const char* message)</code></dt>
+	    <dd>Log an error.</dd>
+	  </dl>
+
+	  <p>
+	    Note that trailing newlines are not necessary (or
+	    desirable) as they will be added automatically.
+	  </p>
+
+	  <h4 id="useful-macros">Useful Macros</h4>
+
+	  <dl>
+	    <dt><code>MUNIT_LIKELY(expr)</code></dt>
+	    <dd>Expands to <code>__builtin_expect((expr), true)</code> on compilers which support it.</dd>
+
+	    <dt><code>MUNIT_UNLIKELY(expr)</code></dt>
+	    <dd>Expands to <code>__builtin_expect((expr), false)</code> on compilers which support it.</dd>
+
+	    <dt><code>MUNIT_UNUSED</code></dt>
+	    <dd>Expands to __attribute__((__unused__)) on compilers which support it.</dd>
+
+	    <dt><code>MUNIT_ARRAY_PARAM(param_name)</code></dt>
+	    <dd>Expands to <code>param_name</code> on C99-compliant compilers; intended to be used for <a href="https://www.securecoding.cert.org/confluence/display/c/API05-C.+Use+conformant+array+parameters">conformant array parameters</a>.</dd>
+
+	    <dt><code>MUNIT_SIZE_MODIFIER</code></dt>
+	    <dd>Expands to the C99-compliant &quot;z&quot; format modifier, or the non-standard &quot;I64&quot; format string modifier on Windows (where &quot;z&quot; isn't supported).</dd>
+	  </dl>
+	</div>
+      </section>
+    </section>
+
+    <section id="faq" class="container">
+      <div class="row h2box">
+	<p>Maybe just things we ask ourselves, but…</p>
+        <h2>Frequently Asked Questions <a href="#faq" class="anchor"><i class="fa fa-link"></i></a></h2>
+      </div>
+
+      <dl class="dl-qa">
+	<dt id="faq-why">Why another unit testing framework?</dt>
+	<dd>
+	  <p>Because nothing else did what I wanted:</p>
+	  <ul class="dl-features">
+	    <dt>Support for pseudo-random numbers</dt>
+	    <dd>
+	      <p>
+		A <abbr title="Pseudo-Random Number
+		Generator">PRNG</abbr> is a great way to randomize
+		tests, which helps increase coverage, without slow
+		exhaustive testing.  See the <a href="#prng">PRNG
+		section of the documentation</a> for details.
+	      </p>
+	    </dd>
+
+	    <dt>Easy to integrate but still full-featured.</dt>
+	    <dd>
+	      <p>
+		There are many unit testing frameworks which don't
+		require lots of build system magic.  There are also
+		lots of build systems which are full featured.  Very
+		few manage to tick both boxes.
+	      </p>
+	    </dd>
+
+	    <dt>Portable.</dt>
+	    <dd>
+	      <p>
+		Relying on platform-specific functionality or linker
+		trickery can make for really cool features, but it's
+		not feasible if you're trying to write software which
+		works across multiple platforms.  µnit's requirements
+		may be a bit higher than some others (for example,
+		you'll need a working <code>malloc()</code>), but
+		they're low enough for the vast majority of users.
+	      </p>
+	    </dd>
+
+	    <dt>Include timing information.</dt>
+	    <dd>
+	      <p>
+		Timed unit tests can't replace &quot;proper&quot;
+		benchmarking but they're a lot better than nothing.
+		Let's be honest, most developers are even worse about
+		benchmarking than unit testing.
+	      </p>
+
+	      <p>
+		That said, it can be helpful even if you already do
+		benchmarking.
+		The <a href="https://quixdb.github.io/squash/">original
+		µnit user</a> has
+		a <a href="https://quixdb.github.io/squash-benchmark/">pretty
+		impressive benchmark</a>, and I've still found µnit's
+		timing information helpful.
+	      </p>
+	    </dd>
+	  </ul>
+	</dd>
+
+	<dt id="faq-license">What is the license?</dt>
+	<dd>
+	  <p><a href="http://opensource.org/licenses/MIT">MIT</a>.</p>
+	</dd>
+
+	<dt id="faq-users">Who uses it?</dt>
+	<dd>
+	  <p>
+	    µnit was originally written
+	    for <a href="https://quixdb.github.io/squash/">Squash</a>,
+	    and, <em>at the time this was written</em>, Squash is the
+	    only project publicly using it.  By the time you're
+	    reading this, though, there may be others… you
+	    can <a href="https://github.com/search?l=c&q=munit_suite_main&type=Code&utf8=%E2%9C%93">search
+	    GitHub</a>. Or use another code search engine (such
+	    as <a href="http://code.openhub.net/">Open Hub Code
+	    Search</a>, or Google.
+	  <p>
+	</dd>
+
+	<dt id="faq-spelling">Is it &quot;µnit&quot; or &quot;munit&quot;?</dt>
+	<dd>
+	  <p>
+	    It's &quot;µnit&quot;, which is rendered as
+	    &quot;munit&quot; in ASCII.  The funny looking 'u' is the
+	    letter <a href="https://en.wikipedia.org/wiki/Mu_(letter)">mu</a>,
+	    which isn't part of ASCII.
+	  <p>
+	</dd>
+
+	<dt id="faq-why-no-macros">Why are there no macros to help define tests and suites?</dt>
+	<dd>
+	  <p>
+	    Lots of projects include macros used to define tests
+	    and/or suites.  For a good example, see
+	    the <a href="https://github.com/silentbicycle/greatest#basic-usage">Basic
+	    Usage section of greatest's README</a>.  This can make it
+	    very easy to define tests and suites.
+	  </p>
+
+	  <p>
+	    I'm generally not comfortable hiding things like that in
+	    macros; I would rather make the API simple enough that you
+	    don't need the macros.  Hiding things behind simplified
+	    macros often makes it harder to understand what is going
+	    on, and harder to use non-default settings since you have
+	    to completely switch APIs (likely to something that is
+	    more complicated than it needs to be because you're
+	    expected to use the macros, not the &quot;internal&quot;
+	    API).
+	  </p>
+
+	  <p>
+	    For this to work, the API has to be simple enough that you
+	    don't need the macros.  I think µnit's API meets this
+	    criteria, but if you disagree I'd be interested in hearing
+	    from you.
+	  </p>
+	</dd>
+
+	<dt id="faq-alternatives">µnit sucks, where can I find a <em>good</em> unit testing framework?</dt>
+	<dd>
+	  <p>
+	    That's okay, µnit isn't for everyone; people have
+	    different requirements and preferences.  Here are a few
+	    you might want to look into:
+	  </p>
+
+	  <ul class="indent">
+	    <li>
+	      <a href="https://cmocka.org/">cmocka</a>
+	      and <a href="https://github.com/lpabon/cmockery2">cmockery2</a>
+	      are both forks
+	      of <a href="https://github.com/google/cmockery">cmockery</a>,
+	      which is no longer being developed.
+	    </li>
+	    <li>
+	      <a href="https://developer.gnome.org/glib/stable/glib-Testing.html">GLib</a>.
+	      If you're already depending on GLib, it's a great way to
+	      go.
+	    </li>
+	    <li><a href="https://github.com/silentbicycle/greatest">greatest</a></li>
+	    <li><a href="https://github.com/ThrowTheSwitch/Unity">Unity</a></li>
+	    <li><a href="https://github.com/siu/minunit">minunit</a></li>
+	    <li><a href="https://libcheck.github.io/check/">Check</a></li>
+	    <li><a href="http://cunit.sourceforge.net/">CUnit</a></li>
+	    <li><a href="https://github.com/Snaipe/Criterion">Criterion</a></li>
+	    <li>
+	      You
+	      can <a href="https://github.com/search?l=C&q=unit+testing&type=Repositories&utf8=%E2%9C%93">search
+	      GitHub</a>… some of them look interesting.
+	    </li>
+	  </ul>
+
+	  <p>
+	    If you would like for something to be added to the list
+	    just <a href="https://github.com/nemequ/munit/issues">let
+	    us know</a>.
+	  </p>
+	</dd>
+      </dl>
+    </section>
+
+    <section id="support">
+      <div class="container">
+	<div class="row">
+	  <div class="col-md-5">
+	    <h2>Support</h2>
+	  </div>
+
+	  <div class="col-md-4 col-md-offset-1">
+	    <ul class="list-unstyled link-list">
+	      <li><a href="https://github.com/nemequ/munit/issues">Issue Tracker</a></li>
+	      <li>
+		For now, use the issue tracker (with a subject like
+		&quot;Document how to …&quot;) for questions you can't
+		find the answer to in the documentation.  For IRC,
+		feel free to use the #squash channel on Freenode.  If
+		there is demand I'll set up a forum / mailing list and
+		IRC channel.
+	      </li>
+	    </ul>
+	  </div>
+	</div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="container">
+	<div class="row">
+	  <div class="col-md-12 col-sm-12 col-xs-12">
+            <h4>µnit</h4>
+	  </div>
+	  <div class="col-md-12 col-xs-12 col-sm-12 text-center">
+            <p>
+	      Copyright &copy; 2015-2016 Evan Nemerson<br/>
+	      Theme based on the Sedulous theme designed by : <a href="http://html5layouts.com">HTML5 Layouts</a>.
+	    </p>
+	  </div>
+	</div>
+      </div>
+    </footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+$(function(){
+  var windowH = $(window).height();
+  var bannerH = $('#banner').height();
+  if(windowH > bannerH) {
+    $('#banner').css({'height':($(window).height() - 68)+'px'});
+    $('#bannertext').css({'height':($(window).height() - 68)+'px'});
+  }
+  $(window).resize(function(){
+    var windowH = $(window).height();
+    var bannerH = $('#banner').height();
+    var differenceH = windowH - bannerH;
+    var newH = bannerH + differenceH;
+    var truecontentH = $('#bannertext').height();
+    if(windowH < truecontentH) {
+      $('#banner').css({'height': (newH - 68)+'px'});
+      $('#bannertext').css({'height': (newH - 68)+'px'});
+    }
+    if(windowH > truecontentH) {
+      $('#banner').css({'height': (newH - 68)+'px'});
+      $('#bannertext').css({'height': (newH - 68)+'px'});
+    }
+  })
+});
+
+$(window).load(function () {
+  $("#menu").sticky({ topSpacing: 0 });
+  $("body").scrollspy({
+    target: "#myNavbar",
+    offset: $("#menu").height()
+  })
+  $('a[href^="#"]').on('click', function (e) {
+    e.preventDefault();
+
+    $('a').each(function () { $(this).removeClass('active'); });
+    $(this).addClass('active');
+    var origTarget = this.hash;
+    var target = origTarget == "" ? "#banner" : this.hash;
+    $target = $(target);
+    $('html, body').stop().animate({
+        'scrollTop': ($target.offset().top - $("#menu").height()) + 1
+      }, 500, 'swing', function () {
+        var scrollmem = $('html,body').scrollTop();
+        window.location.hash = origTarget;
+        $('html,body').scrollTop(scrollmem);
+      });
+  });
+});
+
+hljs.initHighlightingOnLoad();
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-192022-15', 'auto');
+ga('send', 'pageview');
+</script>
+  </body>
+</html>

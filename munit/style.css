@@ -1,0 +1,337 @@
+/*------------------------------------------/
+/-----------------Header--------------------/
+/------------------------------------------*/
+*
+{
+    padding: 0px;
+    margin: 0px;
+}
+.banner
+{
+    background-color: #341F48;
+    background: -moz-linear-gradient(left, #341F48 50%, #2b193c 50%);
+    background: -webkit-linear-gradient(left, #341F48 50%, #2b193c 50%);
+    background: -o-linear-gradient(left, #341F48 50%, #2b193c 50%);
+    background: linear-gradient(left, #341F48 50%, #2b193c 50%);
+}
+
+.banner-text
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+.arrow
+{
+    text-align: center;
+    font-size: 60px;
+    color: rgba(224, 224, 224, 0.75);
+    display: inline-block;
+    margin: 30px -2px 0px 0px;
+}
+.arrow:hover,
+.arrow:focus {
+    text-align: center;
+    font-size: 60px;
+    color: rgba(224, 224, 224, 0.95);
+    display: inline-block;
+    margin: 30px -2px 0px 0px;
+}
+#heads:before,
+#heads:after {
+    background: rgba(224, 224, 224, 0.75);
+    content: '';
+    left: 50%;
+    position: absolute;
+    width: 1px;
+    z-index: 0;
+}
+#heads::before {
+    height: calc(100%);
+    opacity: 0.15;
+    top: 0px;
+}
+.line:before {
+    background: rgba(224, 224, 224, 0.75);
+    content: '';
+    position: absolute;
+    width:100%;
+    z-index: 0;
+    padding-left:0px;
+}
+.line::before {
+    height: 1px;
+    opacity: 0.15;
+    top: 32px;
+    left: 0px;
+}
+#menu:before {
+    background: rgba(224, 224, 224, 0.75);
+    content: '';
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+}
+#menu::before {
+    height: 1px;
+    opacity: 0.15;
+    bottom: 100px;
+}
+.tablebox
+{
+    display: table;
+    width: 100%;
+}
+.hostyle
+{
+    font-family: 'Pacifico', cursive;
+    /*color: #c6027f;	*/
+    color: #33A29D;
+    font-size: 60px;
+}
+.pstyle
+{
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 0px;
+}
+.banner-text h2
+{
+    color: #fff;
+    font-size: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+}
+.spanstyle
+{
+    color: #dd068f;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+}
+.spanstyle2
+{
+    color: #000;
+}
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+.menubar
+{
+    margin-bottom: 0px;
+    background-color: #3EC9C3;
+    border: none;
+    border-radius: 0px;
+    z-index: 2;
+}
+.logo
+{
+    padding: 24px 15px;
+    display: inline-block;
+    height: auto;
+    font-family: 'Pacifico', cursive;
+    color: #fff;
+    font-size: 34px;
+}
+
+.nav-tabs li a
+{
+    padding: 24px 15px;
+    color: #fff;
+    font-family: "Source Sans Pro",sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:hover,
+.nav-tabs > li.active > a {
+    background-color: #33a29d;
+    color: #fff;
+}
+
+.navbar-right {
+    float: right;
+    margin-right: 0px;
+}
+
+/*------------------------------------------/
+/-----------------Custom--------------------/
+/------------------------------------------*/
+
+body {
+    position: relative;
+}
+
+body > section {
+    /* padding: 7em 0 7em; */
+    color: #242424;
+    font-size: 110%;
+    padding: 2em 0;
+}
+
+a.anchor {
+    font-size: smaller;
+    color: inherit;
+}
+
+h2 {
+    color: #CB5750;
+    font-family: "Source Sans Pro",sans-serif;
+    font-size: 260%;
+    margin-top: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-variant: small-caps;
+}
+
+.h2box {
+    padding-left: 1em;
+    border-bottom: 5px #CB5750 solid;
+    margin-bottom: 1em;
+}
+
+h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 200%;
+    color: #CB5750;
+    margin-bottom: 0.8em;
+    letter-spacing: 1px;
+}
+
+h4 {
+    font-family: 'Raleway', sans-serif;
+    color: #CB5750;
+}
+
+.h2box > p {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    color: #242424;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.itembox > .row > * {
+    margin-top: 2em;
+}
+
+.itembox-icon {
+    text-align: center;
+    padding: 1em;
+}
+
+.itembox h3 {
+    font-family: 'Raleway', sans-serif;
+    font-variant: small-caps;
+    font-size: 150%;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #242424;
+    padding: 0;
+    border: 0;
+}
+
+@media (min-width: 200px) and (max-width: 767px) {
+    .itembox h3 {
+	text-align: center;
+    }
+}
+
+ul.indent {
+    padding-left: 1em;
+}
+
+dl.spacious > dd,
+dl.spacious > dt {
+    padding: 0.3em 0;
+}
+
+pre.terminal {
+    color: #eeeeec;
+    background-color: #292929;
+}
+
+pre.terminal .terminal-green {
+    color: #4e9a06;
+}
+
+#support {
+    background-color: rgba(0,0,0,0.1);
+    padding: 3em 0;
+}
+
+#support h2 {
+    text-align: right;
+}
+
+#support div.row > :first-child {
+    border-bottom: 5px #CB5750 solid;
+    border-right: 5px #CB5750 solid;
+    height: 100%;
+}
+
+#support .link-list {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+#support .link-list > li {
+    padding: 0.25em 0;
+}
+
+footer {
+    padding: 3.5em 0px;
+    font-family: "Source Sans Pro",sans-serif;
+    color: #888;
+}
+
+footer h4 {
+    font-family: 'Pacifico', cursive;
+    color: #3EC9C3;
+    font-size: 2.15em;
+    text-align: center;
+}
+
+.dl-features {
+    margin-left: 1.5em;
+}
+
+.dl-features dt {
+    display: list-item;
+    list-style-type: "✓ ";
+}
+
+.dl-larger dt {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: larger;
+}
+
+.dl-features dd {
+    margin-bottom: 0.5em;
+}
