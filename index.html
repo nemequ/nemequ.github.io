@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hedley API Reference</title>
+  </head>
+
+  <body>
+    <section>
+      <h1>Evan Nemerson</h1>
+
+      <h2>Open Source Projects</h2>
+
+      <p>
+	An incomplete list of open-source projects I'm involved with:
+      </p>
+
+      <dl>
+	<dt><a href="http://quixdb.github.io/squash/">Squash</a></dt>
+	<dd>
+	  <p>
+	    Squash is primarily an abstraction layer which provides a
+	    single API to access many compression libraries. This
+	    allows applications a great deal of flexibility in which
+	    choosing a compression algorithm, or allowing a choice
+	    between several of them.
+	  </p>
+	  <p>
+	    The actual integration with individual compression
+	    libraries is done through plugins which can be installed
+	    separately from Squash itself and are not loaded until
+	    they are required. This allows Squash consumers to utilize
+	    many compression algorithms without rewriting code or
+	    unnecessary bloat.
+	  </p>
+	  <p>
+	    In addition to a permissively licensed library, Squash
+	    provides some generic tools which use the library for
+	    common tasks. Currently, this includes a command-line
+	    interface similar
+	    to <var>gzip</var>, <var>bzip2</var>, <var>xz</var>, <i>etc.</i>
+	    called <var>squash</var> and a benchmarking tool.  There
+	    is also a
+	    web-based <a href="https://quixdb.github.io/squash-benchmark/">benchmark</a>.
+	  </p>
+	</dd>
+
+	<dt><a href="https://nemequ.github.io/munit/">µnit</a></dt>
+	<dd>
+	  <p>
+	    µnit is a small and portable unit testing framework for C
+	    which includes pretty much everything you might expect
+	    from a C testing framework, plus a few pleasant surprises,
+	    wrapped in a nice API.
+	  </p>
+	</dd>
+
+	<dt><a href="https://nemequ.github.io/hedley/">Hedley</a></dt>
+	<dd>
+	  <p>
+            Hedley is a C header you can include in your project to
+            enable compiler specific features while maintaining
+            compatibility, with a focus on making
+            your <abbr>API</abbr> harder to misuse by providing hints
+            to compilers and static analyzers.
+          </p>
+	</dd>
+
+	<dt><a href="https://tinycthread.github.io/">TinyCThread</a></dt>
+	<dd>
+	  <p>
+	    TinyCThread is a cross-platform implementation of the C11
+	    threading API which uses POSIX or the Windows API,
+	    allowing you to use the standard C11 API on systems which
+	    don&#8217;t natively support it.
+	  </p>
+	</dd>
+
+	<dt><a href="https://wiki.gnome.org/Projects/Vala/">Vala</a></dt>
+	<dd>
+	  <p>
+	    Vala is a new programming language that aims to bring
+	    modern programming language features to GNOME developers
+	    without imposing any additional runtime requirements and
+	    without using a different ABI compared to applications and
+	    libraries written in C.
+	  </p>
+	</dd>
+
+	<dt><a href="https://code.google.com/p/bump/">Bump</a></dt>
+	<dd>
+	  <p>
+	    Bump is a library designed to make asynchronous
+	    programming easy by providing high-level data structures
+	    for concurrency management, including multi-threading and
+	    main loop callbacks, in GObject/GIO based projects,
+	    especially those written in Vala.
+	  </p>
+	</dd>
+
+	<dt><a href="https://code.google.com/p/sqlheavy/">SQLHeavy</a></dt>
+	<dd>
+	  <p>
+	    SQLHeavy is a wrapper on top of SQLite with a
+	    GObject-based interface, providing very nice APIs for C
+	    and Vala, GObject Introspection support, and additional
+	    functionality not present in SQLite.
+	  </p>
+	</dd>
+      </dl>
+    </section>
+  </body>
+</html>
