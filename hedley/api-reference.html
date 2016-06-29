@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Hedley documentation">
+    <meta name="author" content="Evan Nemerson">
+
+    <title>Hedley</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css"
+	  integrity="sha384-12jyvLdRujy7xPBSEsRChlYNcKKODOnVcrqexeULMkmGGzBmM9ms6CT1HGxtu96M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/darkly/bootstrap.min.css"
+	  integrity="sha384-kVo/Eh0sv7ZdiwZK32nRsp1FrDT3sLRLx3zVpSSTI9UdO5H02LJNLBg5F1gwvKg0" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
+	  integrity="sha384-22yWQUsKxP06m9aMT+5delmNhTmk7UDUOA4iNcZ8YI7XvkfzNqxbU8/OuFLdhbnx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/atelier-plateau.dark.min.css">
+    <link href="style.css" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+	    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"
+        integrity="sha384-vrERo/qaqbJlReONsBolr9bCTVTEe+pmebpLj8QF3aOAkSQ5CQQHc3xPaHRff0X+" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/cpp.min.js"
+        integrity="sha384-olmQJjfmsKOncvVayQdMudfYKh4Q/fAfkZNe1XgISC6vdLIcYVkHQ4s/T49egtdr" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
+	    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"
+	    integrity="sha384-RPXhaTf22QktT8KTwZ6bUz/C+7CnccaIw5W/y/t0FW5WSDGj3wc3YtRIJC0w47in" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
+	    integrity="sha384-HwX0n9BiVutdIP0m3jKYarATBrBQMARe4JqN2bNN+eqbEirLWcklhaZgkovSBfc+" crossorigin="anonymous"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Hedley</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="user-guide.html">User Guide</a></li>
+            <li class="active"><a href="api-reference.html">API Reference</a></li>
+            <li><a href="https://github.com/nemequ/hedley/issues">Support</a></li>
+          </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
+        </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <h2><a href="#static-analysis">Static Analysis</a></h2>
+
+          <p>
+             Macros which help you descibe your API to the compiler
+             and/or static analyzers, giving your users helpful
+             warnings when the misuse your API, without false
+             positives.
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <h2><a href="#optimizations">Optimizations</a></h2>
+
+          <p>
+            Tell the compiler what you're doing (or what you want it
+            to do) so compiled code is faster.
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <h2><a href="#public-apis">Manage Public APIs</a></h2>
+
+          <p>
+            Macros which help convey versioning information, when
+            symbols are are added and deprecated, and symbol
+            visibility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <h4>Compiler Support <a href="#compiler-support"><i class="fa fa-link"></i></a></h4>
+
+      <p>
+	Note that if something doesn't work then it will be silently
+	ignored, it will <em>not</em> cause an error.
+      </p>
+
+      <p>
+	Also, many (most?) compilers masquerade as GCC and should
+	support all the features GCC does.
+      </p>
+
+      <table class="table table-striped">
+	<thead>
+	  <tr>
+	    <th>Macro</th>
+	    <th>C99</th>
+	    <th>C11</th>
+	    <th><a href="https://gcc.gnu.org/">GCC</a></th>
+	    <th><a href="http://clang.llvm.org/">Clang</a></th>
+	    <th><a href="http://msdn.microsoft.com/en-us/library/60k1461a.aspx">MSVC</a></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM</a></th>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td></td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></th>
+	    <td></td>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td></td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL</a></th>
+	    <td></td>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td></td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></th>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td>✓</td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE</a></th>
+	    <td></td>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td>✓</td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL</a></th>
+	    <td></td>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td></td>
+	  </tr>
+
+	  <tr>
+	    <th><a class="macro" href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT</a></th>
+	    <td></td>
+	    <td></td>
+	    <td>✓</td>
+	    <td>✓</td>
+	    <td></td>
+	  </tr>
+	</tbody>
+      </table>
+    </section>
+
+    <section class="container">
+      <div>
+        <h2>Static Analysis</h2>
+
+        <p>
+          Introduction goes here.
+        </p>
+
+        <ul>
+          <li class="macro"><a href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM(param)</a></li>
+          <li class="macro"><a href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></li>
+          <li class="macro"><a href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL(position)</a></li>
+          <li class="macro"><a href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></li>
+          <li class="macro"><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></li>
+          <li class="macro"><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(param...)</a></li>
+          <li class="macro"><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></li>
+        </ul>
+
+        <section class="container">
+          <h3 class="macro">HEDLEY_ARRAY_PARAM(param) <a href="#HEDLEY_ARRAY_PARAM"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            This macro is used to implement “conformant array
+            parameters”.  If you've never heard that term before,
+            don't worry; not many people have!
+            See <a href="https://www.securecoding.cert.org/confluence/display/c/API05-C.+Use+conformant+array+parameters">CERT's
+            C Coding Standard API05-C</a> for information.
+          </p>
+
+	  <p>
+	    If the compiler is known to support conformant array
+	    parameters, the macro will expand to <code>param</code>.
+	    Otherwise it will expand to nothing.
+	  </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre>void print_array(int x, int y, char* elems[HEDLEY_ARRAY_PARAM(x * y)]) {
+  for(int cx = 0 ; cx < x ; cx++)
+    for(int cy = 0 ; cy < y ; cy++)
+      printf(&quot;%d,%d: %s\n&quot;, cx, cy, elems[(cx * x) + cy]);
+}</pre>
+	    </div>
+	  </div>
+
+	  <p>
+	    Note that you can only reference parameters which
+	    come <em>before</em> the array; in the example, if
+	    the <code>n</code> and <code>elems</code> parameters were
+	    reversed this would likely result in an error.
+	  </p>
+        </section>
+      </div>
+    </section>
+
+    <footer class="container">
+      <div class="well">
+        <p>
+          Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
+        </p>
+
+        <p>
+          Code licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.
+        </p>
+
+        <p>
+          Web site based
+          on <a href="http://getbootstrap.com">Bootstrap</a>, using
+          the “Darkly” theme
+          from <a href="https://bootswatch.com/">Bootswatch</a>.
+        </p>
+      </div>
+
+    </footer>
+  </body>
+</html>

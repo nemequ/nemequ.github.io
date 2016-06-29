@@ -1,0 +1,10 @@
+code {
+  font-family: monospace;
+  background-color: inherit;
+}
+
+pre.console {
+  font-family: monospace;
+  background: #333;
+  color: #fff;
+}
