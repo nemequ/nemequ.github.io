@@ -1,0 +1,55 @@
+@media all and (min-width: 992px) {
+    body {
+	padding: 5em;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 992) {
+    body {
+	padding: 2em;
+    }
+}
+
+html {
+    font-family: monospace;
+}
+
+h1 {
+    font-size: 250%;
+    border-bottom: 1px black dotted;
+    margin: 0;
+}
+
+h2 {
+    font-size: 150%;
+    margin-top: 0
+}
+
+@keyframes blink {
+    to { visibility: hidden; }
+}
+
+/* Because why not? */
+blink {
+    animation: blink 1s steps(3, start) infinite alternate;
+}
+
+body > main > *:last-child > *:last-child p:last-child:after {
+    content: " ";
+    background: #000;
+    width: 0.7em;
+    height: 1.3em;
+    display: inline-block;
+    position: absolute;
+    margin-top: -0.15em;
+
+    animation: blink 0.5s steps(2, start) infinite alternate;
+}
+
+footer {
+    border-top: 1px black dotted;
+    font-size: smaller;
+    margin-top: 3em;
+    padding: 0.2em;
+    text-align: right;
+}
