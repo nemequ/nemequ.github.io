@@ -8,7 +8,7 @@
     <meta name="description" content="Hedley documentation">
     <meta name="author" content="Evan Nemerson">
 
-    <title>Hedley</title>
+    <title>Hedley API Reference</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css"
 	  integrity="sha384-12jyvLdRujy7xPBSEsRChlYNcKKODOnVcrqexeULMkmGGzBmM9ms6CT1HGxtu96M" crossorigin="anonymous">
@@ -16,18 +16,12 @@
 	  integrity="sha384-kVo/Eh0sv7ZdiwZK32nRsp1FrDT3sLRLx3zVpSSTI9UdO5H02LJNLBg5F1gwvKg0" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
 	  integrity="sha384-22yWQUsKxP06m9aMT+5delmNhTmk7UDUOA4iNcZ8YI7XvkfzNqxbU8/OuFLdhbnx" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/atelier-plateau.dark.min.css">
-    <link href="style.css" rel="stylesheet">
-
     <link href="style.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
 	    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"
-        integrity="sha384-vrERo/qaqbJlReONsBolr9bCTVTEe+pmebpLj8QF3aOAkSQ5CQQHc3xPaHRff0X+" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/cpp.min.js"
-        integrity="sha384-olmQJjfmsKOncvVayQdMudfYKh4Q/fAfkZNe1XgISC6vdLIcYVkHQ4s/T49egtdr" crossorigin="anonymous"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=desert" defer
+	    integrity="sha384-Wy6yBc5mOi+pD3L2F//P7hAMCFxd+BuH2N75+ON4LvKDlmiggQn4Qaycythht5Xd" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
 	    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -99,117 +93,27 @@
       </div>
     </section>
 
-    <section class="container">
-      <h4>Compiler Support <a href="#compiler-support"><i class="fa fa-link"></i></a></h4>
-
-      <p>
-	Note that if something doesn't work then it will be silently
-	ignored, it will <em>not</em> cause an error.
-      </p>
-
-      <p>
-	Also, many (most?) compilers masquerade as GCC and should
-	support all the features GCC does.
-      </p>
-
-      <table class="table table-striped">
-	<thead>
-	  <tr>
-	    <th>Macro</th>
-	    <th>C99</th>
-	    <th>C11</th>
-	    <th><a href="https://gcc.gnu.org/">GCC</a></th>
-	    <th><a href="http://clang.llvm.org/">Clang</a></th>
-	    <th><a href="http://msdn.microsoft.com/en-us/library/60k1461a.aspx">MSVC</a></th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM</a></th>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td></td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></th>
-	    <td></td>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td></td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL</a></th>
-	    <td></td>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td></td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></th>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td>✓</td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE</a></th>
-	    <td></td>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td>✓</td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL</a></th>
-	    <td></td>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td></td>
-	  </tr>
-
-	  <tr>
-	    <th><a class="macro" href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT</a></th>
-	    <td></td>
-	    <td></td>
-	    <td>✓</td>
-	    <td>✓</td>
-	    <td></td>
-	  </tr>
-	</tbody>
-      </table>
-    </section>
-
-    <section class="container">
+    <section id="static-analysis" class="container">
       <div>
         <h2>Static Analysis</h2>
 
         <p>
-          Introduction goes here.
+          These macros are primarily intended to improve diagnostics
+          (warnings and errors).
         </p>
 
         <ul>
-          <li class="macro"><a href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM(param)</a></li>
-          <li class="macro"><a href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></li>
-          <li class="macro"><a href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL(position)</a></li>
-          <li class="macro"><a href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></li>
-          <li class="macro"><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></li>
-          <li class="macro"><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(param...)</a></li>
-          <li class="macro"><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></li>
+          <li><code><a href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM(expr)</a></code></li>
+          <li><code><a href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></code></li>
+          <li><code><a href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL(position)</a></code></li>
+          <li><code><a href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></code></li>
+          <li><code><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></code></li>
+          <li><code><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(param...)</a></code></li>
+          <li><code><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></code></li>
         </ul>
 
-        <section class="container">
-          <h3 class="macro">HEDLEY_ARRAY_PARAM(param) <a href="#HEDLEY_ARRAY_PARAM"><i class="fa fa-link"></i></a></h3>
+        <section id="HEDLEY_ARRAY_PARAM" class="container">
+          <h3><code>HEDLEY_ARRAY_PARAM(expr)</code> <a href="#HEDLEY_ARRAY_PARAM"><i class="fa fa-link"></i></a></h3>
 
           <p>
             This macro is used to implement “conformant array
@@ -228,11 +132,39 @@
 	  <div class="panel panel-default">
 	    <div class="panel-heading">Example</div>
 	    <div class="panel-body">
-              <pre>void print_array(int x, int y, char* elems[HEDLEY_ARRAY_PARAM(x * y)]) {
-  for(int cx = 0 ; cx < x ; cx++)
-    for(int cy = 0 ; cy < y ; cy++)
-      printf(&quot;%d,%d: %s\n&quot;, cx, cy, elems[(cx * x) + cy]);
-}</pre>
+              <pre class="prettyprint">void print_array(int x, int y, char* elems[HEDLEY_ARRAY_PARAM(x * y)]);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>C99+</td>
+		    <td>Identity</td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		</tbody>
+	      </table>
 	    </div>
 	  </div>
 
@@ -243,27 +175,766 @@
 	    reversed this would likely result in an error.
 	  </p>
         </section>
+
+        <section id="HEDLEY_WARN_UNUSED_RESULT" class="container">
+          <h3><code>HEDLEY_WARN_UNUSED_RESULT</code> <a href="#HEDLEY_WARN_UNUSED_RESULT"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Function attribute which signals that the compiler should
+            emit a diagnostic if the return value is discarded without
+            being checked.
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">HEDLEY_WARN_UNUSED_RESULT
+bool do_something(void);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.4.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bwarn_005funused_005fresult_007d-function-attribute-3260"><code>attribute((warn_unused_result))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>11.0 (VS 2012)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/jj159529(v=vs.110).aspx"><code>_Check_return_</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_SENTINEL" class="container">
+          <h3><code>HEDLEY_SENTINEL(position)</code> <a href="#HEDLEY_SENTINEL"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Function is variadic, and must have an
+            explicit <var>NULL</var> argument to indicate termination
+            of the argument list.
+          </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>position</dt>
+	    <dd>Argument index, starting from 0 and counting right-to-left, of the sentinel.</dd>
+	  </dl>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">HEDLEY_SENTINEL(0)
+void add_children(Context* ctx, ...);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.0.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bsentinel_007d-function-attribute-3252"><code>attribute((sentinel(position)))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_NO_RETURN" class="container">
+          <h3><code>HEDLEY_NO_RETURN</code> <a href="#HEDLEY_NO_RETURN"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Function is does not return.  This is important for the
+            compiler to be able to reason about later events; for
+            example, if you call a no-return function if a variable
+            is <var>NULL</var>, then the compiler can assume that the
+            variable is non-<var>NULL</var> in the remainder of the
+            function, which allows you to pass it to a function as
+            a <a href="#HEDLEY_NON_NULL">non-<var>NULL</var>
+            parameter.</a>
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">HEDLEY_NO_RETURN
+void log_fatal(const char* message);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>C11+</td>
+		    <td>_Noreturn</td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.2.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoreturn_007d-function-attribute-3241"><code>attribute((noreturn))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>7.1+ (VS 2003)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/k6ktzx3s.aspx"><code>__declspec(nereturn)</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_UNREACHABLE" class="container">
+          <h3><code>HEDLEY_UNREACHABLE()</code> <a href="#HEDLEY_UNREACHABLE"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Inform the compiler/analyzer that the code should never be
+            reached (even with invalid input).
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">switch (foo) {
+  case BAR:
+    do_something();
+    break;
+  case BAZ:
+    do_something_else();
+    break;
+  default:
+    HEDLEY_UNREACHABLE();
+    break;
+}</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.5.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005funreachable-4214"><code>__builtin_unreachable()</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>7.1+ (VS 2003)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/1b3fsfxw.aspx"><code>__assume(0)</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>C89+ (with <var>assert.h</var>)</td>
+		    <td>assert(0)</td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_NON_NULL" class="container">
+          <h3><code>HEDLEY_NON_NULL(...)</code> <a href="#HEDLEY_NON_NULL"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            List parameters which must never be <var>NULL</var> (for
+            example, because they are unconditionally dereferenced in
+            the function body).
+          </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>...</dt>
+	    <dd>
+	      Variadic list of indexes (starting from 1,
+	      left-to-right) of parameters which must never
+	      be <var>NULL</var>.
+	    </dd>
+	  </dl>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">HEDLEY_NON_NULL(0,2)
+void do_something(Context* ctx_cant_be_null, Foo* maybe_null, Bar* cant_be_null);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.3.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnonnull_007d-function-attribute-3238"><code>attribute((nonnull(__VA_ARGS__)))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_PRINTF_FORMAT" class="container">
+          <h3><code>HEDLEY_PRINTF_FORMAT(string_idx,first_to_check)</code> <a href="#HEDLEY_PRINTF_FORMAT"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Inform the compiler/analyzer that the function takes a
+            printf-style format string, so that it can check the
+            arguments.
+          </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>string_idx</dt>
+	    <dd>
+	      Index (starts from 1, left-to-right) of the format
+	      string parameter.
+	    </dd>
+	    <dt>first_to_check</dt>
+	    <dd>
+	      Index of the first user-supplied parameter to check.
+	    </dd>
+	  </dl>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">HEDLEY_PRINTF_FORMAT(2,3)
+void print_warning(Context* ctx, const char* fmt, ...);</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.1.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(printf, string_idx, fist_to_check)))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.4.0+ + MingW + !defined(__USE_MINGW_ANSI_STDIO)</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(ms_printf, string_idx, fist_to_check)))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.4.0+ + MingW + defined(__USE_MINGW_ANSI_STDIO)</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(gnu_printf, string_idx, fist_to_check)))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
       </div>
     </section>
 
-    <footer class="container">
-      <div class="well">
-        <p>
-          Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
-        </p>
+    <section id="optimizations" class="container">
+      <div>
+        <h2>Optimizations</h2>
 
         <p>
-          Code licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.
+          Macros which are intended mostly to provide hints for
+          optimizing compilers.
         </p>
 
-        <p>
-          Web site based
-          on <a href="http://getbootstrap.com">Bootstrap</a>, using
-          the “Darkly” theme
-          from <a href="https://bootswatch.com/">Bootswatch</a>.
-        </p>
+        <ul>
+          <li><code><a href="#HEDLEY_LIKELY">HEDLEY_LIKELY(expr)</a></code></li>
+          <li><code><a href="#HEDLEY_UNLIKELY">HEDLEY_UNLIKELY(expr)</a></code></li>
+          <li><code><a href="#HEDLEY_INLINE">HEDLEY_INLINE</a></code></li>
+          <li><code><a href="#HEDLEY_ALWAYS_INLINE">HEDLEY_ALWAYS_INLINE</a></code></li>
+          <li><code><a href="#HEDLEY_NEVER_INLINE">HEDLEY_NEVER_INLINE</a></code></li>
+          <li><code><a href="#HEDLEY_NO_THROW">HEDLEY_NO_THROW</a></code></li>
+        </ul>
+
+        <section id="HEDLEY_LIKELY" class="container">
+          <h3><code>HEDLEY_LIKELY(expr)</code> <a href="#HEDLEY_LIKELY"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Marks an expression as likely to evaluate to true (non-zero).
+          </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>expr</dt>
+	    <dd>Expression which is likely to evaluate true.</dd>
+	  </dl>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">if(HEDLEY_LIKELY(foo != NULL)) {
+  do_something_with_foo(foo);
+  return true;
+} else {
+  return false;
+}</pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.0.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0)</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>Any</td>
+		    <td><code>(expr)</code></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_UNLIKELY" class="container">
+          <h3><code>HEDLEY_UNLIKELY</code> <a href="#HEDLEY_UNLIKELY"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Marks an expression as likely to evaluate to false (zero).
+          </p>
+
+	  <dl class="dl-horizontal">
+	    <dt>expr</dt>
+	    <dd>Expression which is likely to evaluate false.</dd>
+	  </dl>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">
+Context* ctx = malloc(sizeof(Context));
+if(HEDLEY_UNLIKELY(ctx == NULL))
+  return ENOMEM;
+
+ctx->foo = bar;
+	      </pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.0.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) == 0)</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>Any</td>
+		    <td><code>(expr)</code></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+
+	  <p>
+	    Note: assertion functions are typically already annotated
+	    with something like this.  You probably shouldn't be
+	    adding <code>HEDLEY_UNLIKELY</code> to all your
+	    assertions.
+	  </p>
+        </section>
+
+        <section id="HEDLEY_INLINE" class="container">
+          <h3><code>HEDLEY_INLINE</code> <a href="#HEDLEY_INLINE"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Quoting from the C99 standard (§ 6.7.4.5):
+          </p>
+
+	  <blockquote>
+	    <p>
+	      Making a function an inline function suggests that calls
+	      to the function be as fast as possible.  The extent to
+	      which such suggestions are effective is
+	      implementation-defined.
+	    </p>
+	  </blockquote>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">
+HEDLEY_INLINE
+void do_something_quickly(void);
+	      </pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td>C99+</td>
+		    <td><code>inline</code></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.3.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Inline.html#index-inline-functions-3586"><code>__inline__</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>12+ (VS 6)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/bw1hbe6y.aspx"><code>__inline</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_ALWAYS_INLINE" class="container">
+          <h3><code>HEDLEY_ALWAYS_INLINE</code> <a href="#HEDLEY_ALWAYS_INLINE"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Tell the compiler to always inline the function, even if
+            it thinks doing so would be a bad idea.
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">
+HEDLEY_ALWAYS_INLINE
+void do_something_quickly(void);
+	      </pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Fallback</th>
+		    <td></td>
+		    <td><code>HEDLEY_INLINE</code></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.0.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>attribute((always_inline))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>12+ (VS 6)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/bw1hbe6y.aspx"><code>__forceinline</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_NEVER_INLINE" class="container">
+          <h3><code>HEDLEY_NEVER_INLINE</code> <a href="#HEDLEY_NEVER_INLINE"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Never inline the function, even if the compiler thinks
+            doing so would be a good idea.
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">
+HEDLEY_NEVER_INLINE
+void do_something(void);
+	      </pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>4.0.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoinline_007d-function-attribute-3237"><code>attribute((noinline))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>13.10+ (VS 7.1)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/bw1hbe6y.aspx"><code>__noinline</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
+
+        <section id="HEDLEY_NO_THROW" class="container">
+          <h3><code>HEDLEY_NO_THROW</code> <a href="#HEDLEY_NO_THROW"><i class="fa fa-link"></i></a></h3>
+
+          <p>
+            Tell the compiler that the function will never throw a C++
+            exception.  Note that this can improve performance even in
+            C mode.  Use only if you're sure your function will never
+            call a function which throws a C++ exception, even
+            indirectly.
+          </p>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Example</div>
+	    <div class="panel-body">
+              <pre class="prettyprint">
+HEDLEY_NO_THROW
+void do_something(void);
+	      </pre>
+	    </div>
+	  </div>
+
+	  <div class="panel panel-default">
+	    <div class="panel-heading">Compiler Support</div>
+	    <div class="panel-body">
+	      <table class="table table-striped">
+		<thead>
+		  <tr>
+		    <th>Platform</th>
+		    <th>Version</th>
+		    <th>Implementation</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+		    <th>Standard C</th>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		    <th>GCC</th>
+		    <td>3.3.0+</td>
+		    <td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnothrow_007d-function-attribute-3243"><code>attribute((nothrow))</code></a></td>
+		  </tr>
+		  <tr>
+		    <th>MSVC</th>
+		    <td>13.10+ (VS 7.1)</td>
+		    <td><a href="https://msdn.microsoft.com/en-us/library/49147z04.aspx"><code>__declspec(nothrow)</code></a></td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>
+        </section>
       </div>
+    </section>
 
+    <section id="public-apis" class="container">
+      <div>
+        <h2>Manage Public APIs</h2>
+
+        <p>
+          Macros which are used to help manage APIs.
+        </p>
+
+        <ul>
+          <li><code><a href="#HEDLEY_DEPRECATED">HEDLEY_DEPRECATED(since)</a></code></li>
+          <li><code><a href="#HEDLEY_DEPRECATED_FOR">HEDLEY_DEPRECATED_FOR(since, replacement)</a></code></li>
+          <li><code><a href="#HEDLEY_UNAVAILABLE">HEDLEY_UNAVAILABLE(available_since)</a></code></li>
+          <li><code><a href="#HEDLEY_INTERNAL">HEDLEY_INTERNAL</a></code></li>
+          <li><code><a href="#HEDLEY_EXTERNAL">HEDLEY_EXTERNAL</a></code></li>
+          <li><code><a href="#HEDLEY_IMPORT">HEDLEY_IMPORT</a></code></li>
+          <li><code><a href="#HEDLEY_PRIVATE">HEDLEY_PRIVATE</a></code></li>
+          <li><code><a href="#HEDLEY_PUBLIC">HEDLEY_PUBLIC</a></code></li>
+          <li><code><a href="#HEDLEY_IMPORT">HEDLEY_IMPORT</a></code></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="platform-detection" class="container">
+      <div>
+        <h2>Platform Detection</h2>
+
+        <p>
+          There are really intended for use internally by Hedley, but
+          they can be useful for other users.
+        </p>
+
+        <ul>
+          <li><code><a href="#HEDLEY_ENCODE_VERSION">HEDLEY_ENCODE_VERSION(major,minor,revision)</a></code></li>
+          <li><code><a href="#HEDLEY_GCC_VERSION_CHECK">HEDLEY_GCC_VERSION_CHECK(major,minor,patch)</a></code></li>
+          <li><code><a href="#HEDLEY_GCC_NOT_CLANG_VERSION_CHECK">HEDLEY_GCC_NOT_CLANG_VERSION_CHECK(major,minor,patch)</a></code></li>
+          <li><code><a href="#HEDLEY_MSVC_VERSION_CHECK">HEDLEY_MSVC_VERSION_CHECK(major,minor,patch)</a></code></li>
+          <li><code><a href="#HEDLEY_CLANG_HAS_ATTRIBUTE">HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</a></code></li>
+          <li><code><a href="#HEDLEY_CLANG_HAS_BUILTIN">HEDLEY_CLANG_HAS_BUILTIN(builtin)</a></code></li>
+          <li><code><a href="#HEDLEY_CLANG_HAS_FEATURE">HEDLEY_CLANG_HAS_FEATURE(feature)</a></code></li>
+          <li><code><a href="#HEDLEY_CLANG_HAS_EXTENSION">HEDLEY_CLANG_HAS_EXTENSION(extension)</a></code></li>
+          <li><code><a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(attribute)</a></code></li>
+          <li><code><a href="#HEDLEY_GCC_HAS_ATTRIBUTE">HEDLEY_GCC_HAS_ATTRIBUTE</a></code></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="well">
+      <p>
+        Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
+      </p>
+
+      <p>
+        Code licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.
+      </p>
+
+      <p>
+        Web site based
+        on <a href="http://getbootstrap.com">Bootstrap</a>, using
+        the “Darkly” theme
+        from <a href="https://bootswatch.com/">Bootswatch</a>.
+      </p>
     </footer>
   </body>
 </html>

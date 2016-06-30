@@ -8,3 +8,9 @@ pre.console {
   background: #333;
   color: #fff;
 }
+
+.panel-body > pre.prettyprint {
+  border: 0;
+  background: inherit;
+  margin: 0;
+}
