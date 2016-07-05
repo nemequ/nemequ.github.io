@@ -312,9 +312,9 @@ cc1: all warnings being treated as errors</pre>
 				</p>
 
 				<pre class="prettyprint lang-c">#if defined(FOO_COMPILATION)
-#define FOO_API HEDLEY_PUBLIC
+  #define FOO_API HEDLEY_PUBLIC
 #else
-#define FOO_API HEDLEY_IMPORT
+  #define FOO_API HEDLEY_IMPORT
 #endif</pre>
 
 				<p>
@@ -370,7 +370,7 @@ foo_bar(int baz);</pre>
 					First off, credit where credit is due: the idea for these
 					macros came from
 					the <a href="https://developer.gnome.org/glib/stable/">GLib</a>,
-					which were implemented
+					where something very similar was implemented
 					by <a href="https://www.bassi.io/">Emmanuale Bassi</a>.
 				</p>
 
@@ -405,7 +405,7 @@ foo_bar(int baz);</pre>
 				</p>
 
 				<pre class="prettyprint lang-c">#if !defined(FOO_TARGET_VERSION)
-#define FOO_TARGET_VERSION FOO_VERSION
+  #define FOO_TARGET_VERSION FOO_VERSION
 #endif</pre>
 
 				<p>
@@ -418,23 +418,23 @@ foo_bar(int baz);</pre>
 #define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
 
 #if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,1,0)
-#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
-#define FOO_DEPRECATED_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+  #define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+  #define FOO_DEPRECATED_SINCE_1_1
+  #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
 #else
-#define FOO_AVAILABLE_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+  #define FOO_AVAILABLE_SINCE_1_1
+  #define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+  #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
 #endif
 
 #if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,2,0)
-#define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
-#define FOO_DEPRECATED_SINCE_1_2
-#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
+  #define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
+  #define FOO_DEPRECATED_SINCE_1_2
+  #define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
 #else
-#define FOO_AVAILABLE_SINCE_1_2
-#define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
-#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
+  #define FOO_AVAILABLE_SINCE_1_2
+  #define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
+  #define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
 #endif</pre>
 
 				<p>
@@ -520,19 +520,19 @@ In file included from <strong>test.c:1:0:</strong>
 #define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
 
 #if defined(FOO_COMPILATION)
-#define FOO_AVAILABLE_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+  #define FOO_AVAILABLE_SINCE_1_1
+  #define FOO_DEPRECATED_SINCE_1_1
+  #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
 #else
-#if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,1,0)
-#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
-#define FOO_DEPRECATED_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
-#else
-#define FOO_AVAILABLE_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
-#endif
+  #if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,1,0)
+    #define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+    #define FOO_DEPRECATED_SINCE_1_1
+    #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+  #else
+    #define FOO_AVAILABLE_SINCE_1_1
+    #define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+    #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+  #endif
 #endif</pre>
 
 			<p>
@@ -549,41 +549,41 @@ In file included from <strong>test.c:1:0:</strong>
 #define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
 
 #if !defined(FOO_TARGET_VERSION)
-#define FOO_TARGET_VERSION FOO_VERSION
+  #define FOO_TARGET_VERSION FOO_VERSION
 #endif
 #if !defined(FOO_VERSION_MIN_REQUIRED)
-#define FOO_VERSION_MIN_REQUIRED FOO_TARGET_VERSION
+  #define FOO_VERSION_MIN_REQUIRED FOO_TARGET_VERSION
 #endif
 #if !defined(FOO_VERSION_MAX_ALLOWED)
-#define FOO_VERSION_MAX_ALLOWED FOO_TARGET_VERSION
+  #define FOO_VERSION_MAX_ALLOWED FOO_TARGET_VERSION
 #endif
 
 #if FOO_VERSION_MIN_REQUIRED &gt; FOO_VERSION_1_1
-#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+  #define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+  #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
 #else
-#define FOO_DEPRECATED_SINCE_1_1
-#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+  #define FOO_DEPRECATED_SINCE_1_1
+  #define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
 #endif
 
 #if FOO_VERSION_MAX_ALLOWED &lt; FOO_VERSION_1_1
-#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+  #define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
 #else
-#define FOO_AVAILABLE_SINCE_1_1
+  #define FOO_AVAILABLE_SINCE_1_1
 #endif
 
 #if FOO_VERSION_MIN_REQUIRED &gt; FOO_VERSION_1_2
-#define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
-#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
+  #define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
+  #define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
 #else
-#define FOO_DEPRECATED_SINCE_1_2
-#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
+  #define FOO_DEPRECATED_SINCE_1_2
+  #define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
 #endif
 
 #if FOO_VERSION_MAX_ALLOWED &lt; FOO_VERSION_1_2
-#define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
+  #define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
 #else
-#define FOO_AVAILABLE_SINCE_1_2
+  #define FOO_AVAILABLE_SINCE_1_2
 #endif</pre>
 
 			<p>
