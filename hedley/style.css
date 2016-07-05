@@ -14,3 +14,12 @@ pre.console {
   background: inherit;
   margin: 0;
 }
+
+footer.well {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+:lang(la) {
+  font-style: italic;
+}

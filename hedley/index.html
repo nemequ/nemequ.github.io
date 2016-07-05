@@ -1,206 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="description" content="Hedley documentation">
-    <meta name="author" content="Evan Nemerson">
+		<meta name="description" content="Hedley documentation" />
+		<meta name="author" content="Evan Nemerson" />
 
-    <title>Hedley</title>
+		<title>Hedley</title>
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/darkly/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
-    <link href="style.css" rel="stylesheet">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/darkly/bootstrap.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+		<link href="style.css" rel="stylesheet">
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" defer></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-      <![endif]-->
-  </head>
+		<!--[if lt IE 9]>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+		<![endif]-->
+	</head>
 
-  <body>
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Hedley</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="user-guide.html">User Guide</a></li>
-            <li><a href="api-reference.html">API Reference</a></li>
-            <li><a href="https://github.com/nemequ/hedley/issues">Support</a></li>
-          </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
-        </ul>
-        </div>
-      </div>
-    </nav>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/hedley/">Hedley</a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="user-guide.html">User Guide</a></li>
+						<li><a href="api-reference.html">API Reference</a></li>
+						<li><a href="https://github.com/nemequ/hedley/issues">Support</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    <section class="container">
-      <div class="jumbotron">
-        <h1>Hedley</h1>
+		<section class="container">
+			<div class="jumbotron">
+				<h1>Hedley</h1>
 
-        <p>
-          Hedley is a C header you can include in your project to
-          enable compiler specific features while maintaining
-          compatibility, with a focus on making your <abbr>API</abbr>
-          harder to misuse by providing hints to compilers and static
-          analyzers.
-        </p>
+				<p>
+					Hedley is a C header you can include in your project to
+					enable compiler specific features while maintaining
+					compatibility, with a focus on making your <abbr>API</abbr>
+					harder to misuse by providing hints to compilers and static
+					analyzers.
+				</p>
 
-        <p>
-          You can safely include Hedley in your public API, and it
-          works with virtually any compiler.
-        </p>
+				<p>
+					You can safely include Hedley in your public API, and it
+					works with virtually C or C++ any compiler.
+				</p>
 
-        <p><a class="btn btn-primary btn-lg"><i class="fa fa-lg fa-github"></i> GitHub Project</a></p>
-      </div>
-    </section>
+				<p><a class="btn btn-primary btn-lg"><i class="fa fa-lg fa-github"></i> GitHub Project</a></p>
+			</div>
+		</section>
 
-    <section class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <h2><a href="user-guide.html">User Guide</a></h2>
+		<section class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<h2><a href="user-guide.html">User Guide</a></h2>
 
-          <p>
-             Learn how Hedley works, and how to make it work for you.
-             Our easy-to-read user guide provides a gentle
-             introduction to everything you need to know.
-          </p>
+					<p>
+						Learn how Hedley works, and how to make it work for you.
+						Our easy-to-read user guide provides a gentle
+						introduction to everything you need to know.
+					</p>
 
-          <p><a class="btn btn-default" href="user-guide.html"><i class="fa fa-lg fa-map"></i> Get Started</a></p>
-        </div>
-        <div class="col-lg-4">
-          <h2><a href="api-reference.html">API Reference</a></h2>
+					<p><a class="btn btn-default" href="user-guide.html"><i class="fa fa-lg fa-map"></i> Get Started</a></p>
+				</div>
+				<div class="col-lg-4">
+					<h2><a href="api-reference.html">API Reference</a></h2>
 
-          <p>
-            Detailed documentation of everything exposed by Hedley,
-            including code samples, information on compiler support.
-          </p>
+					<p>
+						Detailed documentation of everything exposed by Hedley,
+						including code samples, information on compiler support.
+					</p>
 
-          <p><a class="btn btn-default" href="api-reference.html"><i class="fa fa-lg fa-book"></i> RTFM</a></p>
-        </div>
+					<p><a class="btn btn-default" href="api-reference.html"><i class="fa fa-lg fa-book"></i> RTFM</a></p>
+				</div>
 
-        <div class="col-lg-4">
-          <h2><a href="https://github.com/nemequ/hedley/issues">Support</a></h2>
+				<div class="col-lg-4">
+					<h2><a href="https://github.com/nemequ/hedley/issues">Support</a></h2>
 
-          <p>
-            Have questions, comments, or complaints?  Let us know!
-          </p>
+					<p>
+						Have questions, comments, or complaints?	Let us know!
+					</p>
 
-          <p><a class="btn btn-default" href="https://github.com/nemequ/hedley/issues"><i class="fa fa-lg fa-question-circle"></i> Get Help</a></p>
-        </div>
-      </div>
-    </section>
+					<p><a class="btn btn-default" href="https://github.com/nemequ/hedley/issues"><i class="fa fa-lg fa-question-circle"></i> Get Help</a></p>
+				</div>
+			</div>
+		</section>
 
-    <section class="container">
-      <div class="page-header">
-        <h2>Frequently Asked Questions</h2>
+		<section class="container">
+			<div class="page-header">
+				<h2>Frequently Asked Questions</h2>
 
-        <dl>
-          <dt><h4>Why?</h4></dt>
-          <dd>
-            <p>
-              Partially for my own purposes; every time I created a
-              project I found myself copying the same code into it,
-              which certainly got old, and having to maintain twenty
-              copies of the same thing is definitely not fun.
-            </p>
+				<dl>
+					<dt class="h4">Why?</dt>
+					<dd>
+						<p>
+							Partially for my own purposes; every time I created a
+							project I found myself copying the same code into it,
+							which certainly got old, and having to maintain twenty
+							copies of the same thing is definitely not fun.
+						</p>
 
-            <p>
-              That said, the real reason is that I constantly noticed
-              that other projects didn't do the same thing.  They
-              simply omitted the features that Hedley makes available.
-            </p>
-          </dd>
+						<p>
+							That said, the real reason is that I constantly noticed
+							that other projects didn't do the same thing.  They
+							simply omitted the features that Hedley makes available.
+						</p>
+					</dd>
 
-          <dt><h4>Can I use Hedley in public API?</h4></dt>
-          <dd>
-            <p>
-              Absolutely!  Including multiple copies of Hedley will
-              not cause a conflict.  Just make sure the header is
-              installed to a package-specific directory
-              (e.g., <var>/usr/include/your-library/hedley.h</var>,
-              not <var>/usr/include/hedley.h</var>).
-              The <a href="user-guide.html">User Guide</a> explains
-              everything in more detail.
-            </p>
-          </dd>
+					<dt class="h4">Can I use Hedley in public API?</dt>
+					<dd>
+						<p>
+							Absolutely!	Including multiple copies of Hedley will
+							not cause a conflict.  Just make sure the header is
+							installed to a package-specific directory
+							(e.g., <var>/usr/include/your-library/hedley.h</var>,
+							not <var>/usr/include/hedley.h</var>).
+							The <a href="user-guide.html">User Guide</a> explains
+							everything in more detail.
+						</p>
+					</dd>
 
-          <dt><h4>What is the license?</h4></dt>
-          <dd>
-            <p>
-               <a href="https://opensource.org/licenses/MIT">MIT</a>,
-               which is a highly permissive license.  It's about as
-               close to putting something in the public domain as you
-               can get.
-            </p>
-          </dd>
+					<dt class="h4">What is the license?</dt>
+					<dd>
+						<p>
+							<a href="https://opensource.org/licenses/MIT">MIT</a>,
+							which is a highly permissive license.  It's about as
+							close to putting something in the public domain as you
+							can get.
+						</p>
+					</dd>
 
-          <dt><h4>“Virtually” any compiler?</h4></dt>
-          <dd>
-            <p>
-              Hedley makes use of varaidic macros for some
-              functionality, and there is no way to define these away.
-              Variadic macros have formally been part of C since C99,
-              and part of C++ since C++11, but they have been
-              available in virtually every compiler for much longer.
-              The only time you're likely to run into an issue is if
-              you pass <code>-Wpedantic</code> (or something similar)
-              to your compiler and you're in an older mode (e.g., C89
-              or C++03).
-            </p>
-          </dd>
+					<dt class="h4">“Virtually” any compiler?</dt>
+					<dd>
+						<p>
+							Hedley makes use of varaidic macros for some
+							functionality, and there is no way to define these away.
+							Variadic macros have formally been part of C since C99,
+							and part of C++ since C++11, but they have been
+							available in virtually every compiler for much longer.
+							The only time you're likely to run into an issue is if
+							you pass <code>-Wpedantic</code> (or something similar)
+							to your compiler and you're in an older mode (e.g., C89
+							or C++03).
+						</p>
+					</dd>
 
-          <dt><h4>“Hedley”?</h4></dt>
-          <dd>
-            <p>
-              It's named after a character
-              from <a href="http://www.imdb.com/title/tt0071230/">Blazing
-              Saddles</a> named “Hedley Lamarr” who is, in turn, named
-              after <a href="https://en.wikipedia.org/wiki/Hedy_Lamarr">Hedy
-              Lamarr</a>.
-            </p>
+					<dt class="h4">“Hedley”?</dt>
+					<dd>
+						<p>
+							It's named after a character
+							from <a href="http://www.imdb.com/title/tt0071230/">Blazing
+							Saddles</a> named “Hedley Lamarr” who is, in turn, named
+							after <a href="https://en.wikipedia.org/wiki/Hedy_Lamarr">Hedy
+							Lamarr</a>.
+						</p>
 
-            <p>
-              While better known as an actress, Hedy Lamarr was also
-              an inventor (of, among other things, frequency-hopping
-              spread spectrum radios).
-            </p>
-          </dd>
-        </dl>
-      </div>
-    </section>
+						<p>
+							While better known as an actress, Hedy Lamarr was also
+							an inventor (of, among other things, frequency-hopping
+							spread spectrum radios).
+						</p>
+					</dd>
+				</dl>
+			</div>
+		</section>
 
-    <footer class="well">
-      <p>
-        Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
-      </p>
+		<footer class="well">
+			<p>
+				Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
+			</p>
 
-      <p>
-        Code licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.
-      </p>
+			<p>
+				Code licensed under
+				an <a href="https://opensource.org/licenses/MIT"> MIT
+				License</a>, text under a <a rel="license"
+				href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+				Commons Attribution-ShareAlike 4.0 International License</a>.
+			</p>
 
-      <p>
-        Web site based
-        on <a href="http://getbootstrap.com">Bootstrap</a>, using
-        the “Darkly” theme
-        from <a href="https://bootswatch.com/">Bootswatch</a>.
-      </p>
-    </footer>
-  </body>
+			<p>
+				Web site based
+				on <a href="http://getbootstrap.com">Bootstrap</a>, using
+				the “Darkly” theme
+				from <a href="https://bootswatch.com/">Bootswatch</a>.<br>
+				Foo
+			</p>
+		</footer>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-192022-16', 'auto');
+			ga('send', 'pageview');
+		</script>
+	</body>
 </html>

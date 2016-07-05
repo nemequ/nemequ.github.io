@@ -1,270 +1,611 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en-US">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name="description" content="Hedley documentation">
-    <meta name="author" content="Evan Nemerson">
+		<meta name="description" content="Hedley documentation" />
+		<meta name="author" content="Evan Nemerson" />
 
-    <title>Hedley User Guide</title>
+		<title>Hedley User Guide</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css"
-	  integrity="sha384-12jyvLdRujy7xPBSEsRChlYNcKKODOnVcrqexeULMkmGGzBmM9ms6CT1HGxtu96M" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/darkly/bootstrap.min.css"
-	  integrity="sha384-kVo/Eh0sv7ZdiwZK32nRsp1FrDT3sLRLx3zVpSSTI9UdO5H02LJNLBg5F1gwvKg0" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
-	  integrity="sha384-22yWQUsKxP06m9aMT+5delmNhTmk7UDUOA4iNcZ8YI7XvkfzNqxbU8/OuFLdhbnx" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css"
+					integrity="sha384-12jyvLdRujy7xPBSEsRChlYNcKKODOnVcrqexeULMkmGGzBmM9ms6CT1HGxtu96M" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/darkly/bootstrap.min.css"
+					integrity="sha384-kVo/Eh0sv7ZdiwZK32nRsp1FrDT3sLRLx3zVpSSTI9UdO5H02LJNLBg5F1gwvKg0" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
+					integrity="sha384-22yWQUsKxP06m9aMT+5delmNhTmk7UDUOA4iNcZ8YI7XvkfzNqxbU8/OuFLdhbnx" crossorigin="anonymous">
+		<link href="style.css" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
-	    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=desert" defer
-	    integrity="sha384-Wy6yBc5mOi+pD3L2F//P7hAMCFxd+BuH2N75+ON4LvKDlmiggQn4Qaycythht5Xd" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+						integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=desert" defer
+						integrity="sha384-Wy6yBc5mOi+pD3L2F//P7hAMCFxd+BuH2N75+ON4LvKDlmiggQn4Qaycythht5Xd" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
-	    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
+						integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"
-	    integrity="sha384-RPXhaTf22QktT8KTwZ6bUz/C+7CnccaIw5W/y/t0FW5WSDGj3wc3YtRIJC0w47in" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
-	    integrity="sha384-HwX0n9BiVutdIP0m3jKYarATBrBQMARe4JqN2bNN+eqbEirLWcklhaZgkovSBfc+" crossorigin="anonymous"></script>
-    <![endif]-->
-  </head>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"
+							integrity="sha384-RPXhaTf22QktT8KTwZ6bUz/C+7CnccaIw5W/y/t0FW5WSDGj3wc3YtRIJC0w47in" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"
+							integrity="sha384-HwX0n9BiVutdIP0m3jKYarATBrBQMARe4JqN2bNN+eqbEirLWcklhaZgkovSBfc+" crossorigin="anonymous"></script>
+		<![endif]-->
+	</head>
 
-  <body>
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Hedley</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="user-guide.html">User Guide</a></li>
-            <li><a href="api-reference.html">API Reference</a></li>
-            <li><a href="https://github.com/nemequ/hedley/issues">Support</a></li>
-          </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
-        </ul>
-        </div>
-      </div>
-    </nav>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/hedley/">Hedley</a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="user-guide.html">User Guide</a></li>
+						<li><a href="api-reference.html">API Reference</a></li>
+						<li><a href="https://github.com/nemequ/hedley/issues">Support</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    <section class="container">
-      <h1>Introduction</h1>
+		<section class="container">
+			<h1 id="introduction">Introduction</h1>
 
-      <blockquote>
-	<p>
-	  If all you have is a hammer, everything looks like a nail.
-	  If your hammer is C++, everything looks like your thumb.
-	</p>
-      </blockquote>
+			<blockquote>
+				<p>
+					If all you have is a hammer, everything looks like a nail.
+					If your hammer is C++, everything looks like your thumb.
+				</p>
+			</blockquote>
 
-      <p>
-	I don't know who said it first, but this humorous perversion
-	of <a href="https://en.wikipedia.org/wiki/Law_of_the_instrument">the
-	law of the instrument</a> has, in several variations, been
-	floating around the internet for ages.  While it is probably
-	more true of C++, the same can certainly be said of C.
-      </p>
+			<p>
+				I don't know who said it first, but this humorous perversion
+				of <a href="https://en.wikipedia.org/wiki/Law_of_the_instrument">the
+					law of the instrument</a> has, in several variations, been
+				floating around the internet for ages.	While it is probably
+				more true of C++, the same can certainly be said of C.
+			</p>
 
-      <p>
-	C, like C++, gives the programmer a huge amount of control
-	over what the computer actually does.  While this makes it
-	relatively easy to write efficient code, it also make it
-	relatively easy to write code which crashes.  Higher level
-	lanuages can often provide descriptive error messages at
-	run-time, but with C and C++, there is often a single run-time
-	error message: <q>Segmentation fault (core dumped)</q>, and
-	that's if you get lucky enough to actually see an error
-	message!  Often, the program can keep running, but generate
-	garbage data or, even worse data which is just slightly
-	incorrect (which is much harder to spot).
-      </p>
+			<p>
+				C, like C++, gives the programmer a huge amount of control
+				over what the computer actually does. While this makes it
+				relatively easy to write efficient code, it also make it
+				relatively easy to write code which crashes. Higher level
+				lanuages can often provide descriptive error messages at
+				run-time, but with C and C++, there is often a single run-time
+				error message: <q>Segmentation fault (core dumped)</q>, and
+				that's if you get lucky enough to actually see an error
+				message! Often, the program can keep running, but generate
+				data which is complete garbage or, even worse, data which is
+				just slightly incorrect (which is much harder to spot).
+			</p>
 
-      <p>
-	To make up for the lack of run-time errors, compilers and
-	static analyzers instead try to generate <em>compile</em>-time
-	errors.  With a few simple annotations, you can give compilers
-	and static analyzers a more information about how your program
-	is supposed to work, which means they have a better chance of
-	telling you when you make a mistake.
-      </p>
+			<p>
+				To make up for the lack of run-time errors, compilers and
+				static analyzers instead try to generate <em>compile</em>-time
+				errors.	With a few simple annotations, you can give compilers
+				and static analyzers a more information about how your program
+				is supposed to work, which means they have a better chance of
+				telling you when you make a mistake.
+			</p>
 
-      <p>
-	Of course, it's not all about the errors… giving the compiler
-	more information about your program also means it can do a
-	better job of optimizing for you.
-      </p>
+			<p>
+				Of course, it's not all about the errors… giving the compiler
+				more information about your program also means it can do a
+				better job of optimizing for you.
+			</p>
 
-      <p>
-	Unfortunately, these annotations don't work everywhere.
-	Different compilers and static analyzers support different
-	annotations, which is where Hedley comes in.  Hedley uses the
-	preprocessor to determine which annotations will work and
-	which won't.  Annotations which work are defined to the
-	compiler-specific version, while unsupported annotations will
-	be defined away.
-      </p>
-    </section>
+			<p>
+				Unfortunately, these annotations don't work everywhere.
+				Different compilers and static analyzers support different
+				annotations, which is where Hedley comes in.	Hedley uses the
+				preprocessor to determine which annotations will work and
+				which won't.	Annotations which work are defined to the
+				compiler-specific version, while unsupported annotations will
+				be defined away.
+			</p>
+		</section>
 
-    <section class="container">
-      <h1>Getting Started</h1>
+		<section class="container">
+			<h1 id="getting-started">Getting Started</h1>
 
-      <p>
-	Hedley is a single header file; to use it, just include it:
-      </p>
+			<p>
+				Hedley is a single header file; to use it, just include it:
+			</p>
 
-      <pre class="prettyprint">#include "hedley.h"</pre>
+			<pre class="prettyprint lang-c">#include &quot;hedley.h&quot;</pre>
 
-      <p>
-	And you're ready to go!
-      </p>
+			<p>
+				And you're ready to go!
+			</p>
 
-      <h2>First Annotation: <code>HEDLEY_NON_NULL</code></h2>
+			<h2 id="first-annotation">First Annotation: <code>HEDLEY_NON_NULL</code></h2>
 
-      <p>
-	First, let's look at a pretty straightforward function:
-      </p>
+			<p>
+				First, let's look at a pretty straightforward function:
+			</p>
 
-      <pre class="prettyprint">#include "hedley.h"
+			<pre class="prettyprint lang-c">#include &quot;hedley.h&quot;
 #include &lt;stdio.h&gt;
 
 struct Context {
-  char* name;
+	char* name;
 };
 
 void
-print_message(struct Context* ctx, const char* message) {
-  printf(&quot;%s: %s\n&quot;, ctx->name, message);
+	print_message(struct Context* ctx, const char* message) {
+	printf(&quot;%s: %s\n&quot;, ctx-&gt;name, message);
 }</pre>
 
-      <p>
-	Here we just print out a message, but this is a very common
-	pattern for lots of things: we take a pointer to a context,
-	plus some additional argument(s), and do something with the
-	fields of the context and the arguments.  You see this
-	everywhere.
-      </p>
+			<p>
+				Here we just print out a message, but this is a very common
+				pattern for lots of things: we take a pointer to a context,
+				plus some additional argument(s), and do something with the
+				fields of the context and the arguments.	You see this
+				everywhere.
+			</p>
 
-      <p>
-	Now, what happens if we call it with <var>NULL</var> for the
-	context?
-      </p>
+			<p>
+				Now, what happens if we call it with <var>NULL</var> for the
+				context?
+			</p>
 
-      <pre class="console">$ gcc -g -Wall -Werror test.c
+			<pre class="console">$ gcc -g -Wall -Werror test.c
 $ ./a.out
 Segmentation fault (core dumped)</pre>
 
-      <p>
-	Now, let's add a <code>HEDLEY_NON_NULL</code>
-	attribute.  <code>HEDLEY_NON_NULL</code> lists paremeters
-	which must never be <var>NULL</var>.  It accepts a variadic
-	list of parameters identified by their integer offset (so in
-	our example <var>ctx</var> is 0 and <var>message</var> is 1).
-	While many C libraries can handle a <var>NULL</var> value for
-	a string coversion specifier (%s), the standard doesn't
-	mandate it, so we should make sure <em>both</em> parameters
-	are non-<var>NULL</var>:
-      </p>
+			<p>
+				Now, let's add
+				a <code><a href="user-guide.html#HEDLEY_NON_NULL">HEDLEY_NON_NULL</a></code>
+				attribute.	<code>HEDLEY_NON_NULL</code> lists paremeters
+				which must never be <var>NULL</var>.	It accepts a variadic
+				list of parameters identified by their integer offset (so in
+				our example <var>ctx</var> is 0 and <var>message</var> is 1).
+				While many C libraries can handle a <var>NULL</var> value for
+				a string coversion specifier (%s), the standard doesn't
+				mandate it, so we should make sure <em>both</em> parameters
+				are non-<var>NULL</var>:
+			</p>
 
-      <pre class="prettyprint">#include "hedley.h"
+			<pre class="prettyprint lang-c">#include &quot;hedley.h&quot;
 #include &lt;stdio.h&gt;
 
 struct Context {
-  char* name;
+	char* name;
 };
 
 HEDLEY_NON_NULL(1,2)
 void
 print_message(struct Context* ctx, const char* message) {
-  printf(&quot;%s: %s\n&quot;, ctx->name, message);
+	printf(&quot;%s: %s\n&quot;, ctx-&gt;name, message);
 }</pre>
 
-      <p>
-	Let's see what happens when we try to compile and run our call
-	now:
-      </p>
+			<p>
+				Let's see what happens when we try to compile and run our call
+				now:
+			</p>
 
-      <pre class="console">$ gcc -g -Wall -Werror test.c
+			<pre class="console">$ gcc -g -Wall -Werror test.c
 <strong>test.c</strong>: In function ‘main’:
 <strong>test.c:16:3</strong>: <span class="text-danger">error</span>: null argument where non-null required (argument 1) [<span class="text-danger">-Werror=nonnull</span>]
-   <span class="text-danger">print_message</span>(NULL, &quot;Hello, world!&quot;);
-   <span class="text-danger">^~~~~~~~~~~~~</span>
+	<span class="text-danger">print_message</span>(NULL, &quot;Hello, world!&quot;);
+	<span class="text-danger">^~~~~~~~~~~~~</span>
 cc1: all warnings being treated as errors</pre>
 
-      <p>
-	Most compilers aren't <em>too</em> smart about this; you can
-	“trick” them by assigning <var>NULL</var> to a variable then
-	calling the function, but it's definitely better than nothing.
-	Static analyzers, on the other hand, can find extremely
-	convoluted cases where you may be passing <var>NULL</var>.
-      </p>
-    </section>
+			<p>
+				Most compilers aren't <em>too</em> smart about this; you can
+				“trick” them by assigning <var>NULL</var> to a variable then
+				calling the function, but it's definitely better than nothing.
+				Static analyzers, on the other hand, can find extremely
+				convoluted cases where you may be passing <var>NULL</var>.
+			</p>
 
-    <section class="container">
-      <h1>How it Works</h1>
+			<p>
+				Of course, <code>HEDLEY_NON_NULL</code> is far from the only
+				macro Hedley supports.  See
+				the <a href="api-reference.html">API Reference</a> for the
+				full list and lots of examples.
+			</p>
+		</section>
 
-      <p>
-	Hedley isn't magic, and we certainly didn't manage to convince
-	compiler vendors to add support for our macros; Hedley simply
-	uses the preprocessor to determine which compiler and version
-	you are using, then either emits the compiler-specific snippet
-	or, if there is no known implementation for the compiler,
-	nothing at all.
-      </p>
+		<section class="container">
+			<h1 id="how-it-works">How it Works</h1>
 
-      <p>
-	As an example, <code>HEDLEY_NON_NULL</code> uses
-	GCC's <var>nonnull</var> function attribute where it is
-	available (a lot of compilers pretend to be GCC, and implement
-	it).  Other macros have different implementations on different
-	platforms; for example, <code>HEDLEY_INLINE</code> is
-	implemented as <code>inline</code> if you are compiling in C99
-	or greater mode.  If not, there is the
-	GNU <code>__inline__</code> extension on GCC-compatible
-	compilers, or <code>__inline</code> for Microsoft Visual C++.
-	Some features are also only enabled for certain versions of
-	compilers; for example, <code>HEDLEY_FORCE_INLINE</code> maps
-	to the <code>always_inline</code> attribute for GCC &gt=
-	4.0.0, <code>__forceinline</code> for Visual C++ &lt;= 12.0
-	(Visual Studio 6.0), or <code>HEDLEY_INLINE</code> as a
-	fallback.
-      </p>
+			<p>
+				Hedley isn't magic, and we certainly didn't manage to convince
+				compiler vendors to add support for our macros; Hedley simply
+				uses the preprocessor to determine which compiler and version
+				you are using, then either emits the compiler-specific snippet
+				or, if there is no known implementation for the compiler,
+				nothing at all.
+			</p>
 
-      <p>
+			<p>
+				As an example, <code>HEDLEY_NON_NULL</code> uses
+				GCC's <var>nonnull</var> function attribute where it is
+				available (a lot of compilers pretend to be GCC, and implement
+				it).	Other macros have different implementations on different
+				platforms; for example, <code>HEDLEY_INLINE</code> is
+				implemented as <code>inline</code> if you are compiling in C99
+				or greater mode.	If not, there is the
+				GNU <code>__inline__</code> extension on GCC-compatible
+				compilers, or <code>__inline</code> for Microsoft Visual C++.
+				Some features are also only enabled for certain versions of
+				compilers; for example, <code>HEDLEY_FORCE_INLINE</code> maps
+				to the <code>always_inline</code> attribute for GCC &gt;
+				4.0.0, <code>__forceinline</code> for Visual C++ &lt;= 12.0
+				(Visual Studio 6.0), or <code>HEDLEY_INLINE</code> as a
+				fallback.
+			</p>
+		</section>
 
-      </p>
-    </section>
+		<section class="container">
+			<h1 id="public-apis">Public APIs</h1>
 
-    <footer>
-      <div class="well">
-        <p>
-          Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
-        </p>
+			<p>
+				Hedley includes some useful helpers for public APIs, but they
+				aren't <em>quite</em> as simple to use as the rest of the
+				macros.  There are two groups of macros in this category:
+				symbol visibility and versioning.
+			</p>
 
-        <p>
-          Code licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.
-        </p>
+			<section>
+				<h2 id="visibility">Visibility</h2>
 
-        <p>
-          Web site based
-          on <a href="http://getbootstrap.com">Bootstrap</a>, using
-          the “Darkly” theme
-          from <a href="https://bootswatch.com/">Bootswatch</a>.
-        </p>
-      </div>
+				<p>
+					With standard C, you can basically choose between “static”
+					functions, which are visible only within the current
+					compilation unit (<abbr lang="la" title="id est">i.e.</abbr>
+					the current file).  This means that if you want to use a
+					symbol in another compilation unit within your project, you
+					have to expose it publicly.  Even if you don't include a
+					prototype in the public header, this still has implications
+					for performance and code size.  Furthermore, leaking
+					internal sybmols which are not properly namespaced can
+					result in collisions.  For a good overview,
+					see <a href="https://gcc.gnu.org/wiki/Visibility"><abbr>GCC</abbr>'s
+					“Visibility” wiki page</a>.
+				</p>
 
-    </footer>
-  </body>
+				<p>
+					Hedley's visibility support is pretty easy to use, but it does
+					require you to put some code in <em>your</em> header:
+				</p>
+
+				<pre class="prettyprint lang-c">#if defined(FOO_COMPILATION)
+#define FOO_API HEDLEY_PUBLIC
+#else
+#define FOO_API HEDLEY_IMPORT
+#endif</pre>
+
+				<p>
+					Obviously, you should replace <code>FOO_</code> with the
+					appropriate prefix for your library.
+				</p>
+
+				<p>
+					Once you've included this code in one of your headers,
+					simply add <var>-DFOO_COMPILATION</var> (or whatever your
+					compiler wants) to the C flags you use to build your
+					library, but <em>not</em> in the C flags people use to build
+					<em>with</em> your library.
+				</p>
+
+				<p>
+					Then, simply annotate your public prototypes
+					with <code>FOO_API</code>:
+				</p>
+
+				<pre class="prettyprint lang-c">FOO_API
+void
+foo_bar(int baz);</pre>
+
+				<p>
+					If you compile with <var>-fvisibility=hidden</var>, only
+					symbols annotated with <code>FOO_API</code> will be visible.
+					If you'd like to avoid adding the visibility flag but still
+					want the same effect, just annotate your internal functions
+					with
+					<code>HEDLEY_PRIVATE</code>.
+				</p>
+
+				<p>
+					If you're using CMake ≥ 2.8.12, you can use
+					the <a href="https://cmake.org/cmake/help/v3.5/prop_tgt/LANG_VISIBILITY_PRESET.html"><var>C_VISIBILITY_PRESET</var></a>
+					to set the proper visibility flag (if your compiler supports
+					it).
+				</p>
+			</section>
+
+			<section>
+				<h2 id="versioning">Versioning</h2>
+
+				<p>
+					Hedley's versioning macros are a bit more complicated to
+					use, but the effect can be pretty amazing.
+					<abbr title="In My Humble Opinion">IMHO</abbr> they are
+					<em>well</em> worth the effort.
+				</p>
+
+				<p>
+					First off, credit where credit is due: the idea for these
+					macros came from
+					the <a href="https://developer.gnome.org/glib/stable/">GLib</a>,
+					which were implemented
+					by <a href="https://www.bassi.io/">Emmanuale Bassi</a>.
+				</p>
+
+				<p>
+					First, you'll want to define some macros to identify the
+					current version of the library.  Usually this will be in a
+					file which is automatically generated by the build system
+					(see <a href="https://cmake.org/cmake/help/v3.5/command/configure_file.html"><code>configure_file</code></a>
+					for CMake,
+					or <a href="https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Configuration-Files.html"><code>AC_CONFIG_FILES</code></a>
+					for autoconf), but you can maintain the file manually if you
+					feel more comfortable with that.  Here is an example for a
+					library called “Foo”, version 1.2.3:
+				</p>
+
+				<pre class="prettyprint lang-c">#include &quot;hedley/hedley.h&quot;
+
+/* Define these to whatever your version number is. */
+#define FOO_VERSION_MAJOR 1
+#define FOO_VERSION_MINOR 2
+#define FOO_VERSION_REVISION 3
+
+#define FOO_VERSION HEDLEY_ENCODE_VERSION(FOO_VERSION_MAJOR, FOO_VERSION_MINOR, FOO_VERSION_REVISION)</pre>
+
+				<p>
+					Pretty standard stuff.  Now, things start to get
+					interesting; we want to let consumers target a specific
+					version of your library, warning them if they use a symbol
+					which is only available in a newer version, or is deprecated
+					in the version they chose.  We'll make the default target
+					the current version:
+				</p>
+
+				<pre class="prettyprint lang-c">#if !defined(FOO_TARGET_VERSION)
+#define FOO_TARGET_VERSION FOO_VERSION
+#endif</pre>
+
+				<p>
+					Now, we'll define some macros for each version of
+					your <abbr>API</abbr>:
+				</p>
+
+				<pre class="prettyprint lang-c">#define FOO_VERSION_1_0 HEDLEY_ENCODE_VERSION(1,0,0)
+#define FOO_VERSION_1_1 HEDLEY_ENCODE_VERSION(1,1,0)
+#define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
+
+#if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,1,0)
+#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+#define FOO_DEPRECATED_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+#else
+#define FOO_AVAILABLE_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+#endif
+
+#if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,2,0)
+#define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
+#define FOO_DEPRECATED_SINCE_1_2
+#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
+#else
+#define FOO_AVAILABLE_SINCE_1_2
+#define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
+#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
+#endif</pre>
+
+				<p>
+					Technically, the first three defines are unnecessary, but
+					they can be convenient to allow people to define the target
+					version.
+				</p>
+
+				<p>
+					Once we have these macros defined, we can annotate our API:
+				</p>
+
+				<pre class="prettyprint lang-c">void
+foo_available_since_1_0(void);
+
+FOO_DEPRECATED_SINCE_1_1_FOR(foo_available_since_1_2)
+void
+foo_available_since_1_0_deprecated_in_1_1(void);
+
+FOO_AVAILABLE_SINCE_1_2
+void
+foo_available_since_1_2(void);</pre>
+
+				<p>
+					Now, let's see what happens when we try to call each
+					function, while targeting different versions of
+					the <abbr>API</abbr>:
+				</p>
+
+				<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_0 test.c
+<strong>test.c:</strong> In function ‘main’:
+<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_available_since_1_2</strong>’ declared with attribute warning: Not available until 1.2
+   <span class="text-warning">foo_available_since_1_2()</span>;
+   ^~~~~~~~~~~~~~~~~~~~~~~~~
+$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
+<strong>test.c:</strong> In function ‘main’:
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+In file included from <strong>test.c:1:0:</strong>
+<strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
+ <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_available_since_1_2</strong>’ declared with attribute warning: Not available until 1.2
+   <span class="text-warning">foo_available_since_1_2()</span>;
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span>
+$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
+<strong>test.c:</strong> In function ‘main’:
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+In file included from <strong>test.c:1:0:</strong>
+<strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
+ <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+$ cc test.c
+<strong>test.c:</strong> In function ‘main’:
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+In file included from <strong>test.c:1:0:</strong>
+<strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
+ <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
+			</section>
+
+			<p>
+				This allows people depending on your API to avoid
+				unintentionally bumping the version of your library they
+				depend on when developing on a system with a newer version.
+			</p>
+
+			<p>
+				If you need to call the deprecated functions in your code
+				(<abbr lang="la" title="exempli gratia">e.g.</abbr>, because
+				one deprecated function is implemented by calling another, you
+				can reuse the <var>FOO_COMPILATION</var> macro we defined
+				earlier:
+			</p>
+
+				<pre class="prettyprint lang-c">#define FOO_VERSION_1_0 HEDLEY_ENCODE_VERSION(1,0,0)
+#define FOO_VERSION_1_1 HEDLEY_ENCODE_VERSION(1,1,0)
+#define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
+
+#if defined(FOO_COMPILATION)
+#define FOO_AVAILABLE_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+#else
+#if FOO_TARGET_VERSION &lt; HEDLEY_ENCODE_VERSION(1,1,0)
+#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+#define FOO_DEPRECATED_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+#else
+#define FOO_AVAILABLE_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+#endif
+#endif</pre>
+
+			<p>
+				If you would like to take it a step further, you can create
+				macros for the minimum required and max allowed versions.
+				This allows people to target a range of different versions of
+				your library (using <code>#ifdef</code>s to switch between
+				different functionality based on the value
+				of <var>FOO_VERSION</var>).  For example:
+			</p>
+
+			<pre class="prettyprint lang-c">#define FOO_VERSION_1_0 HEDLEY_ENCODE_VERSION(1,0,0)
+#define FOO_VERSION_1_1 HEDLEY_ENCODE_VERSION(1,1,0)
+#define FOO_VERSION_1_2 HEDLEY_ENCODE_VERSION(1,2,0)
+
+#if !defined(FOO_TARGET_VERSION)
+#define FOO_TARGET_VERSION FOO_VERSION
+#endif
+#if !defined(FOO_VERSION_MIN_REQUIRED)
+#define FOO_VERSION_MIN_REQUIRED FOO_TARGET_VERSION
+#endif
+#if !defined(FOO_VERSION_MAX_ALLOWED)
+#define FOO_VERSION_MAX_ALLOWED FOO_TARGET_VERSION
+#endif
+
+#if FOO_VERSION_MIN_REQUIRED &gt; FOO_VERSION_1_1
+#define FOO_DEPRECATED_SINCE_1_1 HEDLEY_DEPRECATED(1.1)
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.1, replacement)
+#else
+#define FOO_DEPRECATED_SINCE_1_1
+#define FOO_DEPRECATED_SINCE_1_1_FOR(replacement)
+#endif
+
+#if FOO_VERSION_MAX_ALLOWED &lt; FOO_VERSION_1_1
+#define FOO_AVAILABLE_SINCE_1_1 HEDLEY_UNAVAILABLE(1.1)
+#else
+#define FOO_AVAILABLE_SINCE_1_1
+#endif
+
+#if FOO_VERSION_MIN_REQUIRED &gt; FOO_VERSION_1_2
+#define FOO_DEPRECATED_SINCE_1_2 HEDLEY_DEPRECATED(1.2)
+#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement) HEDLEY_DEPRECATED_FOR(1.2, replacement)
+#else
+#define FOO_DEPRECATED_SINCE_1_2
+#define FOO_DEPRECATED_SINCE_1_2_FOR(replacement)
+#endif
+
+#if FOO_VERSION_MAX_ALLOWED &lt; FOO_VERSION_1_2
+#define FOO_AVAILABLE_SINCE_1_2 HEDLEY_UNAVAILABLE(1.2)
+#else
+#define FOO_AVAILABLE_SINCE_1_2
+#endif</pre>
+
+			<p>
+				Notice that we still allow the consumer to simply
+				define <var>FOO_TARGET_VERSION</var>; many consumers will not
+				need the flexibility of setting the minimum required and
+				maximum allowed versions separately.
+			</p>
+
+			<p>
+				One advantage of this method is that, if you need to call
+				deprecated functions in your code, you can simply
+				set <var>FOO_VERSION_MIN_REQUIRED</var>
+				and <var>FOO_VERSION_MAX_ALLOWED</var> to 0
+				and <var>FOO_VERSION</var> in your code, and you don't have to
+				have a special case for <var>FOO_COMPILATION</var>.
+			</p>
+		</section>
+
+		<footer class="well">
+			<p>
+				Created by <a href="https://evan.nemerson.com/">Evan Nemerson</a>.
+			</p>
+
+			<p>
+				Code licensed under
+				an <a href="https://opensource.org/licenses/MIT"> MIT
+				License</a>, text under a <a rel="license"
+				href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+				Commons Attribution-ShareAlike 4.0 International License</a>.
+			</p>
+
+			<p>
+				Web site based
+				on <a href="http://getbootstrap.com">Bootstrap</a>, using
+				the “Darkly” theme
+				from <a href="https://bootswatch.com/">Bootswatch</a>.<br>
+				Foo
+			</p>
+		</footer>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-192022-16', 'auto');
+			ga('send', 'pageview');
+		</script>
+	</body>
 </html>
