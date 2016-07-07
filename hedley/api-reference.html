@@ -618,12 +618,12 @@ do_something_with_foo(foo);
 									<tr>
 										<th>GCC</th>
 										<td>3.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0)</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0, 1)</code></a></td>
 									</tr>
 									<tr>
 										<th>Standard C</th>
 										<td>Any</td>
-										<td><code>(expr)</code></td>
+										<td><code>((expr) != 0)</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -670,12 +670,12 @@ ctx-&gt;foo = bar;</pre>
 									<tr>
 										<th>GCC</th>
 										<td>3.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) == 0)</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0, 0)</code></a></td>
 									</tr>
 									<tr>
 										<th>Standard C</th>
 										<td>Any</td>
-										<td><code>(expr)</code></td>
+										<td><code>((expr) != 0)</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -912,7 +912,10 @@ void do_something(void);</pre>
 				</p>
 
 				<ul>
-					<li><code><a href="#HEDLEY_ENCODE_VERSION">HEDLEY_ENCODE_VERSION(major,minor,revision)</a></code></li>
+					<li><code><a href="#HEDLEY_VERSION_ENCODE">HEDLEY_VERSION_ENCODE(major,minor,revision)</a></code></li>
+					<li><code><a href="#HEDLEY_VERSION_DECODE_MAJOR">HEDLEY_VERSION_DECODE_MAJOR(version)</a></code></li>
+					<li><code><a href="#HEDLEY_VERSION_DECODE_MINOR">HEDLEY_VERSION_DECODE_MINOR(version)</a></code></li>
+					<li><code><a href="#HEDLEY_VERSION_DECODE_REVISION">HEDLEY_VERSION_DECODE_REVISION(version)</a></code></li>
 					<li><code><a href="#HEDLEY_DEPRECATED">HEDLEY_DEPRECATED(since)</a></code></li>
 					<li><code><a href="#HEDLEY_DEPRECATED_FOR">HEDLEY_DEPRECATED_FOR(since, replacement)</a></code></li>
 					<li><code><a href="#HEDLEY_UNAVAILABLE">HEDLEY_UNAVAILABLE(available_since)</a></code></li>
@@ -922,12 +925,17 @@ void do_something(void);</pre>
 				</ul>
 			</div>
 
-			<section id="HEDLEY_ENCODE_VERSION" class="container">
-				<h3><code>HEDLEY_ENCODE_VERSION(major,minor,revision)</code> <a href="#HEDLEY_ENCODE_VERSION"><i class="fa fa-link"></i></a></h3>
+			<section id="HEDLEY_VERSION_ENCODE" class="container">
+				<h3><code>HEDLEY_VERSION_ENCODE(major,minor,revision)</code> <a href="#HEDLEY_VERSION_ENCODE"><i class="fa fa-link"></i></a></h3>
 
 				<p>
 					Encode a major version number, minor version number, and
 					revision number into a single number.
+				</p>
+
+				<p>
+					Up to 1000 releases (0-999) are supported for each section
+					(major, minor, revision).
 				</p>
 
 				<dl class="dl-horizontal">
@@ -944,7 +952,7 @@ void do_something(void);</pre>
 				<div class="panel panel-default">
 					<div class="panel-heading">Example</div>
 					<div class="panel-body">
-						<pre class="prettyprint">HEDLEY_ENCODE_VERSION(1,2,3)</pre>
+						<pre class="prettyprint">HEDLEY_VERSION_ENCODE(1,2,3)</pre>
 					</div>
 				</div>
 
@@ -963,7 +971,118 @@ void do_something(void);</pre>
 								<tr>
 									<th>Standard C</th>
 									<td></td>
-									<td><code>(((major &amp; 0xff) &lt;&lt; 16) | ((minor &amp; 0xff) &lt;&lt; 8) | (revision &amp; 0xff))</code></td>
+									<td><code>(((major) * 1000000) + ((minor) * 1000) + (revision))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_VERSION_DECODE_MAJOR" class="container">
+				<h3><code>HEDLEY_VERSION_DECODE_MAJOR(version)</code> <a href="#HEDLEY_VERSION_DECODE_MAJOR"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Decodes a version number (encoded
+					with <code>HEDLEY_VERSION_ENCODE</code>), returning the
+					major version number.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>version</dt>
+					<dd>Encoded version number.</dd>
+				</dl>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td><code>((version) / 1000000)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_VERSION_DECODE_MINOR" class="container">
+				<h3><code>HEDLEY_VERSION_DECODE_MINOR(version)</code> <a href="#HEDLEY_VERSION_DECODE_MINOR"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Decodes a version number (encoded
+					with <code>HEDLEY_VERSION_ENCODE</code>), returning the
+					minor version number.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>version</dt>
+					<dd>Encoded version number.</dd>
+				</dl>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td><code>(((version) % 1000000) / 1000)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_VERSION_DECODE_REVISION" class="container">
+				<h3><code>HEDLEY_VERSION_DECODE_REVISION(version)</code> <a href="#HEDLEY_VERSION_DECODE_REVISION"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Decodes a version number (encoded
+					with <code>HEDLEY_VERSION_ENCODE</code>), returning the
+					revision number.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>version</dt>
+					<dd>Encoded version number.</dd>
+				</dl>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td><code>((version) % 1000)</code></td>
 								</tr>
 							</tbody>
 						</table>
