@@ -573,6 +573,10 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 				<ul>
 					<li><code><a href="#HEDLEY_LIKELY">HEDLEY_LIKELY(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_UNLIKELY">HEDLEY_UNLIKELY(expr)</a></code></li>
+					<li><code><a href="#HEDLEY_MALLOC">HEDLEY_MALLOC</a></code></li>
+					<li><code><a href="#HEDLEY_PURE">HEDLEY_PURE</a></code></li>
+					<li><code><a href="#HEDLEY_CONST">HEDLEY_CONST</a></code></li>
+					<li><code><a href="#HEDLEY_RESTRICT">HEDLEY_RESTRICT</a></code></li>
 					<li><code><a href="#HEDLEY_INLINE">HEDLEY_INLINE</a></code></li>
 					<li><code><a href="#HEDLEY_ALWAYS_INLINE">HEDLEY_ALWAYS_INLINE</a></code></li>
 					<li><code><a href="#HEDLEY_NEVER_INLINE">HEDLEY_NEVER_INLINE</a></code></li>
@@ -688,6 +692,206 @@ ctx-&gt;foo = bar;</pre>
 						adding <code>HEDLEY_UNLIKELY</code> to all your
 						assertions.
 					</p>
+				</section>
+
+				<section id="HEDLEY_MALLOC" class="container">
+					<h3><code>HEDLEY_MALLOC</code> <a href="#HEDLEY_MALLOC"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Inform the compiler that the pointer returned by this
+						function does not alias any other pointer, <em>and</em>
+						that there are no pointers to valid objects in the storage
+						pointed to.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+HEDLEY_MALLOC
+uint8_t* create_buffer(void);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Standard C</th>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>3.1.0+</td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bmalloc_007d-function-attribute-3224"><code>__attribute__((__malloc__))</code></a></td>
+									</tr>
+									<tr>
+										<th>MSVC</th>
+										<td>14+ (VS 2005)</td>
+										<td><a href="https://msdn.microsoft.com/en-us/library/8bcxafdh.aspx"><code>__declspec(restrict)</code></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_PURE" class="container">
+					<h3><code>HEDLEY_PURE</code> <a href="#HEDLEY_PURE"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						The function has no side-effects, and the return value
+						depends <em>only</em> on the parameters and/or global
+						variables.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+HEDLEY_PURE
+bool multiply(int* product, int a, int b);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Standard C</th>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>4.3.0+</td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Inline.html#index-inline-functions-3586"><code>__inline__</code></a></td>
+									</tr>
+									<tr>
+										<th>MSVC</th>
+										<td>14+ (VS 2005)</td>
+										<td><a href="https://msdn.microsoft.com/en-us/library/k649tyc7.aspx"><code>__declspec(noalias)</code></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_CONST" class="container">
+					<h3><code>HEDLEY_CONST</code> <a href="#HEDLEY_CONST"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						The function has no side-effects, and the return value
+						depends <em>only</em> on the parameters.
+					</p>
+
+					<p>
+						Note that pointer arguments are not allowed.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+HEDLEY_CONST
+int multiply(int a, int b);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>GCC</th>
+										<td>2.5.0+</td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bconst_007d-function-attribute-3201"><code>__attribute__((__const__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Other</th>
+										<td></td>
+										<td><code>HEDLEY_PURE</code></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_RESTRICT" class="container">
+					<h3><code>HEDLEY_RESTRICT</code> <a href="#HEDLEY_RESTRICT"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						The pointer is not aliased.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Standard C</th>
+										<td>C99+</td>
+										<td><code>restrict</code></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>3.1.0+</td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Restricted-Pointers.html"><code>__restrict</code></a></td>
+									</tr>
+									<tr>
+										<th>MSVC</th>
+										<td>14+ (VS 2005)</td>
+										<td><a href="https://msdn.microsoft.com/en-us/library/5ft82fed.aspx"><code>__restrict</code></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</section>
 
 				<section id="HEDLEY_INLINE" class="container">
