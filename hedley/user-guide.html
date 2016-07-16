@@ -172,7 +172,7 @@ struct Context {
 };
 
 void
-	print_message(struct Context* ctx, const char* message) {
+print_message(struct Context* ctx, const char* message) {
 	printf(&quot;%s: %s\n&quot;, ctx-&gt;name, message);
 }</pre>
 
@@ -196,10 +196,10 @@ Segmentation fault (core dumped)</pre>
 			<p>
 				Now, let's add
 				a <code><a href="user-guide.html#HEDLEY_NON_NULL">HEDLEY_NON_NULL</a></code>
-				attribute.	<code>HEDLEY_NON_NULL</code> lists paremeters
-				which must never be <var>NULL</var>.	It accepts a variadic
-				list of parameters identified by their integer offset (so in
-				our example <var>ctx</var> is 0 and <var>message</var> is 1).
+				attribute. <code>HEDLEY_NON_NULL</code> lists paremeters which
+				must never be <var>NULL</var>. It accepts a variadic list of
+				parameters identified by their position (so in our
+				example <var>ctx</var> is 1 and <var>message</var> is 2).
 				While many C libraries can handle a <var>NULL</var> value for
 				a string coversion specifier (%s), the standard doesn't
 				mandate it, so we should make sure <em>both</em> parameters
@@ -272,7 +272,7 @@ cc1: all warnings being treated as errors</pre>
 				Some features are also only enabled for certain versions of
 				compilers; for example, <code>HEDLEY_FORCE_INLINE</code> maps
 				to the <code>always_inline</code> attribute for GCC &gt;
-				4.0.0, <code>__forceinline</code> for Visual C++ &lt;= 12.0
+				4.0.0, <code>__forceinline</code> for Visual C++ &gt;= 12.0
 				(Visual Studio 6.0), or <code>HEDLEY_INLINE</code> as a
 				fallback.
 			</p>
@@ -343,9 +343,10 @@ foo_bar(int baz);</pre>
 					If you compile with <var>-fvisibility=hidden</var>, only
 					symbols annotated with <code>FOO_API</code> will be visible.
 					If you'd like to avoid adding the visibility flag but still
-					want the same effect, just annotate your internal functions
-					with
-					<code>HEDLEY_PRIVATE</code>.
+					want the same effect, just annotate your internal (but
+					non-static) functions with
+					<code>HEDLEY_PRIVATE</code>; for static functions there is
+					no need to add anything.
 				</p>
 
 				<p>
@@ -448,15 +449,15 @@ foo_bar(int baz);</pre>
 				</p>
 
 				<pre class="prettyprint lang-c">void
-foo_available_since_1_0(void);
+foo_bar(void);
 
-FOO_DEPRECATED_SINCE_1_1_FOR(foo_available_since_1_2)
+FOO_DEPRECATED_SINCE_1_1_FOR(foo_qux)
 void
-foo_available_since_1_0_deprecated_in_1_1(void);
+foo_baz(void);
 
 FOO_AVAILABLE_SINCE_1_2
 void
-foo_available_since_1_2(void);</pre>
+foo_qux(void);</pre>
 
 				<p>
 					Now, let's see what happens when we try to call each
@@ -466,38 +467,38 @@ foo_available_since_1_2(void);</pre>
 
 				<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_0 test.c
 <strong>test.c:</strong> In function ‘main’:
-<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_available_since_1_2</strong>’ declared with attribute warning: Not available until 1.2
-   <span class="text-warning">foo_available_since_1_2()</span>;
+<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
+   <span class="text-warning">foo_qux()</span>;
    ^~~~~~~~~~~~~~~~~~~~~~~~~
 $ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
 <strong>test.c:</strong> In function ‘main’:
-<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
-   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_baz</span>();
    <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 In file included from <strong>test.c:1:0:</strong>
 <strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
- <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">foo_baz</span>(void) {
  <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
-<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_available_since_1_2</strong>’ declared with attribute warning: Not available until 1.2
-   <span class="text-warning">foo_available_since_1_2()</span>;
+<strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
+   <span class="text-warning">foo_qux()</span>;
    <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span>
 $ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
 <strong>test.c:</strong> In function ‘main’:
-<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
-   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_baz</span>();
    <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 In file included from <strong>test.c:1:0:</strong>
 <strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
- <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">foo_baz</span>(void) {
  <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 $ cc test.c
 <strong>test.c:</strong> In function ‘main’:
-<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_available_since_1_0_deprecated_in_1_1</strong>’ is deprecated: Since 1.1; use foo_available_since_1_2 [<span class="text-warning">-Wdeprecated-declarations</span>]
-   <span class="text-warning">foo_available_since_1_0_deprecated_in_1_1</span>();
+<strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
+   <span class="text-warning">foo_baz</span>();
    <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 In file included from <strong>test.c:1:0:</strong>
 <strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
- <span class="text-info">foo_available_since_1_0_deprecated_in_1_1</span>(void) {
+ <span class="text-info">foo_baz</span>(void) {
  <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
 			</section>
 
@@ -620,8 +621,7 @@ In file included from <strong>test.c:1:0:</strong>
 				Web site based
 				on <a href="http://getbootstrap.com">Bootstrap</a>, using
 				the “Darkly” theme
-				from <a href="https://bootswatch.com/">Bootswatch</a>.<br>
-				Foo
+				from <a href="https://bootswatch.com/">Bootswatch</a>.
 			</p>
 		</footer>
 

@@ -23,3 +23,8 @@ footer.well {
 :lang(la) {
   font-style: italic;
 }
+
+.qanda > dd {
+  padding-left: 1em;
+  /* border-left: 5px rgb(70,69,69) solid; */
+}
