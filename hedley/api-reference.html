@@ -1524,6 +1524,9 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_END_C_DECLS">HEDLEY_END_C_DECLS</a></code></li>
 					<li><code><a href="#HEDLEY_C_DECL">HEDLEY_C_DECL</a></code></li>
 					<li><code><a href="#HEDLEY_STATIC_ASSERT">HEDLEY_STATIC_ASSERT</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_PUSH">HEDLEY_DIAGNOSTIC_PUSH</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED">HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED</a></code></li>
 				</ul>
 			</div>
 
@@ -1726,6 +1729,200 @@ do_something(void);</pre>
 					</div>
 				</div>
 			</section>
+
+			<section id="HEDLEY_DIAGNOSTIC_PUSH" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_PUSH</code> <a href="#HEDLEY_DIAGNOSTIC_PUSH"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Remember the current state of the compiler's diagnostics.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_DEPRECATED void foo(void);
+
+static void bar(void) {
+	HEDLEY_DIAGNOSTIC_PUSH
+	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	foo();
+	HEDLEY_DIAGNOSTIC_POP
+}</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic push&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>_Pragma(&quot;warning(push)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>4.6.0+</td>
+									<td><code>Pragma(&quot;GCC diagnostic push&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(warning(push))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_DIAGNOSTIC_POP" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_POP</code> <a href="#HEDLEY_DIAGNOSTIC_POP"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Return the state of the compiler's diagnostics to the value
+					from the last push.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_DEPRECATED
+void foo(void);
+
+static void bar(void) {
+	HEDLEY_DIAGNOSTIC_PUSH
+	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	foo();
+	HEDLEY_DIAGNOSTIC_POP
+}</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic push&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>_Pragma(&quot;warning(push)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>4.6.0+</td>
+									<td><code>Pragma(&quot;GCC diagnostic push&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(warning(push))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED</code> <a href="#HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Do not emit warnings when using deprecated symbols.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_DEPRECATED void foo(void);
+
+static void bar(void) {
+	HEDLEY_DIAGNOSTIC_PUSH
+	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	foo();
+	HEDLEY_DIAGNOSTIC_POP
+}</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Standard C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic ignored \&quot;-Wdeprecated\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>_Pragma(&quot;warning(disable:1478)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>4.6.0+</td>
+									<td><code>_Pragma(&quot;GCC diagnostic ignored \&quot;-Wdeprecated\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(warning(disable:4996))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
 		</section>
 
 		<section id="platform-detection" class="container">
@@ -1741,15 +1938,18 @@ do_something(void);</pre>
 					<li><code><a href="#HEDLEY_GCC_VERSION_CHECK">HEDLEY_GCC_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_NOT_CLANG_VERSION_CHECK">HEDLEY_GCC_NOT_CLANG_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_MSVC_VERSION_CHECK">HEDLEY_MSVC_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_INTEL_VERSION_CHECK">HEDLEY_INTEL_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_ATTRIBUTE">HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_BUILTIN">HEDLEY_CLANG_HAS_BUILTIN(builtin)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_FEATURE">HEDLEY_CLANG_HAS_FEATURE(feature)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_EXTENSION">HEDLEY_CLANG_HAS_EXTENSION(extension)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(attribute)</a></code></li>
+					<li><code><a href="#HEDLEY_CLANG_HAS_WARNING">HEDLEY_CLANG_HAS_WARNING(warning)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_ATTRIBUTE">HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_BUILTIN">HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_EXTENSION">HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_GCC_HAS_WARNING">HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</a></code></li>
 				</ul>
 			</div>
 
@@ -1829,6 +2029,27 @@ do_something(void);</pre>
 				</dl>
 			</section>
 
+			<section id="HEDLEY_INTEL_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_INTEL_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_INTEL_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of Intel C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
 			<section id="HEDLEY_CLANG_HAS_ATTRIBUTE" class="container">
 				<h3><code>HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</code> <a href="#HEDLEY_CLANG_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
 
@@ -1881,6 +2102,20 @@ do_something(void);</pre>
 
 				<dl class="dl-horizontal">
 					<dt>declspec_attribute</dt>
+					<dd>Declspec attribute to check.</dd>
+				</dl>
+			</section>
+
+			<section id="HEDLEY_CLANG_HAS_WARNING" class="container">
+				<h3><code>HEDLEY_CLANG_HAS_WARNING(warning)</code> <a href="#HEDLEY_CLANG_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler is clang and supports the
+					specified warning.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>warning</dt>
 					<dd>Declspec attribute to check.</dd>
 				</dl>
 			</section>
@@ -1970,6 +2205,31 @@ do_something(void);</pre>
 				<dl class="dl-horizontal">
 					<dt>declspec_attribute</dt>
 					<dd>Declspec attribute to check.</dd>
+
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+		</section>
+
+			<section id="HEDLEY_GCC_HAS_WARNING" class="container">
+				<h3><code>HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler is either clang with the
+					requested warning, or any other compiler claiming to be a
+					version of GCC greater than or equal to that specified.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>warning</dt>
+					<dd>Warning to check.</dd>
 
 					<dt>major</dt>
 					<dd>Major version.</dd>
