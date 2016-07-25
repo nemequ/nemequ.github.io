@@ -1526,7 +1526,7 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_STATIC_ASSERT">HEDLEY_STATIC_ASSERT</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_PUSH">HEDLEY_DIAGNOSTIC_PUSH</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
-					<li><code><a href="#HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED">HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED">HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</a></code></li>
 				</ul>
 			</div>
 
@@ -1744,7 +1744,7 @@ do_something(void);</pre>
 
 static void bar(void) {
 	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
 	HEDLEY_DIAGNOSTIC_POP
 }</pre>
@@ -1810,7 +1810,7 @@ void foo(void);
 
 static void bar(void) {
 	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
 	HEDLEY_DIAGNOSTIC_POP
 }</pre>
@@ -1860,8 +1860,8 @@ static void bar(void) {
 				</div>
 			</section>
 
-			<section id="HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED" class="container">
-				<h3><code>HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED</code> <a href="#HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED"><i class="fa fa-link"></i></a></h3>
+			<section id="HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</code> <a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED"><i class="fa fa-link"></i></a></h3>
 
 				<p>
 					Do not emit warnings when using deprecated symbols.
@@ -1874,7 +1874,7 @@ static void bar(void) {
 
 static void bar(void) {
 	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_ALLOW_DEPRECATED
+	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
 	HEDLEY_DIAGNOSTIC_POP
 }</pre>
