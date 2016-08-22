@@ -110,12 +110,113 @@
 			<p>
 				Unfortunately, these annotations don't work everywhere.
 				Different compilers and static analyzers support different
-				annotations, which is where Hedley comes in.	Hedley uses the
-				preprocessor to determine which annotations will work and
-				which won't.	Annotations which work are defined to the
-				compiler-specific version, while unsupported annotations will
-				be defined away.
+				annotations, which means it's easy to end up with something
+				like this:
 			</p>
+
+			<pre class="prettyprint lang-c">#if !defined(__has_attribute)
+#define __has_attribute(attr) 0
+#endif
+
+#if defined(__STDC_VERSION__) &amp;&amp; __STDC_VERSION__ &gt;= 201112L
+_Noreturn
+#elif defined(__clang) &amp;&amp; __has_attribute(noreturn)
+__attribute__((__noreturn__))
+#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 2))
+__attribute__((__noreturn__))
+#elif defined(_MSC_VER) &amp;&amp; _MSC_VER &gt;= 1310
+_declspec(noreturn)
+#endif
+#if defined(__clang) &amp;&amp; __has_attribute(nonnull)
+__attribute__((__nonnull__(1,2)))
+#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 3))
+__attribute__((__nonnull__(1,2)))
+#endif
+#if (defined(__clang) &amp;&amp; __has_attribute(format)) || (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 1)))
+#if (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 4)) &amp;&amp; defined(__MINGW32__)
+#if !defined(__USE_MINGW_ANSI_STDIO)
+__attribute__((__format__(ms_printf, 2, 3)))
+#else
+__attribute__((__format__(gnu_printf, 2, 3)))
+#endif
+#elif defined(__MINGW32__)
+/* Nothing */
+#else
+__attribute__((__format__(printf, 2, 3)))
+#endif
+#endif
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
+
+			<p>
+				In all honesty you're unlikely to see code like that in the
+				wild.  Generally people will just omit the attributes
+				altogether, or include an (over-)simplified version like:
+			</p>
+
+			<pre class="prettyprint lang-c">#if defined(__GNUC__)
+__attribute__(noreturn)
+__attribute__((__format__(printf, 2, 3)))
+__attribute__((__nonnull__(1,2)))
+#elif defined(_MSC_VER)
+__declspec(noreturn)
+#endif
+void print_fatal_error(FILE* fp, const char* fmt, ...)</pre>
+
+			<p>
+				You can probably already spot some issues, including:
+			</p>
+
+			<ul>
+				<li>
+					Portability:
+					<ul>
+						<li>
+							GCC before 4.4 will fail since it doesn't support format
+							string checking.  Some older versions would also fail
+							because of the other attributes (<var>nonnull</var>
+							and <var>noreturn</var>).
+						</li>
+						<li>
+							MSVC before version 13.10 (included in Visual Studio
+							2003) will fail since it doesn't support
+							the <var>noreturn</var> declspec.
+						</li>
+					</ul>
+				</li>
+				<li>
+					Mingw will likely fail because it will expect standard C
+					format strings, but MSVC's format string implementation
+					deviates significantly from C99.
+				</li>
+				<li>
+					C11-compilers which don't masquerade as either GCC or MSVC
+					will not be annotated with <var>_Noreturn</var>, which is an
+					important static-analysis and optimization hint.
+				</li>
+			</ul>
+
+			<p>
+				Hedley uses the preprocessor to determine which annotations
+				will work and which won't, effectively moving all those messy
+				ifdefs out of your code and into Hedley.  Annotations which
+				work are defined to the compiler-specific version, while
+				unsupported annotations will be defined away.  This allows the
+				first example (the really ugly one) to be simplified to
+				something like:
+			</p>
+
+			<pre class="prettyprint lang-c">HEDLEY_NO_RETURN
+HEDLEY_NON_NULL(1,2)
+HEDLEY_PRINTF_FORMAT(2,3)
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
+
+			<p>
+				Not only is this vastly easier to write, but it's easy enough
+				to read that it helps document your code, meaning it's useful
+				even if your compiler doesn't support the annotations in
+				question.
+			</p>
+
 		</section>
 
 		<section class="container">
