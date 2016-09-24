@@ -327,8 +327,55 @@ cc1: all warnings being treated as errors</pre>
 				Of course, <code>HEDLEY_NON_NULL</code> is far from the only
 				macro Hedley supports.  See
 				the <a href="api-reference.html">API Reference</a> for the
-				full list and lots of examples.
+				full list and lots of examples.  There are macros for:
 			</p>
+
+			<dl>
+			  <dt><a href="api-reference.html#static-analysis">Static Analysis</a></dt>
+			  <dd>
+			    <p>
+			      Macros which help you descibe your API
+			      to the compiler and/or static analyzers,
+			      giving your users helpful warnings when
+			      the misuse your API, without false
+			      positives.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#optimizations">Optimizations</a></dt>
+			  <dd>
+			    <p>
+			      Tell the compiler what you're doing (or
+			      what you want it to do) so compiled code
+			      is faster.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#public-apis">Managing Public APIs</a></dt>
+			  <dd>
+			    <p>
+			      Macros which help convey versioning
+			      information, when symbols are are added
+			      and deprecated, and symbol visibility.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#platform-detection">Platform Detection</a></dt>
+			  <dd>
+			    <p>
+			      Macros Hedley uses to detect the
+			      platform.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#miscellaneous">Miscellaneous</a></dt>
+			  <dd>
+			    <p>
+			      Assorted macros which are useful, but
+			      don't really fit anywhere else.
+			    </p>
+			  </dd>
+			</dl>
 		</section>
 
 		<section class="container">
