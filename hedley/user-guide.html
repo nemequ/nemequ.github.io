@@ -79,15 +79,15 @@
 			</p>
 
 			<p>
-				C, like C++, gives the programmer a huge amount of control
-				over what the computer actually does. While this makes it
-				relatively easy to write efficient code, it also make it
+				Like C++, C gives the programmer a huge amount of control
+				over what the computer actually does. While this does make it
+				relatively easy to write efficient code, it also makes it
 				relatively easy to write code which crashes. Higher level
 				lanuages can often provide descriptive error messages at
-				run-time, but with C and C++, there is often a single run-time
+				run-time, but with C/C++ there is often a single run-time
 				error message: <q>Segmentation fault (core dumped)</q>, and
 				that's if you get lucky enough to actually see an error
-				message! Often, the program can keep running, but generate
+				message! Often, the program can keep running but generate
 				data which is complete garbage or, even worse, data which is
 				just slightly incorrect (which is much harder to spot).
 			</p>
@@ -96,9 +96,10 @@
 				To make up for the lack of run-time errors, compilers and
 				static analyzers instead try to generate <em>compile</em>-time
 				errors.	With a few simple annotations, you can give compilers
-				and static analyzers a more information about how your program
-				is supposed to work, which means they have a better chance of
-				telling you when you make a mistake.
+				and static analyzers more information about how your program
+				is <em>supposed</em> to work, which gives them have a better
+				chance of informing you when you, or someone using your API,
+				make a mistake.
 			</p>
 
 			<p>
@@ -148,7 +149,7 @@ __attribute__((__format__(printf, 2, 3)))
 void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
 
 			<p>
-				In all honesty you're unlikely to see code like that in the
+				In all honesty, you're unlikely to see code like that in the
 				wild.  Generally people will just omit the attributes
 				altogether, or include an (over-)simplified version like:
 			</p>
@@ -393,11 +394,11 @@ cc1: all warnings being treated as errors</pre>
 			<p>
 				As an example, <code>HEDLEY_NON_NULL</code> uses
 				GCC's <var>nonnull</var> function attribute where it is
-				available (a lot of compilers pretend to be GCC, and implement
-				it).	Other macros have different implementations on different
+				available (a lot of compilers pretend to be GCC and implement
+				it).  Other macros have different implementations on different
 				platforms; for example, <code>HEDLEY_INLINE</code> is
 				implemented as <code>inline</code> if you are compiling in C99
-				or greater mode.	If not, there is the
+				or greater mode.  If not, there is the
 				GNU <code>__inline__</code> extension on GCC-compatible
 				compilers, or <code>__inline</code> for Microsoft Visual C++.
 				Some features are also only enabled for certain versions of
@@ -600,8 +601,8 @@ foo_qux(void);</pre>
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
    <span class="text-warning">foo_qux()</span>;
-   ^~~~~~~~~~~~~~~~~~~~~~~~~
-$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
+   ^~~~~~~~~~~~~~~~~~~~~~~~~</pre>
+<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
@@ -612,8 +613,8 @@ In file included from <strong>test.c:1:0:</strong>
  <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
    <span class="text-warning">foo_qux()</span>;
-   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span>
-$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
+<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
@@ -621,8 +622,8 @@ $ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
 In file included from <strong>test.c:1:0:</strong>
 <strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
  <span class="text-info">foo_baz</span>(void) {
- <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
-$ cc test.c
+ <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
+<pre class="console">$ cc test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
