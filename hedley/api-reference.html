@@ -582,7 +582,7 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 						<div class="panel-heading">Example</div>
 						<div class="panel-body">
 							<pre class="prettyprint">if(HEDLEY_LIKELY(foo != NULL)) {
-do_something_with_foo(foo);
+	do_something_with_foo(foo);
 	return true;
 } else {
 	return false;
@@ -671,7 +671,7 @@ ctx-&gt;foo = bar;</pre>
 
 					<p>
 						Note: assertion functions are typically already annotated
-						with something like this.	You probably shouldn't be
+						with something like this.  You probably shouldn't be
 						adding <code>HEDLEY_UNLIKELY</code> to all your
 						assertions.
 					</p>
@@ -690,7 +690,7 @@ ctx-&gt;foo = bar;</pre>
 					<div class="panel panel-default">
 						<div class="panel-heading">Example</div>
 						<div class="panel-body">
-							<pre class="prettyprint">
+						<pre class="prettyprint">
 HEDLEY_MALLOC
 uint8_t* create_buffer(void);</pre>
 						</div>
@@ -2010,6 +2010,10 @@ static void bar(void) {
 					<dt>patch</dt>
 					<dd>Patch level.</dd>
 				</dl>
+
+				<p>
+					Note that version numbers don't match marketing numbers; for version numbers see the <a href="https://sourceforge.net/p/predef/wiki/Compilers/#microsoft-visual-c">Microsoft Visual C++</a> section of the <a href="https://sourceforge.net/p/predef/wiki/Home/">Pre-defined C/C++ Compiler Macros</a> site.
+				</p>
 			</section>
 
 			<section id="HEDLEY_INTEL_VERSION_CHECK" class="container">
