@@ -8,6 +8,9 @@
     <title>Evan Nemerson</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script async defer src="https://unpkg.com/github-card@1.2.1/dist/widget.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
 
   <body>
@@ -16,12 +19,17 @@
 
       <h2>Open Source Projects</h2>
 
+      <div class="github-widget" data-username="nemequ"></div>
+
       <p>
         An incomplete list of open-source projects I'm involved with:
       </p>
 
-      <dl>
-        <dt><a href="http://quixdb.github.io/squash/">Squash</a></dt>
+      <dl class="project-list">
+        <dt>
+	  <a href="http://quixdb.github.io/squash/">Squash</a>
+<a class="github-button" href="https://github.com/quixdb/squash" data-icon="octicon-star" data-count-href="/quixdb/squash/stargazers" data-count-api="/repos/quixdb/squash#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star quixdb/squash on GitHub"></a>
+	</dt>
         <dd>
           <p>
             Squash is primarily an abstraction layer which provides a
@@ -50,38 +58,62 @@
           </p>
         </dd>
 
-        <dt><a href="/munit/">µnit</a></dt>
+        <dt>
+	  <a href="/munit/">µnit</a>
+	  <a class="github-button" href="https://github.com/nemequ/munit" data-icon="octicon-star" data-count-href="/nemequ/munit/stargazers" data-count-api="/repos/nemequ/munit#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star nemequ/munit on GitHub"></a>
+	</dt>
         <dd>
           <p>
-            µnit is a small and portable unit testing framework for C
-            which includes pretty much everything you might expect
-            from a C testing framework, plus a few pleasant surprises,
-            wrapped in a nice API.
+            µnit is a small and portable testing framework for C which
+            includes pretty much everything you might expect from a C
+            testing framework, plus a few pleasant surprises, wrapped
+            in a nice API.
           </p>
         </dd>
 
-        <dt><a href="/hedley/">Hedley</a></dt>
+        <dt>
+	  <a href="/hedley/">Hedley</a>
+	  <a class="github-button" href="https://github.com/nemequ/hedley" data-icon="octicon-star" data-count-href="/nemequ/hedley/stargazers" data-count-api="/repos/nemequ/hedley#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star nemequ/hedley on GitHub"></a>
+	</dt>
         <dd>
           <p>
-            Hedley is a C header you can include in your project
-            to enable compiler specific features while
-            maintaining compatibility, with a focus on making
-            your <abbr>API</abbr> harder to misuse by providing
+            Hedley is a personal favorite.  It is a C header you can
+            include in your project to enable compiler specific
+            features while maintaining compatibility, with a focus on
+            making your <abbr>API</abbr> harder to misuse by providing
             hints to compilers and static analyzers.
           </p>
         </dd>
 
-        <dt><a href="https://tinycthread.github.io/">TinyCThread</a></dt>
+        <dt>
+	  <a href="https://github.com/nemequ/portable-snippets/">portable-snippets</a>
+	  <a class="github-button" href="https://github.com/nemequ/portable-snippets" data-icon="octicon-star" data-count-href="/nemequ/portable-snippets/stargazers" data-count-api="/repos/nemequ/portable-snippets#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star nemequ/portable-snippets on GitHub"></a>
+	</dt>
         <dd>
           <p>
-            TinyCThread is a cross-platform implementation of the C11
-            threading API which uses POSIX or the Windows API,
-            allowing you to use the standard C11 API on systems which
-            don&#8217;t natively support it.
+            Collection of assorted portable code snippets (in C) for
+            various tasks which are typically compiler or
+            platform-specific.
           </p>
         </dd>
 
-        <dt><a href="https://github.com/nemequ/configure-cmake/">configure-cmake</a></dt>
+        <dt>
+	  <a href="https://tinycthread.github.io/">TinyCThread</a>
+	  <a class="github-button" href="https://github.com/tinycthread/tinycthread" data-icon="octicon-star" data-count-href="/tinycthread/tinycthread/stargazers" data-count-api="/repos/tinycthread/tinycthread#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star tinycthread/tinycthread on GitHub"></a>
+	</dt>
+        <dd>
+          <p>
+            TinyCThread is a cross-platform implementation of the C11
+            threading API which uses POSIX threads (pthreads) or the
+            Windows API, allowing you to use the standard C11 API on
+            systems which don&#8217;t natively support it.
+          </p>
+        </dd>
+
+        <dt>
+	  <a href="https://github.com/nemequ/configure-cmake/">configure-cmake</a>
+	  <a class="github-button" href="https://github.com/nemequ/configure-cmake" data-icon="octicon-star" data-count-href="/nemequ/configure-cmake/stargazers" data-count-api="/repos/nemequ/configure-cmake#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star nemequ/configure-cmake on GitHub"></a>
+	</dt>
         <dd>
           <p>
             Wrapper which provides an autotools-style configure script
@@ -90,16 +122,9 @@
           </p>
         </dd>
 
-        <dt><a href="https://github.com/nemequ/portable-snippets/">portable-snippets</a></dt>
-        <dd>
-          <p>
-            Curated collection of miscellaneous portable code snippets
-            (in C) for various tasks which are typically compiler or
-            platform-specific.
-          </p>
-        </dd>
-
-        <dt><a href="https://wiki.gnome.org/Projects/Vala/">Vala</a></dt>
+        <dt>
+	  <a href="https://wiki.gnome.org/Projects/Vala/">Vala</a>
+	</dt>
         <dd>
           <p>
             Vala is a new programming language that aims to bring
@@ -110,7 +135,9 @@
           </p>
         </dd>
 
-        <dt><a href="https://code.google.com/p/bump/">Bump</a></dt>
+        <dt>
+	  <a href="https://code.google.com/p/bump/">Bump</a>
+	</dt>
         <dd>
           <p>
             Bump is a library designed to make asynchronous
@@ -121,7 +148,9 @@
           </p>
         </dd>
 
-        <dt><a href="https://code.google.com/p/sqlheavy/">SQLHeavy</a></dt>
+        <dt>
+	  <a href="https://code.google.com/p/sqlheavy/">SQLHeavy</a>
+	</dt>
         <dd>
           <p>
             SQLHeavy is a wrapper on top of SQLite with a
@@ -134,7 +163,18 @@
     </main>
 
     <footer>
-      © 2016 Evan Nemerson
+      <div>© 2016 Evan Nemerson</div>
+      <div>
+	<abbr title="Pretty Good Privacy">PGP</abbr>:
+	<a href="http://pgp.mit.edu/pks/lookup?op=get&search=0x05FA102122EDAC89">4064 8DF4 BD4B C61C A672 9945 05FA 1021 22ED AC89</a>
+      </div>
+      <div>
+	<abbr title="Secure Shell">SSH</abbr>:
+	<a href="http://evan.nemerson.com/wp-content/uploads/2014/03/evan-nemerson-ssh.txt">7d:47:78:a5:e9:93:9a:24:c6:a3:cf:68:fe:a5:fd:5b</a>
+      </div>
+      <div style="margin: 0.25em 0">
+	<a target="_blank" href="https://www.openhub.net/accounts/nemequ?ref=sample"><img alt="Open Hub profile for Evan Nemerson" border="0" height="35" src="https://www.openhub.net/accounts/nemequ/widgets/account_detailed?format=gif&amp;ref=sample" width="230"></a>
+      </div>
     </footer>
   </body>
 </html>
