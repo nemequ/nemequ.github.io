@@ -385,15 +385,23 @@ void main(void) {
 	    <li><code>float</code></li>
 	    <li><code>double</code></li>
 	    <li><code>void*</code> (&quot;ptr&quot;)</li>
-	    <li><code>int8_t</code> (&quot;int8&quot;)</li>
-	    <li><code>uint8_t</code> (&quot;uint8&quot;)</li>
-	    <li><code>int16_t</code> (&quot;int16&quot;)</li>
-	    <li><code>uint16_t</code> (&quot;uint16&quot;)</li>
-	    <li><code>int32_t</code> (&quot;int32&quot;)</li>
-	    <li><code>uint32_t</code> (&quot;uint32&quot;)</li>
-	    <li><code>int64_t</code> (&quot;int64&quot;)</li>
-	    <li><code>uint64_t</code> (&quot;uint64&quot;)</li>
+	    <li><code>munit_int8_t</code> (&quot;int8&quot;)</li>
+	    <li><code>munit_uint8_t</code> (&quot;uint8&quot;)</li>
+	    <li><code>munit_int16_t</code> (&quot;int16&quot;)</li>
+	    <li><code>munit_uint16_t</code> (&quot;uint16&quot;)</li>
+	    <li><code>munit_int32_t</code> (&quot;int32&quot;)</li>
+	    <li><code>munit_uint32_t</code> (&quot;uint32&quot;)</li>
+	    <li><code>munit_int64_t</code> (&quot;int64&quot;)</li>
+	    <li><code>munit_uint64_t</code> (&quot;uint64&quot;)</li>
 	  </ul>
+
+	  <p>
+	    The <code>munit_(u)intN_t</code> are just macros defined
+	    to types from stdint.h, except on older versions of Visual
+	    Studio which don't support stdint.h where they are defined
+	    to <a href="https://msdn.microsoft.com/en-us/library/29dh1w7z.aspx">exact-width
+	    built-in types</a>.
+	  </p>
 
 	  <p>
 	    Additionally, there are several more specialized macros
@@ -555,7 +563,7 @@ void main(int argc, char** argv) {
 	      </p>
 	    </dd>
 
-	    <dt><code>uint32_t munit_rand_uint32(void)</code></dt>
+	    <dt><code>munit_uint32_t munit_rand_uint32(void)</code></dt>
 	    <dd>
 	      <p>
 		Generate a random value, between 0 and 2<sup>32</sup>−1
@@ -570,14 +578,14 @@ void main(int argc, char** argv) {
 	      </p>
 	    </dd>
 
-	    <dt><code>void munit_rand_memory(size_t size, uint8_t buffer[])</code></dt>
+	    <dt><code>void munit_rand_memory(size_t size, munit_uint8_t buffer[])</code></dt>
 	    <dd>
 	      <p>
 		Fill a buffer with however much random data you want.
 	      </p>
 	    </dd>
 
-	    <dt><code>void munit_rand_seed(uint32_t seed)</code></dt>
+	    <dt><code>void munit_rand_seed(munit_uint32_t seed)</code></dt>
 	    <dd>
 	      <p>
 		Seed the random number with the supplied value.  You
