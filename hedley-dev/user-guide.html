@@ -20,8 +20,8 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
 						integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=desert" defer
-						integrity="sha384-Wy6yBc5mOi+pD3L2F//P7hAMCFxd+BuH2N75+ON4LvKDlmiggQn4Qaycythht5Xd" crossorigin="anonymous"></script>
+		<script src="https://cdn.rawgit.com/google/code-prettify/f425d31c/loader/run_prettify.js?lang=css&amp;skin=desert" defer
+						integrity="sha384-3+mjTIH6k3li4tycpEniAI83863YpLyJGB/hdI15inFZcAQK3IeMdXSgnoPkTzHn" crossorigin="anonymous"></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
 						integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -79,15 +79,15 @@
 			</p>
 
 			<p>
-				C, like C++, gives the programmer a huge amount of control
-				over what the computer actually does. While this makes it
-				relatively easy to write efficient code, it also make it
+				Like C++, C gives the programmer a huge amount of control
+				over what the computer actually does. While this does make it
+				relatively easy to write efficient code, it also makes it
 				relatively easy to write code which crashes. Higher level
 				lanuages can often provide descriptive error messages at
-				run-time, but with C and C++, there is often a single run-time
+				run-time, but with C/C++ there is often a single run-time
 				error message: <q>Segmentation fault (core dumped)</q>, and
 				that's if you get lucky enough to actually see an error
-				message! Often, the program can keep running, but generate
+				message! Often, the program can keep running but generate
 				data which is complete garbage or, even worse, data which is
 				just slightly incorrect (which is much harder to spot).
 			</p>
@@ -96,9 +96,10 @@
 				To make up for the lack of run-time errors, compilers and
 				static analyzers instead try to generate <em>compile</em>-time
 				errors.	With a few simple annotations, you can give compilers
-				and static analyzers a more information about how your program
-				is supposed to work, which means they have a better chance of
-				telling you when you make a mistake.
+				and static analyzers more information about how your program
+				is <em>supposed</em> to work, which gives them have a better
+				chance of informing you when you, or someone using your API,
+				make a mistake.
 			</p>
 
 			<p>
@@ -110,12 +111,113 @@
 			<p>
 				Unfortunately, these annotations don't work everywhere.
 				Different compilers and static analyzers support different
-				annotations, which is where Hedley comes in.	Hedley uses the
-				preprocessor to determine which annotations will work and
-				which won't.	Annotations which work are defined to the
-				compiler-specific version, while unsupported annotations will
-				be defined away.
+				annotations, which means it's easy to end up with something
+				like this:
 			</p>
+
+			<pre class="prettyprint lang-c">#if !defined(__has_attribute)
+#define __has_attribute(attr) 0
+#endif
+
+#if defined(__STDC_VERSION__) &amp;&amp; __STDC_VERSION__ &gt;= 201112L
+_Noreturn
+#elif defined(__clang) &amp;&amp; __has_attribute(noreturn)
+__attribute__((__noreturn__))
+#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 2))
+__attribute__((__noreturn__))
+#elif defined(_MSC_VER) &amp;&amp; _MSC_VER &gt;= 1310
+_declspec(noreturn)
+#endif
+#if defined(__clang) &amp;&amp; __has_attribute(nonnull)
+__attribute__((__nonnull__(1,2)))
+#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 3))
+__attribute__((__nonnull__(1,2)))
+#endif
+#if (defined(__clang) &amp;&amp; __has_attribute(format)) || (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 1)))
+#if (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 4)) &amp;&amp; defined(__MINGW32__)
+#if !defined(__USE_MINGW_ANSI_STDIO)
+__attribute__((__format__(ms_printf, 2, 3)))
+#else
+__attribute__((__format__(gnu_printf, 2, 3)))
+#endif
+#elif defined(__MINGW32__)
+/* Nothing */
+#else
+__attribute__((__format__(printf, 2, 3)))
+#endif
+#endif
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
+
+			<p>
+				In all honesty, you're unlikely to see code like that in the
+				wild.  Generally people will just omit the attributes
+				altogether, or include an (over-)simplified version like:
+			</p>
+
+			<pre class="prettyprint lang-c">#if defined(__GNUC__)
+__attribute__(noreturn)
+__attribute__((__format__(printf, 2, 3)))
+__attribute__((__nonnull__(1,2)))
+#elif defined(_MSC_VER)
+__declspec(noreturn)
+#endif
+void print_fatal_error(FILE* fp, const char* fmt, ...)</pre>
+
+			<p>
+				You can probably already spot some issues, including:
+			</p>
+
+			<ul>
+				<li>
+					Portability:
+					<ul>
+						<li>
+							GCC before 4.4 will fail since it doesn't support format
+							string checking.  Some older versions would also fail
+							because of the other attributes (<var>nonnull</var>
+							and <var>noreturn</var>).
+						</li>
+						<li>
+							MSVC before version 13.10 (included in Visual Studio
+							2003) will fail since it doesn't support
+							the <var>noreturn</var> declspec.
+						</li>
+					</ul>
+				</li>
+				<li>
+					Mingw will likely fail because it will expect standard C
+					format strings, but MSVC's format string implementation
+					deviates significantly from C99.
+				</li>
+				<li>
+					C11-compilers which don't masquerade as either GCC or MSVC
+					will not be annotated with <var>_Noreturn</var>, which is an
+					important static-analysis and optimization hint.
+				</li>
+			</ul>
+
+			<p>
+				Hedley uses the preprocessor to determine which annotations
+				will work and which won't, effectively moving all those messy
+				ifdefs out of your code and into Hedley.  Annotations which
+				work are defined to the compiler-specific version, while
+				unsupported annotations will be defined away.  This allows the
+				first example (the really ugly one) to be simplified to
+				something like:
+			</p>
+
+			<pre class="prettyprint lang-c">HEDLEY_NO_RETURN
+HEDLEY_NON_NULL(1,2)
+HEDLEY_PRINTF_FORMAT(2,3)
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
+
+			<p>
+				Not only is this vastly easier to write, but it's easy enough
+				to read that it helps document your code, meaning it's useful
+				even if your compiler doesn't support the annotations in
+				question.
+			</p>
+
 		</section>
 
 		<section class="container">
@@ -133,7 +235,7 @@
 
 			<p>
 				You can copy the header to your project if you want (it's
-				MIT-licensed), or use a git submodule.  You don't need to
+				CC0-licensed), or use a git submodule.  You don't need to
 				change the prefix (&quot;HEDLEY_&quot;) or name
 				(&quot;hedley.h&quot;), but if you want to feel free.  I would
 				appreciate it if you keep the link back to the original project,
@@ -226,8 +328,55 @@ cc1: all warnings being treated as errors</pre>
 				Of course, <code>HEDLEY_NON_NULL</code> is far from the only
 				macro Hedley supports.  See
 				the <a href="api-reference.html">API Reference</a> for the
-				full list and lots of examples.
+				full list and lots of examples.  There are macros for:
 			</p>
+
+			<dl>
+			  <dt><a href="api-reference.html#static-analysis">Static Analysis</a></dt>
+			  <dd>
+			    <p>
+			      Macros which help you descibe your API
+			      to the compiler and/or static analyzers,
+			      giving your users helpful warnings when
+			      the misuse your API, without false
+			      positives.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#optimizations">Optimizations</a></dt>
+			  <dd>
+			    <p>
+			      Tell the compiler what you're doing (or
+			      what you want it to do) so compiled code
+			      is faster.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#public-apis">Managing Public APIs</a></dt>
+			  <dd>
+			    <p>
+			      Macros which help convey versioning
+			      information, when symbols are are added
+			      and deprecated, and symbol visibility.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#platform-detection">Platform Detection</a></dt>
+			  <dd>
+			    <p>
+			      Macros Hedley uses to detect the
+			      platform.
+			    </p>
+			  </dd>
+
+			  <dt><a href="api-reference.html#miscellaneous">Miscellaneous</a></dt>
+			  <dd>
+			    <p>
+			      Assorted macros which are useful, but
+			      don't really fit anywhere else.
+			    </p>
+			  </dd>
+			</dl>
 		</section>
 
 		<section class="container">
@@ -245,11 +394,11 @@ cc1: all warnings being treated as errors</pre>
 			<p>
 				As an example, <code>HEDLEY_NON_NULL</code> uses
 				GCC's <var>nonnull</var> function attribute where it is
-				available (a lot of compilers pretend to be GCC, and implement
-				it).	Other macros have different implementations on different
+				available (a lot of compilers pretend to be GCC and implement
+				it).  Other macros have different implementations on different
 				platforms; for example, <code>HEDLEY_INLINE</code> is
 				implemented as <code>inline</code> if you are compiling in C99
-				or greater mode.	If not, there is the
+				or greater mode.  If not, there is the
 				GNU <code>__inline__</code> extension on GCC-compatible
 				compilers, or <code>__inline</code> for Microsoft Visual C++.
 				Some features are also only enabled for certain versions of
@@ -452,8 +601,8 @@ foo_qux(void);</pre>
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
    <span class="text-warning">foo_qux()</span>;
-   ^~~~~~~~~~~~~~~~~~~~~~~~~
-$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
+   ^~~~~~~~~~~~~~~~~~~~~~~~~</pre>
+<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_1 test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
@@ -464,8 +613,8 @@ In file included from <strong>test.c:1:0:</strong>
  <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
 <strong>test.c:7:3:</strong> <span class="text-warning">warning:</span> call to ‘<strong>foo_qux</strong>’ declared with attribute warning: Not available until 1.2
    <span class="text-warning">foo_qux()</span>;
-   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span>
-$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
+   <span class="text-warning">^~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
+<pre class="console">$ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
@@ -473,8 +622,8 @@ $ cc -DFOO_TARGET_VERSION=FOO_VERSION_1_2 test.c
 In file included from <strong>test.c:1:0:</strong>
 <strong>test.h:45:1:</strong> <span class="text-info">note:</span> declared here
  <span class="text-info">foo_baz</span>(void) {
- <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
-$ cc test.c
+ <span class="text-info">^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></pre>
+<pre class="console">$ cc test.c
 <strong>test.c:</strong> In function ‘main’:
 <strong>test.c:6:3:</strong> <span class="text-warning">warning:</span> ‘<strong>foo_baz</strong>’ is deprecated: Since 1.1; use foo_qux [<span class="text-warning">-Wdeprecated-declarations</span>]
    <span class="text-warning">foo_baz</span>();
@@ -594,7 +743,7 @@ In file included from <strong>test.c:1:0:</strong>
 
 			<p>
 				Code licensed under
-				an <a href="https://opensource.org/licenses/MIT"> MIT
+				a <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0
 				License</a>, text under a <a rel="license"
 				href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
 				Commons Attribution-ShareAlike 4.0 International License</a>.

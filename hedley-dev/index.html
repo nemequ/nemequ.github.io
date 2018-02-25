@@ -66,7 +66,7 @@
 					works with virtually any C or C++ compiler.
 				</p>
 
-				<p class="btn-group" role="group">
+				<p class="btn-group hidden-xs" role="group">
 					<a class="btn btn-primary btn-lg" href="user-guide.html"><i class="fa fa-lg fa-map"></i> User Guide</a>
 					<a class="btn btn-default btn-lg" href="api-reference.html"><i class="fa fa-lg fa-book"></i> API Reference</a>
 					<a class="btn btn-default btn-lg" href="https://github.com/nemequ/hedley"><i class="fa fa-lg fa-github"></i> GitHub Project</a>
@@ -127,7 +127,10 @@
 						<p>
 							That said, the real reason is that I constantly noticed
 							that other projects didn't do the same thing.  They
-							simply omitted the features that Hedley makes available.
+							simply omitted the features that Hedley makes available…
+							features which help improve security, stability, and
+							performance.  I want software I rely on to be safe,
+							stable, and fast, even if I didn't write it.
 						</p>
 					</dd>
 
@@ -147,10 +150,9 @@
 					<dt class="h4">What is the license?</dt>
 					<dd>
 						<p>
-							<a href="https://opensource.org/licenses/MIT">MIT</a>,
-							which is a highly permissive license.  It's about as
-							close to putting something in the public domain as you
-							can get.
+							<a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>,
+							which is basically an attempt to put it in the public domain,
+							or as close as possible.
 						</p>
 					</dd>
 
@@ -158,7 +160,7 @@
 					<dd>
 						<p>
 							You can, but if you're exposing Hedley in your public
-							API please change the namespace from <var>HEDLEY<var> to
+							API please change the namespace from <var>HEDLEY</var> to
 							something else.  If you don't it could cause problems
 							for any other libraries which are using Hedley since
 							your stripped-down version may not provide a macro
@@ -172,7 +174,7 @@
 					<dd>
 						<p>
 							Maybe.  The first rule is that if a feature isn't known
-							to be supported it must be safe to fall back on puce
+							to be supported it must be safe to fall back on pure
 							C89.  For example, if the compiler doesn't have an
 							implementation for <code>HEDLEY_INLINE</code>, it's not
 							a big deal; the macro is compiled down to nothing and
@@ -188,25 +190,6 @@
 							<code>__declspec(thread)</code>, etc.) the behavior is
 							completely different and the resulting program will
 							almost certainly be broken.
-						</p>
-
-						<p>
-							Here are some complementary projects which provide
-							cross-platform support for some features which Hedley
-							cannot:
-						</p>
-
-						<dl class="dl-horizontal">
-							<dt>Threads &amp; <abbr title="Thread-Local Storage">TLS</abbr></dt>
-							<dd>
-								<a href="https://tinycthread.github.io/">TinyCThread</a>
-							</dd>
-						</dl>
-
-						<p>
-							If you have any suggestions for this list,
-							please <a href="https://github.com/nemequ/hedley/issues">let
-							us know</a>!
 						</p>
 					</dd>
 
@@ -252,7 +235,7 @@
 
 			<p>
 				Code licensed under
-				an <a href="https://opensource.org/licenses/MIT"> MIT
+				a <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0
 				License</a>, text under a <a rel="license"
 				href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
 				Commons Attribution-ShareAlike 4.0 International License</a>.

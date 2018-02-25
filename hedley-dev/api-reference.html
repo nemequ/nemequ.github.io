@@ -20,8 +20,8 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
 						integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=desert" defer
-						integrity="sha384-Wy6yBc5mOi+pD3L2F//P7hAMCFxd+BuH2N75+ON4LvKDlmiggQn4Qaycythht5Xd" crossorigin="anonymous"></script>
+		<script src="https://cdn.rawgit.com/google/code-prettify/f425d31c/loader/run_prettify.js?lang=css&amp;skin=desert" defer
+						integrity="sha384-3+mjTIH6k3li4tycpEniAI83863YpLyJGB/hdI15inFZcAQK3IeMdXSgnoPkTzHn" crossorigin="anonymous"></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" defer
 						integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -124,6 +124,8 @@
 					<li><code><a href="#HEDLEY_WARN_UNUSED_RESULT">HEDLEY_WARN_UNUSED_RESULT</a></code></li>
 					<li><code><a href="#HEDLEY_SENTINEL">HEDLEY_SENTINEL(position)</a></code></li>
 					<li><code><a href="#HEDLEY_NO_RETURN">HEDLEY_NO_RETURN</a></code></li>
+					<li><code><a href="#HEDLEY_FALL_THROUGH">HEDLEY_FALL_THROUGH</a></code></li>
+					<li><code><a href="#HEDLEY_RETURNS_NON_NULL">HEDLEY_RETURNS_NON_NULL</a></code></li>
 					<li><code><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></code></li>
 					<li><code><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(...)</a></code></li>
 					<li><code><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></code></li>
@@ -137,13 +139,20 @@
 						parameters”.	If you've never heard that term before,
 						don't worry; not many people have!
 						See <a href="https://www.securecoding.cert.org/confluence/display/c/API05-C.+Use+conformant+array+parameters">CERT's
-							C Coding Standard API05-C</a> for information.
+						C Coding Standard API05-C</a> for information.
 					</p>
 
 					<p>
 						If the compiler is known to support conformant array
 						parameters, the macro will expand to <code>param</code>.
 						Otherwise it will expand to nothing.
+					</p>
+
+					<p>
+						Note that you can only reference parameters which
+						come <em>before</em> the array; in the example, if
+						the <code>n</code> and <code>elems</code> parameters were
+						reversed this would likely result in an error.
 					</p>
 
 					<div class="panel panel-default">
@@ -166,31 +175,24 @@
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td>C99+</td>
 										<td>Identity</td>
 									</tr>
 									<tr>
-										<th>GCC</th>
-										<td></td>
+										<th>PGI</th>
+										<td>&lt; 17.10</td>
 										<td></td>
 									</tr>
 									<tr>
-										<th>MSVC</th>
-										<td></td>
-										<td></td>
+										<th>PGI</th>
+										<td>17.10+ in C99+ mode</td>
+										<td>Identity</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-
-					<p>
-						Note that you can only reference parameters which
-						come <em>before</em> the array; in the example, if
-						the <code>n</code> and <code>elems</code> parameters were
-						reversed this would likely result in an error.
-					</p>
 				</section>
 
 				<section id="HEDLEY_WARN_UNUSED_RESULT" class="container">
@@ -223,19 +225,34 @@ bool do_something(void);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
+									</tr>
+									<tr>
+										<th>C++</th>
+										<td>C++17</td>
+										<td><code>[[nodiscard]]</code></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>3.4.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bwarn_005funused_005fresult_007d-function-attribute-3260"><code>attribute((warn_unused_result))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bwarn_005funused_005fresult_007d-function-attribute-3260"><code>__attribute__((warn_unused_result))</code></a></td>
 									</tr>
 									<tr>
-										<th>MSVC</th>
-										<td>11.0 (VS 2012)</td>
-										<td><a href="https://msdn.microsoft.com/en-us/library/jj159529(v=vs.110).aspx"><code>_Check_return_</code></a></td>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((warn_unused_result))</code></td>
+									</tr>
+									<tr>
+										<th><abbr title="Source Annotation Language">SAL</abbr> (MSVC)</th>
+										<td>2.0 (MSVC 11.0 / VS 2012)</td>
+										<td><a href="https://docs.microsoft.com/en-us/visualstudio/code-quality/annotating-function-behavior"><code>_Check_return_</code></a></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.15 (ODS 12.6), <a href="https://community.oracle.com/thread/4124723">C++-only</a></td>
+										<td><code>__attribute__((__warn_unused_result__))</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -278,19 +295,24 @@ void add_children(Context* ctx, ...);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>4.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bsentinel_007d-function-attribute-3252"><code>attribute((sentinel(position)))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bsentinel_007d-function-attribute-3252"><code>__attribute__((__sentinel__(position)))</code></a></td>
 									</tr>
 									<tr>
-										<th>MSVC</th>
-										<td></td>
-										<td></td>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__sentinel__(position)))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>5.04+</td>
+										<td><code>__attribute__((__sentinel__(position)))</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -333,19 +355,164 @@ void log_fatal(const char* message);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td>C11+</td>
-										<td>_Noreturn</td>
+										<td><code>_Noreturn</code></td>
+									</tr>
+									<tr>
+										<th>C++</th>
+										<td>C++11+</td>
+										<td><code>[[noreturn]]</code></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>3.2.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoreturn_007d-function-attribute-3241"><code>attribute((noreturn))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoreturn_007d-function-attribute-3241"><code>__attribute__((__noreturn__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__noreturn__))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+ (<abbr title="Oracle Solaris Studio">OSS</abbr> 12.2)</td>
+										<td><code>__attribute__((__noreturn__))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__noreturn__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
 										<td>7.1+ (VS 2003)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/k6ktzx3s.aspx"><code>__declspec(nereturn)</code></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_FALL_THROUGH" class="container">
+					<h3><code>HEDLEY_FALL_THROUGH</code> <a href="#HEDLEY_FALL_THROUGH"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Explicitly tell the compiler to fall through a case in the
+						switch statement. Without this, some compilers may think
+						you accidentally omitted a &quot;break;&quot; and emit a
+						diagnostic.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">switch (foo) {
+	case FOO:
+		handle_foo();
+		HEDLEY_FALL_THROUGH;
+	case BAR:
+		handle_bar();
+		break;
+}</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>C</th>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th>C++</th>
+										<td>C++17+</td>
+										<td><code>[[fallthrough]]</code></td>
+									</tr>
+									<tr>
+										<th>Clang++</th>
+										<td></td>
+										<td><code>[[clang::fallthrough]]</code></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>7+ (in C++11 - C++14 mode)</td>
+										<td><code>[[gnu::fallthrough]]</code></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>7+</td>
+										<td><code>__attribute__((__fallthrough__))</code></td>
+									</tr>
+									<tr>
+										<th><abbr title="Source Annotation Language">SAL</abbr></th>
+										<td><code>defined(_fallthrough)</code> (2.0)</td>
+										<td><code>_fallthrough</code></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_RETURNS_NON_NULL" class="container">
+					<h3><code>HEDLEY_RETURNS_NON_NULL</code> <a href="#HEDLEY_RETURNS_NON_NULL"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						The function will alwoys return a non-null value.
+					</p>
+
+					<p>
+						This may allow the compiler to skip some null-pointer
+						checks.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">HEDLEY_RETURNS_NON_NULL
+void* foo(void);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>C</th>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th>GCC</th>
+										<td>4.9+</td>
+										<td><code>__attribute__((__returns_nonnull__))</code></td>
+									</tr>
+									<tr>
+										<th><abbr title="Source Annotation Language">SAL</abbr></th>
+										<td><code>defined(_Ret_notnull_)</code> (2.0)</td>
+										<td><code>_Ret_notnull_</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -396,14 +563,29 @@ void log_fatal(const char* message);</pre>
 										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005funreachable-4214"><code>__builtin_unreachable()</code></a></td>
 									</tr>
 									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__builtin_unreachable()</code></td>
+									</tr>
+									<tr>
 										<th>MSVC</th>
 										<td>7.1+ (VS 2003)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/1b3fsfxw.aspx"><code>__assume(0)</code></a></td>
 									</tr>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td>C89+ (with <var>assert.h</var>)</td>
 										<td><code>assert(0)</code></td>
+									</tr>
+									<tr>
+										<th>C</th>
+										<td>C89+ (with <var>stdlib.h</var>)</td>
+										<td><code>abort()</code></td>
+									</tr>
+									<tr>
+										<th>C</th>
+										<td></td>
+										<td</td>
 									</tr>
 								</tbody>
 							</table>
@@ -450,14 +632,24 @@ void do_something(Context* ctx_cant_be_null, Foo* maybe_null, Bar* cant_be_null)
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>3.3.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnonnull_007d-function-attribute-3238"><code>attribute((nonnull(__VA_ARGS__)))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnonnull_007d-function-attribute-3238"><code>__attribute__((__nonnull__(__VA_ARGS__)))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__nonnull__(__VA_ARGS__)))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__nonnull__(__VA_ARGS__)))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -512,34 +704,47 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>3.1.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(printf, string_idx, fist_to_check)))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>__attribute__((format(__printf__, string_idx, first_to_check)))</code></a></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>4.4.0+ + MingW + !defined(__USE_MINGW_ANSI_STDIO)</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(ms_printf, string_idx, fist_to_check)))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>__attribute__((format(ms_printf, string_idx, first_to_check)))</code></a></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>4.4.0+ + MingW + defined(__USE_MINGW_ANSI_STDIO)</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>attribute((format(gnu_printf, string_idx, fist_to_check)))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bformat_007d-function-attribute-3211"><code>__attribute__((format(gnu_printf, string_idx, first_to_check)))</code></a></td>
 									</tr>
 									<tr>
-										<th>MSVC</th>
-										<td></td>
-										<td></td>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((format(__printf__, string_idx, first_to_check)))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>5.06+</td>
+										<td><code>__attribute__((format(__printf__, string_idx, first_to_check)))</code></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
+
+					<p>
+						Note that there
+						is <code>_Printf_format_string_</code> <abbr title="Source
+						Annotation Language">SAL</abbr> macro, but it must be
+						placed in a different location and cannot serve as an
+						implementation for <code>HEDLEY_PRINTF_FORMAT</code>.
+					</p>
 				</section>
 			</div>
 		</section>
@@ -582,7 +787,7 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 						<div class="panel-heading">Example</div>
 						<div class="panel-body">
 							<pre class="prettyprint">if(HEDLEY_LIKELY(foo != NULL)) {
-do_something_with_foo(foo);
+	do_something_with_foo(foo);
 	return true;
 } else {
 	return false;
@@ -605,12 +810,27 @@ do_something_with_foo(foo);
 									<tr>
 										<th>GCC</th>
 										<td>3.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0, 1)</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect(!!(expr), 1)</code></a></td>
 									</tr>
 									<tr>
-										<th>Standard C</th>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__builtin_expect(!!(expr), 1)</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.12+ (Solaris Studio 12.3+)</td>
+										<td><code>__builtin_expect(!!(expr), 1)</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__builtin_expect(!!(expr), 1)</code></td>
+									</tr>
+									<tr>
+										<th>C</th>
 										<td>Any</td>
-										<td><code>((expr) != 0)</code></td>
+										<td><code>(!!(expr))</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -657,12 +877,27 @@ ctx-&gt;foo = bar;</pre>
 									<tr>
 										<th>GCC</th>
 										<td>3.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect((expr) != 0, 0)</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005fexpect-4211"><code>__builtin_expect(!!(expr), 0)</code></a></td>
 									</tr>
 									<tr>
-										<th>Standard C</th>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__builtin_expect(!!(expr), 0)</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.12+ (Solaris Studio 12.3+)</td>
+										<td><code>__builtin_expect(!!(expr), 0)</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__builtin_expect(!!(expr), 0)</code></td>
+									</tr>
+									<tr>
+										<th>C</th>
 										<td>Any</td>
-										<td><code>((expr) != 0)</code></td>
+										<td><code>(!!(expr))</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -671,7 +906,7 @@ ctx-&gt;foo = bar;</pre>
 
 					<p>
 						Note: assertion functions are typically already annotated
-						with something like this.	You probably shouldn't be
+						with something like this.  You probably shouldn't be
 						adding <code>HEDLEY_UNLIKELY</code> to all your
 						assertions.
 					</p>
@@ -690,7 +925,7 @@ ctx-&gt;foo = bar;</pre>
 					<div class="panel panel-default">
 						<div class="panel-heading">Example</div>
 						<div class="panel-body">
-							<pre class="prettyprint">
+						<pre class="prettyprint">
 HEDLEY_MALLOC
 uint8_t* create_buffer(void);</pre>
 						</div>
@@ -709,7 +944,7 @@ uint8_t* create_buffer(void);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
@@ -717,6 +952,21 @@ uint8_t* create_buffer(void);</pre>
 										<th>GCC</th>
 										<td>3.1.0+</td>
 										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bmalloc_007d-function-attribute-3224"><code>__attribute__((__malloc__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__malloc__))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+</td>
+										<td><code>__attribute__((__malloc__))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__malloc__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -760,14 +1010,29 @@ bool multiply(int* product, int a, int b);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>4.3.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Inline.html#index-inline-functions-3586"><code>__inline__</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bpure_007d-function-attribute-3245"><code>__attribute__((__pure__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__pure__))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+</td>
+										<td><code>__attribute__((__pure__))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__pure__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -819,6 +1084,21 @@ int multiply(int a, int b);</pre>
 										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bconst_007d-function-attribute-3201"><code>__attribute__((__const__))</code></a></td>
 									</tr>
 									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__const__))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+</td>
+										<td><code>__attribute__((__const__))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__const__))</code></td>
+									</tr>
+									<tr>
 										<th>Other</th>
 										<td></td>
 										<td><code>HEDLEY_PURE</code></td>
@@ -857,7 +1137,7 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td>C99+</td>
 										<td><code>restrict</code></td>
 									</tr>
@@ -867,9 +1147,24 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Restricted-Pointers.html"><code>__restrict</code></a></td>
 									</tr>
 									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__restrict</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__restrict</code></td>
+									</tr>
+									<tr>
 										<th>MSVC</th>
 										<td>14+ (VS 2005)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/5ft82fed.aspx"><code>__restrict</code></a></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.8+ (Solaris Studio 11)</td>
+										<td><code>_Restrict</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -915,7 +1210,7 @@ void do_something_quickly(void);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td>C99+</td>
 										<td><code>inline</code></td>
 									</tr>
@@ -923,6 +1218,16 @@ void do_something_quickly(void);</pre>
 										<th>GCC</th>
 										<td>4.3.0+</td>
 										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Inline.html#index-inline-functions-3586"><code>__inline__</code></a></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>6.2+</td>
+										<td><code>__inline__</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__inline</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -972,7 +1277,22 @@ void do_something_quickly(void);</pre>
 									<tr>
 										<th>GCC</th>
 										<td>4.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>attribute((always_inline))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>__attribute__((always_inline))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((always_inline))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+ (<abbr title="Oracle Developer Studio">ODS</abbr> 12.2)</td>
+										<td><code>__attribute__((always_inline))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((always_inline))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -1015,14 +1335,29 @@ void do_something(void);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>4.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoinline_007d-function-attribute-3237"><code>attribute((noinline))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnoinline_007d-function-attribute-3237"><code>__attribute__((__noinline__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__noinline__))</code></td>
+									</tr>
+									<tr>
+										<th>Oracle</th>
+										<td>5.11+ (<abbr title="Oracle Developer Studio">ODS</abbr> 12.2)</td>
+										<td><code>__attribute__((__noinline__))</code></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td><code>__attribute__((__noinline__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -1068,19 +1403,29 @@ void do_something(void);</pre>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Standard C</th>
+										<th>C</th>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<th>GCC</th>
 										<td>3.3.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnothrow_007d-function-attribute-3243"><code>attribute((nothrow))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bnothrow_007d-function-attribute-3243"><code>__attribute__((__nothrow__))</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__attribute__((__nothrow__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
 										<td>13.10+ (VS 7.1)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/49147z04.aspx"><code>__declspec(nothrow)</code></a></td>
+									</tr>
+									<tr>
+										<th>ARM</th>
+										<td>4.1+</td>
+										<td<code>__declspec(nothrow)</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1156,7 +1501,7 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td><code>(((major) * 1000000) + ((minor) * 1000) + (revision))</code></td>
 								</tr>
@@ -1193,7 +1538,7 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td><code>((version) / 1000000)</code></td>
 								</tr>
@@ -1230,7 +1575,7 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td><code>(((version) % 1000000) / 1000)</code></td>
 								</tr>
@@ -1267,7 +1612,7 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td><code>((version) % 1000)</code></td>
 								</tr>
@@ -1310,19 +1655,44 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
+								</tr>
+								<tr>
+									<th>C++</th>
+									<td>C++14</td>
+									<td><code>[[deprecated(&quot;Since &quot; #since)]]</code></td>
+								</tr>
+								<tr>
+									<th>Clang</th>
+									<td></td>
+									<td><code>__attribute__((__deprecated__(&quot;Since &quot; #since)))<code></td>
 								</tr>
 								<tr>
 									<th>GCC</th>
 									<td>4.5.0+</td>
-									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>attribute((deprecated(&quot;Since &quot; #since)))</code></a></td>
+									<td><code>__attribute__((__deprecated__(&quot;Since &quot; #since)))<code></td>
 								</tr>
 								<tr>
 									<th>GCC</th>
 									<td>4.0.0+</td>
-									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>attribute((deprecated))</code></a></td>
+									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>__attribute__((deprecated))</code></a></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>__attribute__((__deprecated__(&quot;Since &quot; #since)))<code></td>
+								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>5.06+</td>
+									<td><code>__attribute__((__deprecated__(&quot;Since &quot; #since)))<code></td>
+								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>4.1+</td>
+									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>__attribute__((deprecated))</code></a></td>
 								</tr>
 								<tr>
 									<th>MSVC</th>
@@ -1377,19 +1747,39 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
+								</tr>
+								<tr>
+									<th>C++</th>
+									<td>C++14</td>
+									<td><code>[[deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)]]</code></td>
 								</tr>
 								<tr>
 									<th>GCC</th>
 									<td>4.5.0+</td>
-									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>attribute((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></a></td>
+									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></a></td>
 								</tr>
 								<tr>
 									<th>GCC</th>
 									<td>4.0.0+</td>
-									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>attribute((deprecated))</code></a></td>
+									<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bdeprecated_007d-function-attribute-3206"><code>__attribute__((deprecated))</code></a></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></td>
+								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>5.06+</td>
+									<td><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></td>
+								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>4.1+</td>
+									<td><code>__attribute__((deprecated))</code></td>
 								</tr>
 								<tr>
 									<th>MSVC</th>
@@ -1443,7 +1833,7 @@ void do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
 								</tr>
@@ -1510,6 +1900,7 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_PUSH">HEDLEY_DIAGNOSTIC_PUSH</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED">HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</a></code></li>
+					<li><code><a href="#HEDLEY_PRAGMA">HEDLEY_PRAGMA(value)</a></code></li>
 				</ul>
 			</div>
 
@@ -1688,12 +2079,12 @@ do_something(void);</pre>
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
 								</tr>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td>C11+</td>
 									<td><code>_Static_assert(expr, message)</code></td>
 								</tr>
@@ -1711,6 +2102,17 @@ do_something(void);</pre>
 						</table>
 					</div>
 				</div>
+
+        <p>
+					Pádraig Brady has
+					some <a href="https://www.pixelbeat.org/programming/gcc/static_assert.html">additional
+					macros</a>, but they don't work in all situations; for
+					example, some versions don't work in the global scope,
+					others don't work in the middle of a function, <i>etc.</i>
+					However, if you're careful about what version you use and
+					where, it's possible to cover more cases
+					than <code>HEDLEY_STATIC_ASSERT</code>.
+				</p>
 			</section>
 
 			<section id="HEDLEY_DIAGNOSTIC_PUSH" class="container">
@@ -1747,7 +2149,7 @@ static void bar(void) {
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
 								</tr>
@@ -1813,7 +2215,7 @@ static void bar(void) {
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
 								</tr>
@@ -1877,7 +2279,7 @@ static void bar(void) {
 							</thead>
 							<tbody>
 								<tr>
-									<th>Standard C</th>
+									<th>C</th>
 									<td></td>
 									<td></td>
 								</tr>
@@ -1906,6 +2308,53 @@ static void bar(void) {
 					</div>
 				</div>
 			</section>
+
+			<section id="HEDLEY_PRAGMA" class="container">
+				<h3><code>HEDLEY_PRAGMA(value)</code> <a href="#HEDLEY_PRAGMA"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Do not emit warnings when using deprecated symbols.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_PRAGMA(omp simd)</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td>C99+</td>
+									<td><code>_Pragma(#value)</code></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(value)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
 		</section>
 
 		<section id="platform-detection" class="container">
@@ -1922,6 +2371,11 @@ static void bar(void) {
 					<li><code><a href="#HEDLEY_GCC_NOT_CLANG_VERSION_CHECK">HEDLEY_GCC_NOT_CLANG_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_MSVC_VERSION_CHECK">HEDLEY_MSVC_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_INTEL_VERSION_CHECK">HEDLEY_INTEL_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_PGI_VERSION_CHECK">HEDLEY_PGI_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_SUNPRO_VERSION_CHECK">HEDLEY_SUNPRO_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_EMSCRIPTEN_VERSION_CHECK">HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_ARM_VERSION_CHECK">HEDLEY_ARM_VERSION_CHECK(major,minor,patch)</a></code></li>
+
 					<li><code><a href="#HEDLEY_CLANG_HAS_ATTRIBUTE">HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_BUILTIN">HEDLEY_CLANG_HAS_BUILTIN(builtin)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_FEATURE">HEDLEY_CLANG_HAS_FEATURE(feature)</a></code></li>
@@ -2010,6 +2464,10 @@ static void bar(void) {
 					<dt>patch</dt>
 					<dd>Patch level.</dd>
 				</dl>
+
+				<p>
+					Note that version numbers don't match marketing numbers; for version numbers see the <a href="https://sourceforge.net/p/predef/wiki/Compilers/#microsoft-visual-c">Microsoft Visual C++</a> section of the <a href="https://sourceforge.net/p/predef/wiki/Home/">Pre-defined C/C++ Compiler Macros</a> site.
+				</p>
 			</section>
 
 			<section id="HEDLEY_INTEL_VERSION_CHECK" class="container">
@@ -2018,6 +2476,100 @@ static void bar(void) {
 				<p>
 					Determine whether the compiler in use identifies itself as a
 					version of Intel C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
+			<section id="HEDLEY_PGI_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_PGI_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_PGI_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of PGI C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
+			<section id="HEDLEY_SUNPRO_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_SUNPRO_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_SUNPRO_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of Sun/Oracle C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+
+				<p>
+					Note that there is a non-trivial mapping between the version
+					used for marketing and the version advertised by the
+					compiler. See
+					<a href="https://sourceforge.net/p/predef/wiki/Compilers/#oracle-solaris-studio">Pre-defined
+					Compiler Macros</a> for information about how they map. For
+					example, Oracle Devolper Studio 12.6 corresponds
+					to <code>HEDLEY_SUNPRO_VERSION_CHECK(5,15,0)</code>.
+				</p>
+			</section>
+
+			<section id="HEDLEY_EMSCRIPTEN_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_EMSCRIPTEN_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of Emscripten C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
+			<section id="HEDLEY_ARM_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_ARM_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_ARM_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of ARM C/C++ compiler greater than or equal to
 					that specified by the paremeters.
 				</p>
 
@@ -2045,6 +2597,12 @@ static void bar(void) {
 					<dt>attribute</dt>
 					<dd>Attribute to check.</dd>
 				</dl>
+
+				<p>
+					Note that, while this macro contains &quot;_CLANG_&quot;, it
+					is not necessarily specific to clang. For example, recent
+					versions of Oracle Developer Studio are also supported.
+				</p>
 			</section>
 
 			<section id="HEDLEY_CLANG_HAS_BUILTIN" class="container">
@@ -2233,7 +2791,7 @@ static void bar(void) {
 
 			<p>
 				Code licensed under
-				an <a href="https://opensource.org/licenses/MIT"> MIT
+				a <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0
 				License</a>, text under a <a rel="license"
 				href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
 				Commons Attribution-ShareAlike 4.0 International License</a>.
@@ -2243,8 +2801,7 @@ static void bar(void) {
 				Web site based
 				on <a href="http://getbootstrap.com">Bootstrap</a>, using
 				the “Darkly” theme
-				from <a href="https://bootswatch.com/">Bootswatch</a>.<br>
-				Foo
+				from <a href="https://bootswatch.com/">Bootswatch</a>.
 			</p>
 		</footer>
 

@@ -1,0 +1,31 @@
+code {
+  font-family: monospace;
+  background-color: inherit;
+}
+
+pre.console {
+  font-family: monospace;
+  background: #333;
+  color: #fff;
+}
+
+.panel-body > pre.prettyprint {
+  border: 0;
+  background: inherit;
+  margin: 0;
+}
+
+footer.well {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+:lang(la) {
+  font-style: italic;
+}
+
+.qanda > dd {
+  padding-left: 1em;
+  /* border-left: 5px rgb(70,69,69) solid; */
+}
+
