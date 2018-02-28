@@ -110,7 +110,53 @@
 			</div>
 		</section>
 
-		<section class="container">
+		<section class="container" id="changelog">
+			<div class="page-header">
+				<h2>Releases</h2>
+
+				<dl>
+					<dt>v2</dt>
+					<dd>
+						<ul>
+							<li>
+								Support for several additional compilers:
+								<ul>
+									<li>PGI</li>
+									<li>Oracle Developer Studio</li>
+									<li>Emscripten</li>
+									<li>ARM</li>
+									<li>IBM XL C/C++</li>
+								</ul>
+							</li>
+							<li>
+								New macros:
+								<ul>
+									<li><a href="api-reference.html#HEDLEY_FALL_THROUGH">HEDLEY_FALL_THROUH</a></li>
+									<li><a href="api-reference.html#HEDLEY_RETURNS_NON_NULL">HEDLEY_RETURNS_NON_NULL</a></li>
+									<li><a href="api-reference.html#HEDLEY_PRAGMA">HEDLEY_PRAGMA</a></li>
+									<li><a href="api-reference.html#HEDLEY_PGI_VERSION_CHECK">HEDLEY_PGI_VERSION_CHECK</a></li>
+									<li><a href="api-reference.html#HEDLEY_SUNPRO_VERSION_CHECK">HEDLEY_SUNPRO_VERSION_CHECK</a></li>
+									<li><a href="api-reference.html#HEDLEY_EMSCRIPTEN_VERSION_CHECK">HEDLEY_EMSCRIPTEN_VERSION_CHECK</a></li>
+									<li><a href="api-reference.html#HEDLEY_ARM_VERSION_CHECK">HEDLEY_ARM_VERSION_CHECK</a></li>
+									<li><a href="api-reference.html#HEDLEY_IBM_VERSION_CHECK">HEDLEY_IBM_VERSION_CHECK</a></li>
+								</ul>
+							</li>
+							<li>Enhanced support for C++, including using C++ attributes when available.</li>
+							<li>Assorted bug fixes and enhancements.</li>
+						</ul>
+					</dd>
+
+					<dt>v1</dt>
+					<dd>
+						<p>
+							Initial release.
+						</p>
+					</dd>
+				</dl>
+			</div>
+		</section>
+
+		<section class="container" id="faq">
 			<div class="page-header">
 				<h2>Frequently Asked Questions</h2>
 
@@ -160,7 +206,7 @@
 					<dd>
 						<p>
 							You can, but if you're exposing Hedley in your public
-							API please change the namespace from <var>HEDLEY<var> to
+							API please change the namespace from <var>HEDLEY</var> to
 							something else.  If you don't it could cause problems
 							for any other libraries which are using Hedley since
 							your stripped-down version may not provide a macro
@@ -174,7 +220,7 @@
 					<dd>
 						<p>
 							Maybe.  The first rule is that if a feature isn't known
-							to be supported it must be safe to fall back on puce
+							to be supported it must be safe to fall back on pure
 							C89.  For example, if the compiler doesn't have an
 							implementation for <code>HEDLEY_INLINE</code>, it's not
 							a big deal; the macro is compiled down to nothing and
@@ -190,25 +236,6 @@
 							<code>__declspec(thread)</code>, etc.) the behavior is
 							completely different and the resulting program will
 							almost certainly be broken.
-						</p>
-
-						<p>
-							Here are some complementary projects which provide
-							cross-platform support for some features which Hedley
-							cannot:
-						</p>
-
-						<dl class="dl-horizontal">
-							<dt>Threads &amp; <abbr title="Thread-Local Storage">TLS</abbr></dt>
-							<dd>
-								<a href="https://tinycthread.github.io/">TinyCThread</a>
-							</dd>
-						</dl>
-
-						<p>
-							If you have any suggestions for this list,
-							please <a href="https://github.com/nemequ/hedley/issues">let
-							us know</a>!
 						</p>
 					</dd>
 
