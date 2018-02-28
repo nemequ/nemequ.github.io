@@ -2375,15 +2375,20 @@ static void bar(void) {
 					<li><code><a href="#HEDLEY_SUNPRO_VERSION_CHECK">HEDLEY_SUNPRO_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_EMSCRIPTEN_VERSION_CHECK">HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_ARM_VERSION_CHECK">HEDLEY_ARM_VERSION_CHECK(major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_IBM_VERSION_CHECK">HEDLEY_IBM_VERSION_CHECK(major,minor,patch)</a></code></li>
 
 					<li><code><a href="#HEDLEY_CLANG_HAS_ATTRIBUTE">HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</a></code></li>
+					<li><code><a href="#HEDLEY_CLANG_HAS_CPP_ATTRIBUTE">HEDLEY_CLANG_HAS_CPP_ATTRIBUTE(attribute)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_BUILTIN">HEDLEY_CLANG_HAS_BUILTIN(builtin)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_FEATURE">HEDLEY_CLANG_HAS_FEATURE(feature)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_EXTENSION">HEDLEY_CLANG_HAS_EXTENSION(extension)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(attribute)</a></code></li>
 					<li><code><a href="#HEDLEY_CLANG_HAS_WARNING">HEDLEY_CLANG_HAS_WARNING(warning)</a></code></li>
+
 					<li><code><a href="#HEDLEY_GCC_HAS_ATTRIBUTE">HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_GCC_HAS_CPP_ATTRIBUTE">HEDLEY_GCC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_BUILTIN">HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,patch)</a></code></li>
+					<li><code><a href="#HEDLEY_GCC_HAS_FEATURE">HEDLEY_GCC_HAS_BUILTIN(feature,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_EXTENSION">HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,patch)</a></code></li>
 					<li><code><a href="#HEDLEY_GCC_HAS_WARNING">HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</a></code></li>
@@ -2400,8 +2405,13 @@ static void bar(void) {
 				</p>
 
 				<p>
-					Note that <em>many</em> compilers pretend to be GCC; this
-					macro will take them at their word.
+					Note that several compilers masquarade as GCC (by
+					setting <var>__GNUC__</var>, <var>__GNUC_MINOR__</var>,
+					and <var>__GNUC_PATCHLEVEL__</var>). With the exception of
+					the Intel C/C++ compiler, this macro will take them at their
+					word. ICC pretends to be whatever version of GCC is
+					installed, even if it doesn't support all the same features,
+					so this macro will always return false for ICC.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2585,12 +2595,34 @@ static void bar(void) {
 				</dl>
 			</section>
 
+			<section id="HEDLEY_IBM_VERSION_CHECK" class="container">
+				<h3><code>HEDLEY_IBM_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_IBM_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler in use identifies itself as a
+					version of IBM XL C/C++ compiler greater than or equal to
+					that specified by the paremeters.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
 			<section id="HEDLEY_CLANG_HAS_ATTRIBUTE" class="container">
 				<h3><code>HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</code> <a href="#HEDLEY_CLANG_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is clang and supports the
-					specified attribute.
+					Determine whether the compiler supports the specified
+					attribute by using the <code>__has_attribute</code>
+					function-like macro.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2605,12 +2637,28 @@ static void bar(void) {
 				</p>
 			</section>
 
+			<section id="HEDLEY_CLANG_HAS_CPP_ATTRIBUTE" class="container">
+				<h3><code>HEDLEY_CLANG_HAS_CPP_ATTRIBUTE(cpp_attribute)</code> <a href="#HEDLEY_CLANG_CPP_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine whether the compiler supports the specified
+					attribute by using the <code>__has_cpp_attribute</code>
+					function-like macro.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>attribute</dt>
+					<dd>Attribute to check.</dd>
+				</dl>
+			</section>
+
 			<section id="HEDLEY_CLANG_HAS_BUILTIN" class="container">
 				<h3><code>HEDLEY_CLANG_HAS_BUILTIN(builtin)</code> <a href="#HEDLEY_CLANG_HAS_BUILTIN"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is clang and supports the
-					specified built-in.
+					Determine whether the compiler supports the specified
+					builtin by using the <code>__has_builtin</code>
+					function-like macro.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2637,8 +2685,10 @@ static void bar(void) {
 				<h3><code>HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute)</code> <a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is clang and supports the
-					specified declspec attribute.
+					Determine whether the compiler supports the specified
+					declspec attribute by using
+					the <code>__has_declspec_attribute</code> function-like
+					macro.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2651,8 +2701,9 @@ static void bar(void) {
 				<h3><code>HEDLEY_CLANG_HAS_WARNING(warning)</code> <a href="#HEDLEY_CLANG_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is clang and supports the
-					specified warning.
+					Determine whether the compiler supports the specified
+					warningn by using the <code>__has_warningn</code>
+					function-like macro.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2665,9 +2716,11 @@ static void bar(void) {
 				<h3><code>HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is either clang with the
-					requested attribute, or any other compiler claiming to be a
-					version of GCC greater than or equal to that specified.
+					If the compiler implements the <code>__has_attribute</code>
+					macro, use that to determine whether the specificed
+					attribute is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2685,13 +2738,41 @@ static void bar(void) {
 				</dl>
 			</section>
 
+			<section id="HEDLEY_GCC_HAS_CPP_ATTRIBUTE" class="container">
+				<h3><code>HEDLEY_GCC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_CPP_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					If the compiler implements the <code>__has_cpp_attribute</code>
+					macro, use that to determine whether the specificed
+					C++ attribute is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
+				</p>
+
+				<dl class="dl-horizontal">
+					<dt>cpp_attribute</dt>
+					<dd>C++ attribuet to check.</dd>
+
+					<dt>major</dt>
+					<dd>Major version.</dd>
+
+					<dt>minor</dt>
+					<dd>Minor version.</dd>
+
+					<dt>patch</dt>
+					<dd>Patch level.</dd>
+				</dl>
+			</section>
+
 			<section id="HEDLEY_GCC_HAS_BUILTIN" class="container">
 				<h3><code>HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_BUILTIN"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is either clang with the
-					requested built-in, or any other compiler claiming to be a
-					version of GCC greater than or equal to that specified.
+					If the compiler implements the <code>__has_builtin</code>
+					macro, use that to determine whether the specificed
+					builtin is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2713,9 +2794,11 @@ static void bar(void) {
 				<h3><code>HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_EXTENSION"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is either clang with the
-					requested extension, or any other compiler claiming to be a
-					version of GCC greater than or equal to that specified.
+					If the compiler implements the <code>__has_extension</code>
+					macro, use that to determine whether the specificed
+					extension is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2737,10 +2820,11 @@ static void bar(void) {
 				<h3><code>HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is either clang with the
-					requested declspec attribute, or any other compiler claiming
-					to be a version of GCC greater than or equal to that
-					specified.
+					If the compiler implements the <code>__has_declspec_attribute</code>
+					macro, use that to determine whether the specificed
+					declspec_attribute is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
 				</p>
 
 				<dl class="dl-horizontal">
@@ -2763,9 +2847,11 @@ static void bar(void) {
 				<h3><code>HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
 
 				<p>
-					Determine whether the compiler is either clang with the
-					requested warning, or any other compiler claiming to be a
-					version of GCC greater than or equal to that specified.
+					If the compiler implements the <code>__has_warning</code>
+					macro, use that to determine whether the specificed
+					warning is supported. Otherwise, return whether the
+					compiler claims to be a version of GCC greater than or equal
+					to that specified.
 				</p>
 
 				<dl class="dl-horizontal">
