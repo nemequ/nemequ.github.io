@@ -73,13 +73,13 @@
 			<p>
 				I don't know who said it first, but this humorous perversion
 				of <a href="https://en.wikipedia.org/wiki/Law_of_the_instrument">the
-					law of the instrument</a> has, in several variations, been
+				law of the instrument</a> has, in several variations, been
 				floating around the internet for ages.	While it is probably
 				more true of C++, the same can certainly be said of C.
 			</p>
 
 			<p>
-				Like C++, C gives the programmer a huge amount of control
+				Both C and C++ give the programmer a huge amount of control
 				over what the computer actually does. While this does make it
 				relatively easy to write efficient code, it also makes it
 				relatively easy to write code which crashes. Higher level
@@ -87,9 +87,9 @@
 				run-time, but with C/C++ there is often a single run-time
 				error message: <q>Segmentation fault (core dumped)</q>, and
 				that's if you get lucky enough to actually see an error
-				message! Often, the program can keep running but generate
-				data which is complete garbage or, even worse, data which is
-				just slightly incorrect (which is much harder to spot).
+				message! Often, the program can keep running but generate data
+				which is complete garbage or, even worse, data which is just
+				slightly incorrect (which is much harder to spot).
 			</p>
 
 			<p>
@@ -115,36 +115,59 @@
 				like this:
 			</p>
 
-			<pre class="prettyprint lang-c">#if !defined(__has_attribute)
-#define __has_attribute(attr) 0
-#endif
-
-#if defined(__STDC_VERSION__) &amp;&amp; __STDC_VERSION__ &gt;= 201112L
+			<pre class="prettyprint lang-c">#if defined(__STDC_VERSION__) && __STDC_VERSION__ &gt;= 201112L
 _Noreturn
-#elif defined(__clang) &amp;&amp; __has_attribute(noreturn)
+#elif defined(__cplusplus) && (__cplusplus &gt;= 201103L)
+[[noreturn]]
+#elif defined(__has_attribute)
+#  if __has_attribute(noreturn)
 __attribute__((__noreturn__))
-#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 2))
+#  endif
+#elif \
+  (defined(__GNUC__) && ((__GNUC__ &gt;= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ &gt;= 2)))) || \
+  (defined(__INTEL_COMPILER) && (__INTEL_COMPILER &gt;= 1600)) || \
+  (defined(__SUNPRO_C) && (__SUNPRO_C &gt;= 0x5110)) || \
+  (defined(__SUNPRO_CC) && (__SUNPRO_CC &gt;= 0x5110)) || \
+  ((defined(__CC_ARM) && defined(__ARMCC_VERSION)) && (__ARMCC_VERSION &gt;= 4010000)) || \
+  (defined(__xlC__) && (__xlC__ &gt;= 0x0a01)) || \
+  (defined(__TI_COMPILER_VERSION__) && (__TI_COMPILER_VERSION__ &gt;= 8000000)) || \
+  (defined(__TI_COMPILER_VERSION__) && (__TI_COMPILER_VERSION__ &gt;= 7003000) && defined(__TI_GNU_ATTRIBUTE_SUPPORT__))
 __attribute__((__noreturn__))
-#elif defined(_MSC_VER) &amp;&amp; _MSC_VER &gt;= 1310
-_declspec(noreturn)
+#elif defined(_MSC_VER) && (_MSC_VER &gt;= 1310)
+__declspec(noreturn)
+#elif defined(__TI_COMPILER_VERSION__) && (__TI_COMPILER_VERSION__ &gt;= 6000000) && defined(__cplusplus)
+#  pragma FUNC_NEVER_RETURNS;
 #endif
-#if defined(__clang) &amp;&amp; __has_attribute(nonnull)
+#if defined(__has_attribute)
+#  if __has_attribute(nonnull)
 __attribute__((__nonnull__(1,2)))
-#elif defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 3))
+#  endif
+#elif \
+  (defined(__GNUC__) && ((__GNUC__ &gt;= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ &gt;= 3)))) || \
+  (defined(__INTEL_COMPILER) && (__INTEL_COMPILER &gt;= 1600)) || \
+  ((defined(__CC_ARM) && defined(__ARMCC_VERSION)) && (__ARMCC_VERSION &gt;= 4010000)) || \
 __attribute__((__nonnull__(1,2)))
 #endif
-#if (defined(__clang) &amp;&amp; __has_attribute(format)) || (defined(__GNUC__) &amp;&amp; (__GNUC__ &gt; 3 || (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 1)))
-#if (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 4)) &amp;&amp; defined(__MINGW32__)
-#if !defined(__USE_MINGW_ANSI_STDIO)
+#if defined(__has_attribute)
+#  if __has_attribute(format)
+#    if defined(__MINGW32__)
+#      if !defined(__USE_MINGW_ANSI_STDIO)
 __attribute__((__format__(ms_printf, 2, 3)))
-#else
+#      else
 __attribute__((__format__(gnu_printf, 2, 3)))
-#endif
-#elif defined(__MINGW32__)
-/* Nothing */
-#else
-__attribute__((__format__(printf, 2, 3)))
-#endif
+#      endif
+#    else
+__attribute__((__format__(__printf__, 2, 3)))
+#    endif
+#  endif
+#elif \
+  (defined(__GNUC__) && ((__GNUC__ &gt;= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ &gt;= 1)))) || \
+  (defined(__INTEL_COMPILER) && (__INTEL_COMPILER &gt;= 1600)) || \
+  ((defined(__CC_ARM) && defined(__ARMCC_VERSION)) && (__ARMCC_VERSION &gt;= 5060000)) || \
+  (defined(__xlC__) && (__xlC__ &gt;= 0x0a01)) || \
+  (defined(__TI_COMPILER_VERSION__) && (__TI_COMPILER_VERSION__ &gt;= 8000000)) || \
+  (defined(__TI_COMPILER_VERSION__) && (__TI_COMPILER_VERSION__ &gt;= 7003000) && defined(__TI_GNU_ATTRIBUTE_SUPPORT__))
+__attribute__((__format__(__printf__, 2, 3)))
 #endif
 void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
 

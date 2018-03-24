@@ -254,6 +254,16 @@ bool do_something(void);</pre>
 										<td>5.15 (ODS 12.6), <a href="https://community.oracle.com/thread/4124723">C++-only</a></td>
 										<td><code>__attribute__((__warn_unused_result__))</code></td>
 									</tr>
+									<tr>
+										<th>ODS</th>
+										<td>12.6+</td>
+										<td><code>__attribute__((__warn_unused_result__)</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((__warn_unused_result__)</code></a></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -388,6 +398,16 @@ void log_fatal(const char* message);</pre>
 										<th>MSVC</th>
 										<td>7.1+ (VS 2003)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/k6ktzx3s.aspx"><code>__declspec(nereturn)</code></a></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><code>__attribute__((__noreturn__)</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>6.0+ (C++-only)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.15_The_FUNC_NEVER_RETURNS_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____21"><code>_Pragma(&quot;FUNC_NEVER_RETURNS;&quot;)</code></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -573,6 +593,16 @@ void* foo(void);</pre>
 										<td><a href="https://msdn.microsoft.com/en-us/library/1b3fsfxw.aspx"><code>__assume(0)</code></a></td>
 									</tr>
 									<tr>
+										<th>TI</th>
+										<td>6.0+ (C mode)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/Content/SPRUI04B_HTML/run-time-environment.html#IDintrinsics"><code>_nassert(0)</code></a></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>6.0+ (C++ mode)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/Content/SPRUI04B_HTML/run-time-environment.html#IDintrinsics"><code>std::_nassert(0)</code></a></td>
+									</tr>
+									<tr>
 										<th>C</th>
 										<td>C89+ (with <var>assert.h</var>)</td>
 										<td><code>assert(0)</code></td>
@@ -581,11 +611,6 @@ void* foo(void);</pre>
 										<th>C</th>
 										<td>C89+ (with <var>stdlib.h</var>)</td>
 										<td><code>abort()</code></td>
-									</tr>
-									<tr>
-										<th>C</th>
-										<td></td>
-										<td</td>
 									</tr>
 								</tbody>
 							</table>
@@ -733,6 +758,11 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 										<td>5.06+</td>
 										<td><code>__attribute__((format(__printf__, string_idx, first_to_check)))</code></td>
 									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><code>__attribute__((format(__printf__, string_idx, first_to_check)))</code></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -828,6 +858,11 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 										<td><code>__builtin_expect(!!(expr), 1)</code></td>
 									</tr>
 									<tr>
+										<th>TI</th>
+										<td>7.3+</td>
+										<td><code>__builtin_expect(!!(expr), 1)</code></td>
+									</tr>
+									<tr>
 										<th>C</th>
 										<td>Any</td>
 										<td><code>(!!(expr))</code></td>
@@ -892,6 +927,11 @@ ctx-&gt;foo = bar;</pre>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
+										<td><code>__builtin_expect(!!(expr), 0)</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>7.3+</td>
 										<td><code>__builtin_expect(!!(expr), 0)</code></td>
 									</tr>
 									<tr>
@@ -973,6 +1013,11 @@ uint8_t* create_buffer(void);</pre>
 										<td>14+ (VS 2005)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/8bcxafdh.aspx"><code>__declspec(restrict)</code></a></td>
 									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><code>__attribute__((__malloc__))</code></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -1017,7 +1062,7 @@ bool multiply(int* product, int a, int b);</pre>
 									<tr>
 										<th>GCC</th>
 										<td>4.3.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bpure_007d-function-attribute-3245"><code>__attribute__((__pure__))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-pure-function-attribute"><code>__attribute__((__pure__))</code></a></td>
 									</tr>
 									<tr>
 										<th>Intel</th>
@@ -1027,17 +1072,22 @@ bool multiply(int* product, int a, int b);</pre>
 									<tr>
 										<th>Oracle</th>
 										<td>5.11+</td>
-										<td><code>__attribute__((__pure__))</code></td>
+										<td><a href="https://docs.oracle.com/cd/E77782_01/html/E77788/gjzke.html#scrolltoc"><code>__attribute__((__pure__))</code></a></td>
 									</tr>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
+										<td><a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0491c/CHDFIGCE.html"><code>__attribute__((__pure__))</code></a></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
 										<td><code>__attribute__((__pure__))</code></td>
 									</tr>
 									<tr>
-										<th>MSVC</th>
-										<td>14+ (VS 2005)</td>
-										<td><a href="https://msdn.microsoft.com/en-us/library/k649tyc7.aspx"><code>__declspec(noalias)</code></a></td>
+										<th>TI</th>
+										<td>6.0+ (C++-only)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.13_The_FUNC_IS_PURE_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____19"><code>_Pragma(&quot;FUNC_IS_PURE;&quot;)</code></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1096,6 +1146,11 @@ int multiply(int a, int b);</pre>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
+										<td><code>__attribute__((__const__))</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
 										<td><code>__attribute__((__const__))</code></td>
 									</tr>
 									<tr>
@@ -1162,9 +1217,19 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 										<td><a href="https://msdn.microsoft.com/en-us/library/5ft82fed.aspx"><code>__restrict</code></a></td>
 									</tr>
 									<tr>
-										<th>Oracle</th>
-										<td>5.8+ (Solaris Studio 11)</td>
+										<th>ODS</th>
+										<td>5.3+ (Forte Developer 6) in C mode</td>
 										<td><code>_Restrict</code></td>
+									</tr>
+									<tr>
+										<th>ODS</th>
+										<td>5.14+ (Solaris Studio 12.5) in C++ mode</td>
+										<td><code>__restrict</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>7.3+</td>
+										<td><code>__restrict</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1277,27 +1342,37 @@ void do_something_quickly(void);</pre>
 									<tr>
 										<th>GCC</th>
 										<td>4.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>__attribute__((always_inline))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>__attribute__((__always_inline__))</code></a></td>
 									</tr>
 									<tr>
 										<th>Intel</th>
 										<td>16.0+</td>
-										<td><code>__attribute__((always_inline))</code></td>
+										<td><code>__attribute__((__always_inline__))</code></td>
 									</tr>
 									<tr>
 										<th>Oracle</th>
 										<td>5.11+ (<abbr title="Oracle Developer Studio">ODS</abbr> 12.2)</td>
-										<td><code>__attribute__((always_inline))</code></td>
+										<td><code>__attribute__((__always_inline__))</code></td>
 									</tr>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
-										<td><code>__attribute__((always_inline))</code></td>
+										<td><code>__attribute__((__always_inline__))</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
 										<td>12+ (VS 6)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/bw1hbe6y.aspx"><code>__forceinline</code></a></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><code>__attribute__((__always_inline__))</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>7.0+ (C++-only)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.9_The_FUNC_ALWAYS_INLINE_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____15"><code>_Pragma(&quot;FUNC_ALWAYS_INLINE;&quot;)</code></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1363,6 +1438,21 @@ void do_something(void);</pre>
 										<th>MSVC</th>
 										<td>13.10+ (VS 7.1)</td>
 										<td><a href="https://msdn.microsoft.com/en-us/library/bw1hbe6y.aspx"><code>__noinline</code></a></td>
+									</tr>
+									<tr>
+										<th>PGI</th>
+										<td>10.2+</td>
+										<td><a href="http://www.pgroup.com/resources/docs/18.1/x86/pgi-user-guide/index.htm#fn-inline-use"><code>_Pragma&quot;noinline&quot;</code></a></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><code>__attribute__((__noinline__))</code></td>
+									</tr>
+									<tr>
+										<th>TI</th>
+										<td>6.0+ (C++-only)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.10_The_FUNC_CANNOT_INLINE_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____16"><code>_Pragma(&quot;FUNC_CANNOT_INLINE;&quot;)</code></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1704,6 +1794,16 @@ void do_something(void);</pre>
 									<td>13.10+ (VS 2003)</td>
 									<td><a href="https://msdn.microsoft.com/en-us/library/49147z04.aspx"><code>__declspec(deprecated)</code></a></td>
 								</tr>
+								<tr>
+									<th>TI</th>
+									<td>7.3.0+ (if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since)))</code></a></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since)))</code></a></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -1790,6 +1890,16 @@ void do_something(void);</pre>
 									<th>MSVC</th>
 									<td>13.10+ (VS 2003)</td>
 									<td><a href="https://msdn.microsoft.com/en-us/library/49147z04.aspx"><code>__declspec(deprecated)</code></a></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>7.3.0+ (if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></a></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -1900,7 +2010,10 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_PUSH">HEDLEY_DIAGNOSTIC_PUSH</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED">HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS">HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS</a></code></li>
 					<li><code><a href="#HEDLEY_PRAGMA">HEDLEY_PRAGMA(value)</a></code></li>
+					<li><code><a href="#HEDLEY_STRINGIFY">HEDLEY_STRINGIFY(x)</a></code></li>
+					<li><code><a href="#HEDLEY_CONCAT">HEDLEY_CONCAT(a,b)</a></code></li>
 				</ul>
 			</div>
 
@@ -2173,6 +2286,16 @@ static void bar(void) {
 									<td>15.0+ (VS 2010)</td>
 									<td><code>__pragma(warning(push))</code></td>
 								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>5.06+</td>
+									<td><code>_Pragma(&quot;push&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>8.1+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;diag_push&quot;)</code></a></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -2239,6 +2362,16 @@ static void bar(void) {
 									<td>15.0+ (VS 2010)</td>
 									<td><code>__pragma(warning(push))</code></td>
 								</tr>
+								<tr>
+									<th>ARM</th>
+									<td>5.06+</td>
+									<td><code>_Pragma(&quot;pop&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>8.0+</td>
+									<td><code>_Pragma(&quot;diag_pop&quot;)</code></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -2303,6 +2436,81 @@ static void bar(void) {
 									<td>15.0+ (VS 2010)</td>
 									<td><code>__pragma(warning(disable:4996))</code></td>
 								</tr>
+								<tr>
+									<th>Oracle</th>
+									<td>12.4+ in C++ mode</td>
+									<td><code>_Pragma(&quot;error_messages(off,symdeprecated,symdeprecated2)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Oracle</th>
+									<td>12.4+ in C mode</td>
+									<td><code>_Pragma(&quot;error_messages(off,E_DEPRECATED_ATT,E_DEPRECATED_ATT_MESS)&quot;)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS</code> <a href="#HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Do not emit warnings when using deprecated symbols.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS
+#pragma foo bar
+hEDLEY_DIAGNOSTIC_POP</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic ignored \&quot;-Wunknown-pragmas\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>16.0+</td>
+									<td><code>_Pragma(&quot;warning(disable:161)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>4.6.0+</td>
+									<td><code>_Pragma(&quot;GCC diagnostic ignored \&quot;-Wunknown-pragmas\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(warning(disable:4068))</code></td>
+								</tr>
+								<tr>
+									<th>TI</th>
+									<td>8.0+</td>
+									<td><code>_Pragma(&quot;diag_suppress 163&quot;)</code></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -2355,6 +2563,159 @@ static void bar(void) {
 					</div>
 				</div>
 			</section>
+
+			<section id="HEDLEY_STRINGIFY" class="container">
+				<h3><code>HEDLEY_STRINGIFY(value)</code> <a href="#HEDLEY_STRINGIFY"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Convert <var>value</var> to a string. <var>value</var> can
+					be a preprocessor macro.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">
+#define BAR bar
+
+const char*
+foo_bar(void) {
+  return HEDLEY_STRINGIFY(BAR);
+}</pre>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_CONCAT" class="container">
+				<h3><code>HEDLEY_CONCAT(a,b)</code> <a href="#HEDLEY_CONCAT"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Concatenate two values.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">#define PREFIX foo_
+#define BAR bar
+
+const char*
+foo_bar(void) {
+  return HEDLEY_STRINGIFY(BAR);
+}
+
+int main(void) {
+  printf(&quot;%s\n&quot;, HEDLEY_CONCAT(PREFIX, BAR)());
+
+  return 0;
+}</pre>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_MESSAGE" class="container">
+				<h3><code>HEDLEY_MESSAGE(msg)</code> <a href="#HEDLEY_MESSAGE"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Emit a non-fatal compile-time informational message.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_MESSAGE("Message goes here")</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>GCC</th>
+									<td>4.4+</td>
+									<td><code>_Pragma(&quot;message msg&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>ICC</th>
+									<td>16+</td>
+									<td><code>_Pragma(&quot;message msg&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Clang</th>
+									<td></td>
+									<td><code>HEDLEY_DIAGNOSTIC_PUSH \<br/>
+_Pragma(&quot;clang diagnostic ignored &quot;-Wunknown-pragmas\&quot;&quot;) \<br/>
+_Pragma(&quot;message msg&quot;) \<br/>
+HEDLEY_DIAGNOSTIC_POP</pre></td>
+								</tr>
+								<tr>
+									<th>MSVC</th>
+									<td>15.0+ (VS 2010)</td>
+									<td><code>__pragma(message(msg))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_WARNING" class="container">
+				<h3><code>HEDLEY_WARNING(msg)</code> <a href="#HEDLEY_WARNING"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Emit a compile-time warning. If compiling with fatal
+					warnings (<i>e.g.</i>, -Wall on GCC, or /WX on MSVC), these
+					may be treated as fatal.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">#if !defined(HAVE_PTHREADS) && !defined(_WIN32)
+  HEDLEY_WARNING("No mutex implementation found; code will not be thread-safe.")
+#endif</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>GCC</th>
+									<td>4.8+</td>
+									<td><code>_Pragma(&quot;GCC warning msg&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>ICC</th>
+									<td>16+</td>
+									<td><code>_Pragma(&quot;GCC warning msg&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Cray</th>
+									<td>5.0+</td>
+									<td><code>_Pragma(&quot;_CRI message msg&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Fallback</th>
+									<td></td>
+									<td><code>HEDLEY_MESSAGE(msg)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
 		</section>
 
 		<section id="platform-detection" class="container">
@@ -2366,508 +2727,262 @@ static void bar(void) {
 					they can be useful for other users.
 				</p>
 
-				<ul>
-					<li><code><a href="#HEDLEY_GCC_VERSION_CHECK">HEDLEY_GCC_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_NOT_CLANG_VERSION_CHECK">HEDLEY_GCC_NOT_CLANG_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_MSVC_VERSION_CHECK">HEDLEY_MSVC_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_INTEL_VERSION_CHECK">HEDLEY_INTEL_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_PGI_VERSION_CHECK">HEDLEY_PGI_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_SUNPRO_VERSION_CHECK">HEDLEY_SUNPRO_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_EMSCRIPTEN_VERSION_CHECK">HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_ARM_VERSION_CHECK">HEDLEY_ARM_VERSION_CHECK(major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_IBM_VERSION_CHECK">HEDLEY_IBM_VERSION_CHECK(major,minor,patch)</a></code></li>
+				<p>
+					There are basically four sub-categories of platform
+					detection macros in Hedley:
+				</p>
 
-					<li><code><a href="#HEDLEY_CLANG_HAS_ATTRIBUTE">HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_CPP_ATTRIBUTE">HEDLEY_CLANG_HAS_CPP_ATTRIBUTE(attribute)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_BUILTIN">HEDLEY_CLANG_HAS_BUILTIN(builtin)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_FEATURE">HEDLEY_CLANG_HAS_FEATURE(feature)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_EXTENSION">HEDLEY_CLANG_HAS_EXTENSION(extension)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(attribute)</a></code></li>
-					<li><code><a href="#HEDLEY_CLANG_HAS_WARNING">HEDLEY_CLANG_HAS_WARNING(warning)</a></code></li>
+				<ol>
+					<li><a href="#platform-detection-identification">Identification</a></li>
+					<li><a href="#platform-detection-version-check">Version checking</a></li>
+					<li><a href="#platform-detection-feature-test">Feature testing</a></li>
+					<li><a href="#platform-detection-feature-or-version">Feature or version testing</a></li>
+				</ol>
 
-					<li><code><a href="#HEDLEY_GCC_HAS_ATTRIBUTE">HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_CPP_ATTRIBUTE">HEDLEY_GCC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_BUILTIN">HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_FEATURE">HEDLEY_GCC_HAS_BUILTIN(feature,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_EXTENSION">HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE">HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,patch)</a></code></li>
-					<li><code><a href="#HEDLEY_GCC_HAS_WARNING">HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</a></code></li>
-				</ul>
+				<section id="platform-detection-identification">
+					<h3>Compiler identification <a href="#platform-detection-identification"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						These macros defined only if the compiler in question is
+						in use (<i>e.g.</i>, <a href="#HEDLEY_PGI_VERSION"><var>HEDLEY_PGI_VERSION</var></a> is only
+						defined when using the PGI compiler). When they are
+						defined, they are defined to the version of the compiler
+						currently in use, encoded
+						with <a href="#HEDLEY_VERSION_ENCODE"><code>HEDLEY_VERSION_ENCODE()</code></a>.
+					</p>
+
+					<p>
+						This provides a uniform way to check the if a specific
+						compiler is in use, as well as determine the version.
+					</p>
+
+					<p>
+						Note that the GCC and GNUC macros <em>are</em>
+						different. Many compilers masquerade as GCC (by
+						defining <var>__GNUC__</var>, <var>__GNUC_MINOR__</var>,
+						and <var>__GNUC_PATCHLEVEL__</var>, but often do not
+						implement all the features that the version of GCC they
+						pretend to be supports. To work around this,
+						the <var>HEDLEY_GCC_VERSION</var> macro is only defined
+						for GCC, whereas <var>HEDLEY_GNUC_VERSION</var> will be
+						defined whenever a compiler defines <var>__GNUC__</var>.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">#if defined(HEDLEY_PGI_VERSION)
+printf("PGI %d.%d.%d\n",
+       HEDLEY_VERSION_DECODE_MAJOR(HEDLEY_PGI_VERSION),
+       HEDLEY_VERSION_DECODE_MINOR(HEDLEY_PGI_VERSION),
+       HEDLEY_VERSION_DECODE_REVISION(HEDLEY_PGI_VERSION));
+#endif</pre>
+						</div>
+					</div>
+
+					<ul>
+						<li id="HEDLEY_GNUC_VERSION"><code>HEDLEY_GNUC_VERSION</code></li>
+						<li id="HEDLEY_MSVC_VERSION"><code>HEDLEY_MSVC_VERSION</code></li>
+						<li id="HEDLEY_INTEL_VERSION"><code>HEDLEY_INTEL_VERSION</code></li>
+						<li id="HEDLEY_PGI_VERSION"><code>HEDLEY_PGI_VERSION</code></li>
+						<li id="HEDLEY_SUNPRO_VERSION"><code>HEDLEY_SUNPRO_VERSION</code></li>
+						<li id="HEDLEY_EMSCRIPTEN_VERSION"><code>HEDLEY_EMSCRIPTEN_VERSION</code></li>
+						<li id="HEDLEY_ARM_VERSION"><code>HEDLEY_ARM_VERSION</code></li>
+						<li id="HEDLEY_IBM_VERSION"><code>HEDLEY_IBM_VERSION</code></li>
+						<li id="HEDLEY_TI_VERSION"><code>HEDLEY_TI_VERSION</code></li>
+						<li id="HEDLEY_CRAY_VERSION"><code>HEDLEY_CRAY_VERSION</code></li>
+						<li id="HEDLEY_GCC_VERSION"><code>HEDLEY_GCC_VERSION</code></li>
+					</ul>
+				</section>
+
+				<section id="platform-detection-version-check">
+					<h3>Compiler version checking macros <a href="#platform-detection-version-check"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						For each compiler for which there is
+						a <var>HEDLEY_*_VERSION</var> macro, there is
+						a <var>HEDLEY_*_VERSION_CHECK(major,minor,revision)</var>
+						macro. These macros are <em>always</em> defined, and will
+						return true (<var>1</var>) if the current compiler
+						corresponds to the macro name, <em>and</em> the compiler
+						version is greater than or equal to the provided values.
+					</p>
+
+					<p>
+						This provides a convenient way to check for features based
+						on the version number. For example:
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">#if HEDLEY_MSVC_VERSION_CHECK(13,10,0)
+__declspec(deprecated)
+#endif</pre>
+						</div>
+					</div>
+
+					<p>
+						Of course, in this case you should probably be
+						using <a href="#HEDLEY_DEPRECATED"><code>HEDLEY_DEPRECATED</code></a>
+						instead.
+					</p>
+
+					<ul>
+						<li id="HEDLEY_GNUC_VERSION_CHECK"><code>HEDLEY_GNUC_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_MSVC_VERSION_CHECK"><code>HEDLEY_MSVC_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_INTEL_VERSION_CHECK"><code>HEDLEY_INTEL_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_PGI_VERSION_CHECK"><code>HEDLEY_PGI_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_SUNPRO_VERSION_CHECK"><code>HEDLEY_SUNPRO_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_EMSCRIPTEN_VERSION_CHECK"><code>HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_ARM_VERSION_CHECK"><code>HEDLEY_ARM_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_IBM_VERSION_CHECK"><code>HEDLEY_IBM_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_TI_VERSION_CHECK"><code>HEDLEY_TI_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_CRAY_VERSION_CHECK"><code>HEDLEY_CRAY_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_VERSION_CHECK"><code>HEDLEY_GCC_VERSION_CHECK(major,minor,revision)</code></li>
+					</ul>
+				</section>
+
+				<section id="platform-detection-feature-test">
+					<h3>Compiler feature testing macros <a href="#platform-detection-feature-test"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Clang
+						introduced <a href="https://clang.llvm.org/docs/LanguageExtensions.html#feature-checking-macros">an
+						easier</a> way to detect different features which doesn't
+						rely on knowledge of the version number it first appeared
+						in. Not only is this the preferred method for checking for
+						features in clang, it's pretty much the only way! Apple's
+						version of clang uses a completely different versioning
+						scheme, and they set the <var>__clang__</var> macros
+						to <em>their</em> values.
+					</p>
+
+					<p>
+						Hedley wraps these macros with versions that are always
+						defined:
+					</p>
+
+					<ul>
+						<li id="HEDLEY_HAS_ATTRIBUTE"><code>HEDLEY_HAS_ATTRIBUTE(attribute)</code></li>
+						<li id="HEDLEY_HAS_CPP_ATTRIBUTE"><code>HEDLEY_HAS_CPP_ATTRIBUTE(cpp_attribute)</code></li>
+						<li id="HEDLEY_HAS_BUILTIN"><code>HEDLEY_HAS_BUILTIN(builtin)</code></li>
+						<li id="HEDLEY_HAS_FEATURE"><code>HEDLEY_HAS_FEATURE(feature)</code></li>
+						<li id="HEDLEY_HAS_EXTENSION"><code>HEDLEY_HAS_EXTENSION(extension)</code></li>
+						<li id="HEDLEY_HAS_DECLSPEC_ATTRIBUTE"><code>HEDLEY_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute)</code></li>
+						<li id="HEDLEY_HAS_WARNING"><code>HEDLEY_HAS_WARNING(warning)</code></li>
+					</ul>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">#if HEDLEY_HAS_ATTRIBUTE(noinline)
+  __attribute__((__noinline__))
+#endif</pre>
+						</div>
+					</div>
+
+					<p>
+						Many clang-based compilers implement these macros, including:
+					</p>
+
+					<ul>
+						<li>Apple</li>
+						<li>ARM v6+</li>
+						<li>IBM XL C/C++ 13+</li>
+						<li>Clang/C2</li>
+						<li>Emscripten</li>
+					</ul>
+
+					<p>
+						Additionally, some non-clang-based compilers support a
+						subset of the macros, including Oracle Developer Studio.
+					</p>
+
+					<p>
+						Note that some compilers lie about features they
+						support; <i>i.e.</i>, <code>__has_x(y)</code> will return
+						true, but if you try to use the feature an error will
+						occur. You should report these to the compiler developers
+						as they are discovered, but here is an incomplete list of
+						known problems:
+					</p>
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Compiler</th>
+								<th>Lie</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Emscripten <a href="https://github.com/kripken/emscripten/issues/5225"><i class="fa fa-bug"></i></a></td>
+								<td><code>HEDLEY_HAS_BUILTIN(__builtin_bitreverse8/16/64)</code></td>
+							</tr>
+							<tr>
+								<td>IBM XL C/C++ <a href="https://www.ibm.com/developerworks/community/forums/html/topic?id=370fae6c-5392-4a34-a17b-36572eb0010c&ps="><i class="fa fa-bug"></i></a></td>
+								<td><code>HEDLEY_HAS_BUILTIN(__builtin_bitreverse8/16/32/64)</code></td>
+							</tr>
+							<tr>
+								<td>IBM XL C/C++ <a href="https://www.ibm.com/developerworks/community/forums/html/topic?id=370fae6c-5392-4a34-a17b-36572eb0010c&ps="><i class="fa fa-bug"></i></a></td>
+								<td><code>HEDLEY_HAS_BUILTIN(__builtin_add*/sub*)</code></td>
+							</tr>
+							<tr>
+								<td>IBM XL C/C++ <a href="https://www.ibm.com/developerworks/community/forums/html/topic?id=370fae6c-5392-4a34-a17b-36572eb0010c&ps="><i class="fa fa-bug"></i></a></td>
+								<td><code>HEDLEY_HAS_ATTRIBUTE(optnone)</code></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						If you encouter additional examples,
+						please <a href="https://github.com/nemequ/hedley/issues">let
+						us know</a> so we can add them to the list.
+					</p>
+				</section>
+
+				<section id="platform-detection-feature-or-version">
+					<h3>Compiler feature or version testing macros <a href="#platform-detection-feature-or-version"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						To make it easier to check for features which are claimed
+						to be supported by a feature checking macro or a version
+						of GCC (or GNUC), Hedley also
+						provides <code>HEDLEY_GCC/GNUC_HAS_*(x,major,minor,patch)</code>
+						macros. These macros will use the <code>__has_*()</code>
+						macros if they exist, and if not will fall back
+						on
+						<code>HEDLEY_GNUC_VERSION_CHECK(major,minor,revision)</code> /
+						<code>HEDLEY_GCC_VERSION_CHECK(major,minor,revision)</code>:
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">#if HEDLEY_GNUC_HAS_ATTRIBUTE(noinline,4,0,0)
+  __attribute__((__noinline__))
+#endif</pre>
+						</div>
+					</div>
+
+					<ul>
+						<li id="HEDLEY_GNUC_HAS_ATTRIBUTE"><code>HEDLEY_GNUC_HAS_ATTRIBUTE(attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GNUC_HAS_CPP_ATTRIBUTE"><code>HEDLEY_GNUC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GNUC_HAS_BUILTIN"><code>HEDLEY_GNUC_HAS_BUILTIN(builtin,major,minor,revision)</code></li>
+						<li id="HEDLEY_GNUC_HAS_EXTENSION"><code>HEDLEY_GNUC_HAS_EXTENSION(extension,major,minor,revision)</code></li>
+						<li id="HEDLEY_GNUC_HAS_DECLSPEC_ATTRIBUTE"><code>HEDLEY_GNUC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GNUC_HAS_WARNING"><code>HEDLEY_GNUC_HAS_WARNING(warning,major,minor,revision)</code></li>
+
+						<li id="HEDLEY_GCC_HAS_ATTRIBUTE"><code>HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_HAS_CPP_ATTRIBUTE"><code>HEDLEY_GCC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_HAS_BUILTIN"><code>HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_HAS_EXTENSION"><code>HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE"><code>HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,revision)</code></li>
+						<li id="HEDLEY_GCC_HAS_WARNING"><code>HEDLEY_GCC_HAS_WARNING(warning,major,minor,revision)</code></li>
+					</ul>
+				</section>
 			</div>
-
-			<section id="HEDLEY_GCC_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_GCC_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_GCC_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of GCC greater than or equal to that specified by
-					the paremeters.
-				</p>
-
-				<p>
-					Note that several compilers masquarade as GCC (by
-					setting <var>__GNUC__</var>, <var>__GNUC_MINOR__</var>,
-					and <var>__GNUC_PATCHLEVEL__</var>). With the exception of
-					the Intel C/C++ compiler, this macro will take them at their
-					word. ICC pretends to be whatever version of GCC is
-					installed, even if it doesn't support all the same features,
-					so this macro will always return false for ICC.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_NOT_CLANG_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_GCC_NOT_CLANG_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_GCC_NOT_CLANG_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of GCC greater than or equal to that specified by
-					the paremeters, and is <em>not</em> based on clang.
-				</p>
-
-				<p>
-					This macro is useful since clang contains macros to check
-					the availability of attributes, features, and extensions
-					without relying on version numbers.  If such a check
-					failed, <code>HEDLEY_GCC_VERSION_CHECK</code> may still
-					succeed, which could lead to invalid code.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_MSVC_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_MSVC_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_MSVC_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of MSVC greater than or equal to that specified by
-					the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-
-				<p>
-					Note that version numbers don't match marketing numbers; for version numbers see the <a href="https://sourceforge.net/p/predef/wiki/Compilers/#microsoft-visual-c">Microsoft Visual C++</a> section of the <a href="https://sourceforge.net/p/predef/wiki/Home/">Pre-defined C/C++ Compiler Macros</a> site.
-				</p>
-			</section>
-
-			<section id="HEDLEY_INTEL_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_INTEL_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_INTEL_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of Intel C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_PGI_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_PGI_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_PGI_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of PGI C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_SUNPRO_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_SUNPRO_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_SUNPRO_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of Sun/Oracle C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-
-				<p>
-					Note that there is a non-trivial mapping between the version
-					used for marketing and the version advertised by the
-					compiler. See
-					<a href="https://sourceforge.net/p/predef/wiki/Compilers/#oracle-solaris-studio">Pre-defined
-					Compiler Macros</a> for information about how they map. For
-					example, Oracle Devolper Studio 12.6 corresponds
-					to <code>HEDLEY_SUNPRO_VERSION_CHECK(5,15,0)</code>.
-				</p>
-			</section>
-
-			<section id="HEDLEY_EMSCRIPTEN_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_EMSCRIPTEN_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_EMSCRIPTEN_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of Emscripten C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_ARM_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_ARM_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_ARM_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of ARM C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_IBM_VERSION_CHECK" class="container">
-				<h3><code>HEDLEY_IBM_VERSION_CHECK(major,minor,patch)</code> <a href="#HEDLEY_IBM_VERSION_CHECK"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler in use identifies itself as a
-					version of IBM XL C/C++ compiler greater than or equal to
-					that specified by the paremeters.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_ATTRIBUTE(attribute)</code> <a href="#HEDLEY_CLANG_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler supports the specified
-					attribute by using the <code>__has_attribute</code>
-					function-like macro.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>attribute</dt>
-					<dd>Attribute to check.</dd>
-				</dl>
-
-				<p>
-					Note that, while this macro contains &quot;_CLANG_&quot;, it
-					is not necessarily specific to clang. For example, recent
-					versions of Oracle Developer Studio are also supported.
-				</p>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_CPP_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_CPP_ATTRIBUTE(cpp_attribute)</code> <a href="#HEDLEY_CLANG_CPP_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler supports the specified
-					attribute by using the <code>__has_cpp_attribute</code>
-					function-like macro.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>attribute</dt>
-					<dd>Attribute to check.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_BUILTIN" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_BUILTIN(builtin)</code> <a href="#HEDLEY_CLANG_HAS_BUILTIN"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler supports the specified
-					builtin by using the <code>__has_builtin</code>
-					function-like macro.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>builtin</dt>
-					<dd>Built-in to check.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_EXTENSION" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_EXTENSION(extension)</code> <a href="#HEDLEY_CLANG_HAS_EXTENSION"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler is clang and supports the
-					specified extension.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>extension</dt>
-					<dd>Extension to check.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute)</code> <a href="#HEDLEY_CLANG_HAS_DECLSPEC_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler supports the specified
-					declspec attribute by using
-					the <code>__has_declspec_attribute</code> function-like
-					macro.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>declspec_attribute</dt>
-					<dd>Declspec attribute to check.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_CLANG_HAS_WARNING" class="container">
-				<h3><code>HEDLEY_CLANG_HAS_WARNING(warning)</code> <a href="#HEDLEY_CLANG_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					Determine whether the compiler supports the specified
-					warningn by using the <code>__has_warningn</code>
-					function-like macro.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>warning</dt>
-					<dd>Declspec attribute to check.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_HAS_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_GCC_HAS_ATTRIBUTE(attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_attribute</code>
-					macro, use that to determine whether the specificed
-					attribute is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>attribute</dt>
-					<dd>Attribute to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_HAS_CPP_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_GCC_HAS_CPP_ATTRIBUTE(cpp_attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_CPP_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_cpp_attribute</code>
-					macro, use that to determine whether the specificed
-					C++ attribute is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>cpp_attribute</dt>
-					<dd>C++ attribuet to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_HAS_BUILTIN" class="container">
-				<h3><code>HEDLEY_GCC_HAS_BUILTIN(builtin,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_BUILTIN"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_builtin</code>
-					macro, use that to determine whether the specificed
-					builtin is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>builtin</dt>
-					<dd>Built-in to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_HAS_EXTENSION" class="container">
-				<h3><code>HEDLEY_GCC_HAS_EXTENSION(extension,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_EXTENSION"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_extension</code>
-					macro, use that to determine whether the specificed
-					extension is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>extension</dt>
-					<dd>Extension to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-
-			<section id="HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE" class="container">
-				<h3><code>HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE(declspec_attribute,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_DECLSPEC_ATTRIBUTE"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_declspec_attribute</code>
-					macro, use that to determine whether the specificed
-					declspec_attribute is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>declspec_attribute</dt>
-					<dd>Declspec attribute to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
-		</section>
-
-			<section id="HEDLEY_GCC_HAS_WARNING" class="container">
-				<h3><code>HEDLEY_GCC_HAS_WARNING(warning,major,minor,patch)</code> <a href="#HEDLEY_GCC_HAS_WARNING"><i class="fa fa-link"></i></a></h3>
-
-				<p>
-					If the compiler implements the <code>__has_warning</code>
-					macro, use that to determine whether the specificed
-					warning is supported. Otherwise, return whether the
-					compiler claims to be a version of GCC greater than or equal
-					to that specified.
-				</p>
-
-				<dl class="dl-horizontal">
-					<dt>warning</dt>
-					<dd>Warning to check.</dd>
-
-					<dt>major</dt>
-					<dd>Major version.</dd>
-
-					<dt>minor</dt>
-					<dd>Minor version.</dd>
-
-					<dt>patch</dt>
-					<dd>Patch level.</dd>
-				</dl>
-			</section>
 		</section>
 
 		<footer class="well">

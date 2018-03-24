@@ -193,8 +193,33 @@
 						</p>
 					</dd>
 
-					<dt class="h4" id="faq-compilers">“Virtually” any compiler?</dt>
+					<dt class="h4" id="faq-compilers">Which compilers are supported?</dt>
 					<dd>
+						<p>
+							Macros defined by Hedley are safe to use anywhere; if a
+							compiler isn't known to support a feature Hedley will
+							simply output nothing, or standard C/C++, depending on
+							what is appropriate. Think of Hedley as progressive
+							enhancement for your code.
+						</p>
+
+						<p>
+							Compilers Hedley is able to take advantage of include:
+						</p>
+
+						<ul>
+							<li><a href="https://gcc.gnu.org/">GNU Compiler Collection</a></li>
+							<li><a href="https://clang.llvm.org/">Clang</a></li>
+							<li><a href="https://docs.microsoft.com/en-us/cpp/">Microsoft Visual C++</a></li>
+							<li><a href="https://software.intel.com/en-us/intel-compilers">Intel C/C++ Compiler</a></li>
+							<li><a href="https://www.pgroup.com/">PGI C/C++ Compiler</a></li>
+							<li><a href="http://www.oracle.com/technetwork/server-storage/developerstudio/overview/index.html">Oracle Developer Studio</a></li>
+							<li><a href="https://developer.arm.com/products/software-development-tools/compilers">ARM C/C++ Compiler</a></li>
+							<li><a href="https://www.ibm.com/us-en/marketplace/ibm-c-and-c-plus-plus-compiler-family">IBM XL C/C++ Compiler</a></li>
+							<li><a href="http://www.ti.com/tools-software/compilers/features-benefits.html">Texas Instruments C/C++ Compiler</a></li>
+							<li><a href="https://www.cray.com/">Cray C/C++ Compiler</a></li>
+						</ul>
+
 						<p>
 							Hedley makes use of varaidic macros for some
 							functionality, and there is no way to define these away.
@@ -205,6 +230,10 @@
 							you pass <code>-Wpedantic</code> (or something similar)
 							to your compiler and you're in an older mode (e.g., C89
 							or C++03).
+						</p>
+
+						<p>
+
 						</p>
 					</dd>
 
