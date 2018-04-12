@@ -105,14 +105,32 @@
 			<p>
 				Of course, it's not all about the errors… giving the compiler
 				more information about your program also means it can do a
-				better job of optimizing for you.
+				better job of optimizing for you. Unfortunately, different
+				compilers can handle different information, often presented in
+				different ways, which can lead to an <code>#ifdef</code> maze
+				or, more often, simply omitting the extra information.
 			</p>
 
 			<p>
-				Unfortunately, these annotations don't work everywhere.
-				Different compilers and static analyzers support different
-				annotations, which means it's easy to end up with something
-				like this:
+				Hedley helps by providing easy-to-use macros which hide
+				that <code>#ifdef</code> maze away in a single C/C++ header
+				which works everywhere; just drop it into your project
+				and <code>#include</code> it—no build system magic is
+				required.
+			</p>
+
+			<p>
+				For example, here is what a function to print a fatal error
+				might look like using Hedley:
+			</p>
+
+			<pre class="prettyprint lang-c">HEDLEY_NO_RETURN
+HEDLEY_NON_NULL(1,2)
+HEDLEY_PRINTF_FORMAT(2,3)
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
+
+			<p>
+				Without Hedley, the same declaration would look like this:
 			</p>
 
 			<pre class="prettyprint lang-c">#if defined(__STDC_VERSION__) && __STDC_VERSION__ &gt;= 201112L
@@ -172,9 +190,16 @@ __attribute__((__format__(__printf__, 2, 3)))
 void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
 
 			<p>
-				In all honesty, you're unlikely to see code like that in the
-				wild.  Generally people will just omit the attributes
-				altogether, or include an (over-)simplified version like:
+				Not only is the Hedley version vastly easier to write, but
+				it's easy enough to read that it helps document your code,
+				meaning it's useful even if your compiler doesn't support the
+				annotations in question.
+			</p>
+
+			<p>
+				Of course, you're unlikely to encounter that monstrosity above
+				in the real world. You're much more likely to see something
+				like:
 			</p>
 
 			<pre class="prettyprint lang-c">#if defined(__GNUC__)
@@ -184,63 +209,36 @@ __attribute__((__nonnull__(1,2)))
 #elif defined(_MSC_VER)
 __declspec(noreturn)
 #endif
-void print_fatal_error(FILE* fp, const char* fmt, ...)</pre>
+void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
 
 			<p>
-				You can probably already spot some issues, including:
+				While easier on the eyes than the first version (though not
+				the Hedley version), there are a number of problems with this:
 			</p>
 
 			<ul>
 				<li>
-					Portability:
-					<ul>
-						<li>
-							GCC before 4.4 will fail since it doesn't support format
-							string checking.  Some older versions would also fail
-							because of the other attributes (<var>nonnull</var>
-							and <var>noreturn</var>).
-						</li>
-						<li>
-							MSVC before version 13.10 (included in Visual Studio
-							2003) will fail since it doesn't support
-							the <var>noreturn</var> declspec.
-						</li>
-					</ul>
+					It only works for MSVC and GCC, as well as compilers which
+					masquerade as GCC (by setting <var>__GNUC__</var>) such as
+					clang.
 				</li>
 				<li>
-					Mingw will likely fail because it will expect standard C
-					format strings, but MSVC's format string implementation
-					deviates significantly from C99.
+					Older versions of GCC and MSVC, which don't support these
+					annotations, will fail.
 				</li>
 				<li>
-					C11-compilers which don't masquerade as either GCC or MSVC
-					will not be annotated with <var>_Noreturn</var>, which is an
-					important static-analysis and optimization hint.
+					Edge cases, like mingw, will likely fail since it will be
+					checking for GNU-style format string but MSVC uses
+					non-standard specifiers for some types.
 				</li>
 			</ul>
 
 			<p>
-				Hedley uses the preprocessor to determine which annotations
-				will work and which won't, effectively moving all those messy
-				ifdefs out of your code and into Hedley.  Annotations which
-				work are defined to the compiler-specific version, while
-				unsupported annotations will be defined away.  This allows the
-				first example (the really ugly one) to be simplified to
-				something like:
+				With Hedley, other people have already put in a lot of effort
+				to make sure the compiler-specific annotations are written
+				wherever they are accepted, but are not written when they
+				would cause an error.
 			</p>
-
-			<pre class="prettyprint lang-c">HEDLEY_NO_RETURN
-HEDLEY_NON_NULL(1,2)
-HEDLEY_PRINTF_FORMAT(2,3)
-void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
-
-			<p>
-				Not only is this vastly easier to write, but it's easy enough
-				to read that it helps document your code, meaning it's useful
-				even if your compiler doesn't support the annotations in
-				question.
-			</p>
-
 		</section>
 
 		<section class="container">
@@ -358,79 +356,45 @@ cc1: all warnings being treated as errors</pre>
 			  <dt><a href="api-reference.html#static-analysis">Static Analysis</a></dt>
 			  <dd>
 			    <p>
-			      Macros which help you descibe your API
-			      to the compiler and/or static analyzers,
-			      giving your users helpful warnings when
-			      the misuse your API, without false
-			      positives.
+			      Descibe your API to the compiler and/or static analyzers,
+			      giving your users helpful warnings when they misuse your
+			      API, without false positives. Includes macros for:
 			    </p>
 			  </dd>
 
 			  <dt><a href="api-reference.html#optimizations">Optimizations</a></dt>
 			  <dd>
 			    <p>
-			      Tell the compiler what you're doing (or
-			      what you want it to do) so compiled code
-			      is faster.
+			      Tell the compiler what you're doing (or what you want it
+			      to do) so compiled code is faster.
 			    </p>
 			  </dd>
 
 			  <dt><a href="api-reference.html#public-apis">Managing Public APIs</a></dt>
 			  <dd>
 			    <p>
-			      Macros which help convey versioning
-			      information, when symbols are are added
-			      and deprecated, and symbol visibility.
+			      Macros which help convey versioning information, when
+			      symbols are are added and deprecated, and symbol
+			      visibility.
 			    </p>
 			  </dd>
 
 			  <dt><a href="api-reference.html#platform-detection">Platform Detection</a></dt>
 			  <dd>
 			    <p>
-			      Macros Hedley uses to detect the
-			      platform.
+			      Macros Hedley uses to detect compiler, compiler version,
+			      and features availability.
 			    </p>
 			  </dd>
 
 			  <dt><a href="api-reference.html#miscellaneous">Miscellaneous</a></dt>
 			  <dd>
 			    <p>
-			      Assorted macros which are useful, but
-			      don't really fit anywhere else.
+			      Assorted macros which are useful, but don't really fit
+			      anywhere else.
 			    </p>
 			  </dd>
 			</dl>
-		</section>
-
-		<section class="container">
-			<h1 id="how-it-works">How it Works</h1>
-
-			<p>
-				Hedley isn't magic, and we certainly didn't manage to convince
-				compiler vendors to add support for our macros; Hedley simply
-				uses the preprocessor to determine which compiler and version
-				you are using, then either emits the compiler-specific snippet
-				or, if there is no known implementation for the compiler,
-				nothing at all.
-			</p>
-
-			<p>
-				As an example, <code>HEDLEY_NON_NULL</code> uses
-				GCC's <var>nonnull</var> function attribute where it is
-				available (a lot of compilers pretend to be GCC and implement
-				it).  Other macros have different implementations on different
-				platforms; for example, <code>HEDLEY_INLINE</code> is
-				implemented as <code>inline</code> if you are compiling in C99
-				or greater mode.  If not, there is the
-				GNU <code>__inline__</code> extension on GCC-compatible
-				compilers, or <code>__inline</code> for Microsoft Visual C++.
-				Some features are also only enabled for certain versions of
-				compilers; for example, <code>HEDLEY_FORCE_INLINE</code> maps
-				to the <code>always_inline</code> attribute for GCC &gt;
-				4.0.0, <code>__forceinline</code> for Visual C++ &gt;= 12.0
-				(Visual Studio 6.0), or <code>HEDLEY_INLINE</code> as a
-				fallback.
-			</p>
 		</section>
 
 		<section class="container">

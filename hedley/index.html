@@ -54,8 +54,8 @@
 				<h1>Hedley</h1>
 
 				<p>
-					Hedley is single a C header you can include in your project
-					to enable compiler-specific features while retaining
+					Hedley is single a C/C++ header you can include in your
+					project to enable compiler-specific features while retaining
 					compatibility with all compilers.  It contains dozens of
 					macros to help make your code easier to use, harder to
 					misuse, safer, faster, and more portable.
@@ -175,11 +175,11 @@
 						<p>
 							Maybe.  The first rule is that if a feature isn't known
 							to be supported it must be safe to fall back on pure
-							C89.  For example, if the compiler doesn't have an
-							implementation for <code>HEDLEY_INLINE</code>, it's not
-							a big deal; the macro is compiled down to nothing and
-							the function is not inlined, but that will not cause the
-							code to stop functioning.
+							C89.  For example, it's not a big deal if the compiler
+							doesn't have an implementation
+							for <code>HEDLEY_INLINE</code>; the macro is compiled
+							down to nothing and the function may not be inlined, but
+							that will not cause the code to stop functioning.
 						</p>
 
 						<p>
@@ -190,6 +190,13 @@
 							<code>__declspec(thread)</code>, etc.) the behavior is
 							completely different and the resulting program will
 							almost certainly be broken.
+						</p>
+
+						<p>
+							If a feature isn't a good fit for Hedley it very well
+							may be a good fit
+							for <a href="https://github.com/nemequ/portable-snippets">Portable
+							Snippets</a>.
 						</p>
 					</dd>
 
@@ -226,14 +233,15 @@
 							Variadic macros have formally been part of C since C99,
 							and part of C++ since C++11, but they have been
 							available in virtually every compiler for much longer.
-							The only time you're likely to run into an issue is if
-							you pass <code>-Wpedantic</code> (or something similar)
-							to your compiler and you're in an older mode (e.g., C89
-							or C++03).
 						</p>
 
 						<p>
-
+							Even if you pass <code>-Wpedantic</code> (or something
+							similar) to your compiler and you're in an older mode
+							(e.g., C89 or C++03), we can usually silence the warning
+							for you. The only time you're likely to run into an
+							issue is if your compiler is more than about 25 years
+							old.
 						</p>
 					</dd>
 
