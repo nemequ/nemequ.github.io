@@ -2011,9 +2011,13 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED">HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS">HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL">HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL</a></code></li>
 					<li><code><a href="#HEDLEY_PRAGMA">HEDLEY_PRAGMA(value)</a></code></li>
 					<li><code><a href="#HEDLEY_STRINGIFY">HEDLEY_STRINGIFY(x)</a></code></li>
 					<li><code><a href="#HEDLEY_CONCAT">HEDLEY_CONCAT(a,b)</a></code></li>
+					<li><code><a href="#HEDLEY_CONST_CAST">HEDLEY_CONST_CAST(T,expr)</a></code></li>
+					<li><code><a href="#HEDLEY_REINTERPRET_CAST">HEDLEY_REINTERPRET_CAST(T,expr)</a></code></li>
+					<li><code><a href="#HEDLEY_STATIC_CAST">HEDLEY_STATIC_CAST(T,expr)</a></code></li>
 				</ul>
 			</div>
 
@@ -2517,6 +2521,69 @@ hEDLEY_DIAGNOSTIC_POP</pre>
 				</div>
 			</section>
 
+			<section id="HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL</code> <a href="#HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Do not emit warnings about discarding type qualifiers when
+					casting.
+				</p>
+
+				<p>
+					You probably want to
+					use <a href="#HEDLEY_CONST_CAST"><code>HEDLEY_CONST_CAST</code></a>
+					instead of using this macro directly.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">const char* foo = "Hello, world!";
+HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+char* bar = foo;
+hEDLEY_DIAGNOSTIC_POP</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic ignored \&quot;-Wcast-qual\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>17.0+</td>
+									<td><code>_Pragma(&quot;warning(disable:2203)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>3.0.0+</td>
+									<td><code>_Pragma(&quot;GCC diagnostic ignored \&quot;-Wcast-qual\&quot;&quot;)</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
 			<section id="HEDLEY_PRAGMA" class="container">
 				<h3><code>HEDLEY_PRAGMA(value)</code> <a href="#HEDLEY_PRAGMA"><i class="fa fa-link"></i></a></h3>
 
@@ -2609,6 +2676,167 @@ int main(void) {
 
   return 0;
 }</pre>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_CONST_CAST" class="container">
+				<h3><code>HEDLEY_CONST_CAST(T,expr)</code> <a href="#HEDLEY_CONST_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Cast to <code>T</code>, possibly removing <code>const</code>
+					type qualifiers.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers), but can
+					also be useful for eliminating some warnings from some C
+					compilers in certain configurations (GCC/clang/ICC
+					with <code>-Wcast-qual</code>).
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">const char* foo = "Hello, world!";
+char* bar = HEDLEY_CONST_CAST(char*, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>const_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>3.0+</td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>ICC</th>
+									<td>17+</td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>((T) (expr))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_REINTERPRET_CAST" class="container">
+				<h3><code>HEDLEY_REINTERPRET_CAST(T,expr)</code> <a href="#HEDLEY_REINTERPRET_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Reinterpret one type as another.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers).
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">uint8_t foo[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+uint64_t bar = *HEDLEY_REINTERPRET_CAST(uint64_t*, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>reinterpret_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>(*((T*) &amp;(expr)))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_STATIC_CAST" class="container">
+				<h3><code>HEDLEY_STATIC_CAST(T,expr)</code> <a href="#HEDLEY_STATIC_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Cast from one type to another.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers) where in
+					C++ code you would use a <code>static_cast</code>. Some
+					compilers (such as clang with <code>-Wold-style-cast</code>)
+					will emit a diagnostic if you attempt to use a C-style cast
+					in C++ code.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">int foo = 1729;
+unsigned int bar = HEDLEY_STATIC_CAST(unsigned int, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>static_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>((T) (expr))</code></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</section>
