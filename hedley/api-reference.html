@@ -409,6 +409,11 @@ void log_fatal(const char* message);</pre>
 										<td>6.0+ (C++-only)</td>
 										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.15_The_FUNC_NEVER_RETURNS_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____21"><code>_Pragma(&quot;FUNC_NEVER_RETURNS;&quot;)</code></a></td>
 									</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>__noreturn</code></a></td>
+								</tr>
 								</tbody>
 							</table>
 						</div>
@@ -1231,6 +1236,11 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 										<td>7.3+</td>
 										<td><code>__restrict</code></td>
 									</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>__restrict</code></a></td>
+								</tr>
 								</tbody>
 							</table>
 						</div>
@@ -1374,6 +1384,11 @@ void do_something_quickly(void);</pre>
 										<td>7.0+ (C++-only)</td>
 										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.9_The_FUNC_ALWAYS_INLINE_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____15"><code>_Pragma(&quot;FUNC_ALWAYS_INLINE;&quot;)</code></a></td>
 									</tr>
+									<tr>
+										<th>IAR</th>
+										<td>8.0+</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;inline=forced&quot;)</code></a></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -1453,6 +1468,11 @@ void do_something(void);</pre>
 										<th>TI</th>
 										<td>6.0+ (C++-only)</td>
 										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.9.10_The_FUNC_CANNOT_INLINE_Pragma%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.9%2520Pragma%2520Directives%7C_____16"><code>_Pragma(&quot;FUNC_CANNOT_INLINE;&quot;)</code></a></td>
+									</tr>
+									<tr>
+										<th>IAR</th>
+										<td>8.0+</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;inline=never&quot;)</code></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1804,6 +1824,11 @@ void do_something(void);</pre>
 									<td>8.0+</td>
 									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since)))</code></a></td>
 								</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;deprecated&quot;)</code></a></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -1900,6 +1925,11 @@ void do_something(void);</pre>
 									<th>TI</th>
 									<td>8.0+</td>
 									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((deprecated(&quot;Since &quot; #since &quot;; use &quot; #replacement)))</code></a></td>
+								</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;deprecated&quot;)</code></a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -2011,9 +2041,13 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_POP">HEDLEY_DIAGNOSTIC_POP</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED">HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED</a></code></li>
 					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS">HEDLEY_DIAGNOSTIC_DISABLE_UNKNOWN_PRAGMAS</a></code></li>
+					<li><code><a href="#HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL">HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL</a></code></li>
 					<li><code><a href="#HEDLEY_PRAGMA">HEDLEY_PRAGMA(value)</a></code></li>
 					<li><code><a href="#HEDLEY_STRINGIFY">HEDLEY_STRINGIFY(x)</a></code></li>
 					<li><code><a href="#HEDLEY_CONCAT">HEDLEY_CONCAT(a,b)</a></code></li>
+					<li><code><a href="#HEDLEY_CONST_CAST">HEDLEY_CONST_CAST(T,expr)</a></code></li>
+					<li><code><a href="#HEDLEY_REINTERPRET_CAST">HEDLEY_REINTERPRET_CAST(T,expr)</a></code></li>
+					<li><code><a href="#HEDLEY_STATIC_CAST">HEDLEY_STATIC_CAST(T,expr)</a></code></li>
 				</ul>
 			</div>
 
@@ -2235,17 +2269,22 @@ do_something(void);</pre>
 					Remember the current state of the compiler's diagnostics.
 				</p>
 
+				<p class="alert alert-warning">
+					<strong>Warning</strong>: GCC prior to 4.6 requires this
+					annotation be placed <em>outside</em> of any functions.
+				</p>
+
 				<div class="panel panel-default">
 					<div class="panel-heading">Example</div>
 					<div class="panel-body">
 						<pre class="prettyprint">HEDLEY_DEPRECATED void foo(void);
 
+HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 static void bar(void) {
-	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
-	HEDLEY_DIAGNOSTIC_POP
-}</pre>
+}
+HEDLEY_DIAGNOSTIC_POP</pre>
 					</div>
 				</div>
 
@@ -2310,18 +2349,23 @@ static void bar(void) {
 					from the last push.
 				</p>
 
+				<p class="alert alert-warning">
+					<strong>Warning</strong>: GCC prior to 4.6 requires this
+					annotation be placed <em>outside</em> of any functions.
+				</p>
+
 				<div class="panel panel-default">
 					<div class="panel-heading">Example</div>
 					<div class="panel-body">
 						<pre class="prettyprint">HEDLEY_DEPRECATED
 void foo(void);
 
+HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 static void bar(void) {
-	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
-	HEDLEY_DIAGNOSTIC_POP
-}</pre>
+}
+HEDLEY_DIAGNOSTIC_POP</pre>
 					</div>
 				</div>
 
@@ -2385,17 +2429,22 @@ static void bar(void) {
 					Do not emit warnings when using deprecated symbols.
 				</p>
 
+				<p class="alert alert-warning">
+					<strong>Warning</strong>: GCC prior to 4.6 requires this
+					annotation be placed <em>outside</em> of any functions.
+				</p>
+
 				<div class="panel panel-default">
 					<div class="panel-heading">Example</div>
 					<div class="panel-body">
 						<pre class="prettyprint">HEDLEY_DEPRECATED void foo(void);
 
+HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 static void bar(void) {
-	HEDLEY_DIAGNOSTIC_PUSH
-	HEDLEY_DIAGNOSTIC_DISABLE_DEPRECATED
 	foo();
-	HEDLEY_DIAGNOSTIC_POP
-}</pre>
+}
+HEDLEY_DIAGNOSTIC_POP</pre>
 					</div>
 				</div>
 
@@ -2446,6 +2495,11 @@ static void bar(void) {
 									<td>12.4+ in C mode</td>
 									<td><code>_Pragma(&quot;error_messages(off,E_DEPRECATED_ATT,E_DEPRECATED_ATT_MESS)&quot;)</code></td>
 								</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;diag_duppress=Pe1444,Pe1215&quot;)</code></a></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -2457,6 +2511,11 @@ static void bar(void) {
 
 				<p>
 					Do not emit warnings when using deprecated symbols.
+				</p>
+
+				<p class="alert alert-warning">
+					<strong>Warning</strong>: GCC prior to 4.6 requires this
+					annotation be placed <em>outside</em> of any functions.
 				</p>
 
 				<div class="panel panel-default">
@@ -2510,6 +2569,79 @@ hEDLEY_DIAGNOSTIC_POP</pre>
 									<th>TI</th>
 									<td>8.0+</td>
 									<td><code>_Pragma(&quot;diag_suppress 163&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;diag_duppress=Pe161&quot;)</code></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL" class="container">
+				<h3><code>HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL</code> <a href="#HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Do not emit warnings about discarding type qualifiers when
+					casting.
+				</p>
+
+				<p>
+					You probably want to
+					use <a href="#HEDLEY_CONST_CAST"><code>HEDLEY_CONST_CAST</code></a>
+					instead of using this macro directly.
+				</p>
+
+				<p class="alert alert-warning">
+					<strong>Warning</strong>: GCC prior to 4.6 requires this
+					annotation be placed <em>outside</em> of any functions.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">const char* foo = "Hello, world!";
+HEDLEY_DIAGNOSTIC_PUSH
+HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+char* bar = foo;
+hEDLEY_DIAGNOSTIC_POP</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Platform</th>
+									<th>Version</th>
+									<th>Implementation</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>_Pragma(&quot;clang diagnostic ignored \&quot;-Wcast-qual\&quot;&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>Intel</th>
+									<td>17.0+</td>
+									<td><code>_Pragma(&quot;warning(disable:2203)&quot;)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>3.0.0+</td>
+									<td><code>_Pragma(&quot;GCC diagnostic ignored \&quot;-Wcast-qual\&quot;&quot;)</code></td>
 								</tr>
 							</tbody>
 						</table>
@@ -2613,6 +2745,167 @@ int main(void) {
 				</div>
 			</section>
 
+			<section id="HEDLEY_CONST_CAST" class="container">
+				<h3><code>HEDLEY_CONST_CAST(T,expr)</code> <a href="#HEDLEY_CONST_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Cast to <code>T</code>, possibly removing <code>const</code>
+					type qualifiers.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers), but can
+					also be useful for eliminating some warnings from some C
+					compilers in certain configurations (GCC/clang/ICC
+					with <code>-Wcast-qual</code>).
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">const char* foo = "Hello, world!";
+char* bar = HEDLEY_CONST_CAST(char*, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>const_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>GCC</th>
+									<td>3.0+</td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>clang</th>
+									<td></td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>ICC</th>
+									<td>17+</td>
+									<td><code>(__extension__ ({
+		HEDLEY_DIAGNOSTIC_PUSH
+		HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL
+		((T) (expr));
+		HEDLEY_DIAGNOSTIC_POP
+	})</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>((T) (expr))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_REINTERPRET_CAST" class="container">
+				<h3><code>HEDLEY_REINTERPRET_CAST(T,expr)</code> <a href="#HEDLEY_REINTERPRET_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Reinterpret one type as another.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers).
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">uint8_t foo[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+uint64_t bar = *HEDLEY_REINTERPRET_CAST(uint64_t*, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>reinterpret_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>(*((T*) &amp;(expr)))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_STATIC_CAST" class="container">
+				<h3><code>HEDLEY_STATIC_CAST(T,expr)</code> <a href="#HEDLEY_STATIC_CAST"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Cast from one type to another.
+				</p>
+
+				<p>
+					This is primarily useful for code which should be usable
+					from both C and C++ (<i>e.g.</i> shared headers) where in
+					C++ code you would use a <code>static_cast</code>. Some
+					compilers (such as clang with <code>-Wold-style-cast</code>)
+					will emit a diagnostic if you attempt to use a C-style cast
+					in C++ code.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">int foo = 1729;
+unsigned int bar = HEDLEY_STATIC_CAST(unsigned int, foo);</pre>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Compiler Support</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>C++</th>
+									<td></td>
+									<td><code>static_cast&lt;T&gt;(expr)</code></td>
+								</tr>
+								<tr>
+									<th>C</th>
+									<td></td>
+									<td><code>((T) (expr))</code></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
 			<section id="HEDLEY_MESSAGE" class="container">
 				<h3><code>HEDLEY_MESSAGE(msg)</code> <a href="#HEDLEY_MESSAGE"><i class="fa fa-link"></i></a></h3>
 
@@ -2654,6 +2947,11 @@ HEDLEY_DIAGNOSTIC_POP</pre></td>
 									<th>MSVC</th>
 									<td>15.0+ (VS 2010)</td>
 									<td><code>__pragma(message(msg))</code></td>
+								</tr>
+								<tr>
+									<th>IAR</th>
+									<td>8.0+</td>
+									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>_Pragma(&quot;message(msg)&quot;)</code></a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -2791,6 +3089,7 @@ printf("PGI %d.%d.%d\n",
 						<li id="HEDLEY_IBM_VERSION"><code>HEDLEY_IBM_VERSION</code></li>
 						<li id="HEDLEY_TI_VERSION"><code>HEDLEY_TI_VERSION</code></li>
 						<li id="HEDLEY_CRAY_VERSION"><code>HEDLEY_CRAY_VERSION</code></li>
+						<li id="HEDLEY_IAR_VERSION"><code>HEDLEY_IAR_VERSION</code></li>
 						<li id="HEDLEY_GCC_VERSION"><code>HEDLEY_GCC_VERSION</code></li>
 					</ul>
 				</section>
@@ -2839,6 +3138,7 @@ __declspec(deprecated)
 						<li id="HEDLEY_IBM_VERSION_CHECK"><code>HEDLEY_IBM_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_TI_VERSION_CHECK"><code>HEDLEY_TI_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_CRAY_VERSION_CHECK"><code>HEDLEY_CRAY_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_IAR_VERSION_CHECK"><code>HEDLEY_IAR_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_GCC_VERSION_CHECK"><code>HEDLEY_GCC_VERSION_CHECK(major,minor,revision)</code></li>
 					</ul>
 				</section>
