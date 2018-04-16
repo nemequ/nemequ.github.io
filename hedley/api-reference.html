@@ -127,6 +127,7 @@
 					<li><code><a href="#HEDLEY_FALL_THROUGH">HEDLEY_FALL_THROUGH</a></code></li>
 					<li><code><a href="#HEDLEY_RETURNS_NON_NULL">HEDLEY_RETURNS_NON_NULL</a></code></li>
 					<li><code><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></code></li>
+					<li><code><a href="#HEDLEY_UNREACHABLE_RETURN">HEDLEY_UNREACHABLE_RETURN(value)</a></code></li>
 					<li><code><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(...)</a></code></li>
 					<li><code><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></code></li>
 				</ul>
@@ -616,6 +617,69 @@ void* foo(void);</pre>
 										<th>C</th>
 										<td>C89+ (with <var>stdlib.h</var>)</td>
 										<td><code>abort()</code></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_UNREACHABLE_RETURN" class="container">
+					<h3><code>HEDLEY_UNREACHABLE_RETURN()</code> <a href="#HEDLEY_UNREACHABLE_RETURN"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Inform the compiler/analyzer that the code should never be
+						reached or, for compilers which don't provide a way to
+						provide such information, return a value.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">static int handle_code(enum Foo code) {
+  switch (code) {
+  case FOO_BAR:
+  case FOO_BAZ:
+  case FOO_QUX:
+    return 0;
+  }
+
+  HEDLEY_UNREACHABLE_RETURN(0);
+}</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>GCC</th>
+										<td>4.5.0+</td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Other-Builtins.html#index-g_t_005f_005fbuiltin_005funreachable-4214"><code>__builtin_unreachable()</code></a></td>
+									</tr>
+									<tr>
+										<th>Intel</th>
+										<td>16.0+</td>
+										<td><code>__builtin_unreachable()</code></td>
+									</tr>
+									<tr>
+										<th>MSVC</th>
+										<td>7.1+ (VS 2003)</td>
+										<td><a href="https://msdn.microsoft.com/en-us/library/1b3fsfxw.aspx"><code>__assume(0)</code></a></td>
+									</tr>
+									<tr>
+										<th>C</th>
+										<td></td>
+										<td><code>return value</code></td>
 									</tr>
 								</tbody>
 							</table>
@@ -3090,6 +3154,8 @@ printf("PGI %d.%d.%d\n",
 						<li id="HEDLEY_TI_VERSION"><code>HEDLEY_TI_VERSION</code></li>
 						<li id="HEDLEY_CRAY_VERSION"><code>HEDLEY_CRAY_VERSION</code></li>
 						<li id="HEDLEY_IAR_VERSION"><code>HEDLEY_IAR_VERSION</code></li>
+						<li id="HEDLEY_TINYC_VERSION"><code>HEDLEY_TINYC_VERSION</code></li>
+						<li id="HEDLEY_DMC_VERSION"><code>HEDLEY_DMC_VERSION</code></li>
 						<li id="HEDLEY_GCC_VERSION"><code>HEDLEY_GCC_VERSION</code></li>
 					</ul>
 				</section>
@@ -3139,6 +3205,8 @@ __declspec(deprecated)
 						<li id="HEDLEY_TI_VERSION_CHECK"><code>HEDLEY_TI_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_CRAY_VERSION_CHECK"><code>HEDLEY_CRAY_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_IAR_VERSION_CHECK"><code>HEDLEY_IAR_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_TINYC_VERSION_CHECK"><code>HEDLEY_TINYC_VERSION_CHECK(major,minor,revision)</code></li>
+						<li id="HEDLEY_DMC_VERSION_CHECK"><code>HEDLEY_DMC_VERSION_CHECK(major,minor,revision)</code></li>
 						<li id="HEDLEY_GCC_VERSION_CHECK"><code>HEDLEY_GCC_VERSION_CHECK(major,minor,revision)</code></li>
 					</ul>
 				</section>

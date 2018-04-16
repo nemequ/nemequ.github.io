@@ -133,7 +133,9 @@ void print_fatal_error(FILE* fp, const char* fmt, ...);</pre>
 				Without Hedley, the same declaration would look like this:
 			</p>
 
-			<pre class="prettyprint lang-c">#if defined(__STDC_VERSION__) && __STDC_VERSION__ &gt;= 201112L
+			<pre class="prettyprint lang-c">#if defined(__IAR_SYSTEMS_ICC__) && (__VER__ &gt;= 8000000)
+__noreturn
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ &gt;= 201112L
 _Noreturn
 #elif defined(__cplusplus) && (__cplusplus &gt;= 201103L)
 [[noreturn]]
