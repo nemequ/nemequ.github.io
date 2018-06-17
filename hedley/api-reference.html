@@ -156,6 +156,20 @@
 						reversed this would likely result in an error.
 					</p>
 
+					<p>
+						Note that conformant array parameters may trigger a
+						warning on some compilers due to them thinking it is a
+						<abbr title="Variable Length Array">VLA</abbr>.  The
+						question of whether they really are <abbr>VLA</abbr>s
+						is <a href="https://stackoverflow.com/questions/49962479/are-conformant-array-parameters-vlas">ambiguous</a>,
+						but they suffer from none of the drawbacks of variable
+						length arrays as array function parameters are demoted to
+						a plain pointer.  For a way to generate an error when you
+						use a <abbr>VLA</abbr> without having the compiler emit a
+						diagnostic for conformant array parameters,
+						see <code><a href="#HEDLEY_REQUIRE_CONSTEXPR">HEDLEY_REQUIRE_CONSTEXPR()</a></code>
+					</p>
+
 					<div class="panel panel-default">
 						<div class="panel-heading">Example</div>
 						<div class="panel-body">
@@ -2112,6 +2126,8 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_CONST_CAST">HEDLEY_CONST_CAST(T,expr)</a></code></li>
 					<li><code><a href="#HEDLEY_REINTERPRET_CAST">HEDLEY_REINTERPRET_CAST(T,expr)</a></code></li>
 					<li><code><a href="#HEDLEY_STATIC_CAST">HEDLEY_STATIC_CAST(T,expr)</a></code></li>
+					<li><code><a href="#HEDLEY_IS_CONSTANT">HEDLEY_IS_CONSTANT(expr)</a></code></li>
+					<li><code><a href="#HEDLEY_REQUIRE_CONSTEXPR">HEDLEY_REQUIRE_CONSTEXPR(expr)</a></code></li>
 				</ul>
 			</div>
 
@@ -2966,6 +2982,79 @@ unsigned int bar = HEDLEY_STATIC_CAST(unsigned int, foo);</pre>
 								</tr>
 							</tbody>
 						</table>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_IS_CONSTANT" class="container">
+				<h3><code>HEDLEY_IS_CONSTANT(expr)</code> <a href="#HEDLEY_IS_CONSTANT"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					Determine if an expression is known at compile time to be
+					constant.
+				</p>
+
+				<p>
+					This macro is intended to be used for choosing between a
+					code path which can be constant-folded if the value of the
+					expression is known at compile time but would be slow at
+					runtime and a path which is unknown to the compiler but fast
+					at runtime.
+				</p>
+
+				<p>
+					For compilers which do not provide a way to determine
+					this, <var>0</var> is returned unconditionally.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">#define foo(bar) (HEDLEY_IS_CONSTANT(bar) ? baz(bar) : qux(bar))</pre>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_REQUIRE_CONSTEXPR" class="container">
+				<h3><code>HEDLEY_REQUIRE_CONSTEXPR(expr)</code> <a href="#HEDLEY_REQUIRE_CONSTEXPR"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					If <var>expr</var> is <em>not</em> an integer constant
+					expression, return <var>-1</var>.  If it is
+					an <abbr title="Integer Constant Expression">ICE</abbr>, or
+					the compiler doesn't provide a way to determine whether it
+					is, return <var>expr</var>.
+				</p>
+
+				<p>
+					This is intended primarily to provide a way to make sure you
+					don't unintentionally create a <abbr title="Variable Length
+					Array">VLA</abbr>.
+				</p>
+
+				<p>
+					It may help to think of this macro as a more portable
+					version of the <code>-Werror=vla</code> compiler flag (for
+					GCC and clang) with the added benefit that it will not
+					trigger a diagnostic for conformant array parameters
+					(see <code><a href="#HEDLEY_ARRAY_PARAM">HEDLEY_ARRAY_PARAM(expr)</a></code>.
+				</p>
+
+				<p>
+					It's worth noting that this is <em>not</em> the same
+					as <code>(HEDLEY_IS_CONSTANT(expr) ? (expr) : -1)</code>;
+					this macro attempts to verify that <var>expr</var> is an
+					integer constant expression as defined by the C standard,
+					whereas <code>HEDLEY_IS_CONSTANT</code> tries to determine
+					if the value is known by the compiler at compile time
+					(though it does fall back on checking for
+					an <abbr>ICE</abbr> on some compilers).
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">char foo[HEDLEY_REQUIRE_CONSTEXPR()];</pre>
 					</div>
 				</div>
 			</section>
