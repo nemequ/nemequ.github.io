@@ -33,6 +33,24 @@ h2 {
     display: table-cell;
 }
 
+.subproject-list {
+    list-style-type: none;
+    padding-left: 3em;
+}
+
+.subproject-list > li > span.subproject-name {
+    font-style: oblique;
+}
+
+.subproject-list > li {
+    text-indent: -2em;
+    padding-bottom: 0.65em;
+}
+
+.subproject-list > li:last-child {
+    padding-bottom: 0;
+}
+
 dt > a {
     display: inline-block;
     vertical-align: middle;
