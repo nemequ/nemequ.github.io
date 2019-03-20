@@ -708,13 +708,22 @@
 #  define HEDLEY_NO_RETURN
 #endif
 
+#if defined(HEDLEY_NOOP)
+#  undef HEDLEY_NOOP
+#endif
+#if HEDLEY_MSVC_VERSION_CHECK(13,10,0)
+#  define HEDLEY_NOOP() __noop()
+#else
+#  define HEDLEY_NOOP() ((void) 0)
+#endif
+
 #if defined(HEDLEY_UNREACHABLE)
 #  undef HEDLEY_UNREACHABLE
 #endif
 #if defined(HEDLEY_UNREACHABLE_RETURN)
 #  undef HEDLEY_UNREACHABLE_RETURN
 #endif
-#if (HEDLEY_GNUC_HAS_BUILTIN(__builtin_unreachable,4,5,0) && !defined(__CC_ARM)) || HEDLEY_INTEL_VERSION_CHECK(16,0,0)
+#if (HEDLEY_GNUC_HAS_BUILTIN(__builtin_unreachable,4,5,0) && !defined(__CC_ARM)) || HEDLEY_INTEL_VERSION_CHECK(13,0,0)
 #  define HEDLEY_UNREACHABLE() __builtin_unreachable()
 #elif HEDLEY_MSVC_VERSION_CHECK(13,10,0)
 #  define HEDLEY_UNREACHABLE() __assume(0)
@@ -724,36 +733,35 @@
 #  else
 #    define HEDLEY_UNREACHABLE() _nassert(0)
 #  endif
-#  define HEDLEY_UNREACHABLE_RETURN(value) return value
+#  define HEDLEY_UNREACHABLE_RETURN(value) return (value)
 #elif defined(EXIT_FAILURE)
 #  define HEDLEY_UNREACHABLE() abort()
 #else
-#  define HEDLEY_UNREACHABLE()
-#  define HEDLEY_UNREACHABLE_RETURN(value) return value
+#  define HEDLEY_UNREACHABLE() HEDLEY_NOOP()
+#  define HEDLEY_UNREACHABLE_RETURN(value) return (value)
 #endif
 #if !defined(HEDLEY_UNREACHABLE_RETURN)
-#  define HEDLEY_UNREACHABLE_RETURN(value) HEDLEY_UNREACHABLE()
+#  define HEDLEY_UNREACHABLE_RETURN(value) return (HEDLEY_UNREACHABLE(), (value))
 #endif
 
 #if defined(HEDLEY_ASSUME)
 #  undef HEDLEY_ASSUME
 #endif
-#if HEDLEY_MSVC_VERSION_CHECK(13,10,0) || HEDLEY_INTEL_VERSION_CHECK(16,0,0)
-#  define HEDLEY_ASSUME(expr) __assume(expr)
+#if HEDLEY_MSVC_VERSION_CHECK(13,10,0) || HEDLEY_INTEL_VERSION_CHECK(13,0,0)
+#  define HEDLEY_ASSUME(expr) __assume(!!(expr))
 #elif HEDLEY_HAS_BUILTIN(__builtin_assume)
-#  define HEDLEY_ASSUME(expr) __builtin_assume(expr)
+#  define HEDLEY_ASSUME(expr) __builtin_assume(!!(expr))
+#elif (HEDLEY_GNUC_HAS_BUILTIN(__builtin_unreachable,4,5,0) && !defined(__CC_ARM))
+#  define HEDLEY_ASSUME(expr) (!!(expr) ? HEDLEY_NOOP() : __builtin_unreachable())
 #elif HEDLEY_TI_VERSION_CHECK(6,0,0)
 #  if defined(__cplusplus)
-#    define HEDLEY_ASSUME(expr) std::_nassert(expr)
+#    define HEDLEY_ASSUME(expr) std::_nassert(!!(expr))
 #  else
-#    define HEDLEY_ASSUME(expr) _nassert(expr)
+#    define HEDLEY_ASSUME(expr) _nassert(!!(expr))
 #  endif
-#elif (HEDLEY_GNUC_HAS_BUILTIN(__builtin_unreachable,4,5,0) && !defined(__CC_ARM)) || HEDLEY_INTEL_VERSION_CHECK(16,0,0)
-#  define HEDLEY_ASSUME(expr) ((void) ((expr) ? 1 : (__builtin_unreachable(), 1)))
 #else
-#  define HEDLEY_ASSUME(expr) ((void) (expr))
+#  define HEDLEY_ASSUME() HEDLEY_NOOP()
 #endif
-
 
 HEDLEY_DIAGNOSTIC_PUSH
 #if HEDLEY_GNUC_HAS_WARNING("-Wvariadic-macros",4,0,0) && !defined(HEDLEY_INTEL_VERSION)
