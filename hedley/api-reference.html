@@ -135,11 +135,13 @@
 					<li><code><a href="#HEDLEY_RETURNS_NON_NULL">HEDLEY_RETURNS_NON_NULL</a></code></li>
 					<li><code><a href="#HEDLEY_UNREACHABLE">HEDLEY_UNREACHABLE()</a></code></li>
 					<li><code><a href="#HEDLEY_UNREACHABLE_RETURN">HEDLEY_UNREACHABLE_RETURN(value)</a></code></li>
+					<li><code><a href="#HEDLEY_ASSUME">HEDLEY_ASSUME(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_NON_NULL">HEDLEY_NON_NULL(...)</a></code></li>
 					<li><code><a href="#HEDLEY_PRINTF_FORMAT">HEDLEY_PRINTF_FORMAT(string_idx, first_to_check)</a></code></li>
 					<li><code><a href="#HEDLEY_REQUIRE">HEDLEY_REQUIRE(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_REQUIRE_MSG">HEDLEY_REQUIRE_MSG(expr, msd)</a></code></li>
 					<li><code><a href="#HEDLEY_FLAGS">HEDLEY_FLAGS</a></code></li>
+					<li><code><a href="#HEDLEY_FLAGS_CAST">HEDLEY_FLAGS_CAST</a></code></li>
 				</ul>
 
 				<section id="HEDLEY_ARRAY_PARAM" class="container">
@@ -711,6 +713,52 @@ void* foo(void);</pre>
 					</div>
 				</section>
 
+				<section id="HEDLEY_ASSUME" class="container">
+					<h3><code>HEDLEY_ASSUME(expr)</code> <a href="#HEDLEY_ASSUME"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Inform the compiler/analyzer that the provided expression
+						should always evaluate to a non-false value.
+					</p>
+
+          <p>
+            Note that,
+            unlike <a href="#HEDLEY_PREDICT_TRUE"><code>HEDLEY_PREDICT_TRUE</code></a>
+            and <a href="#HEDLEY_LIKELY"><code>HEDLEY_LIKELY</code></a>,
+            the compiler is free to assume that the
+            expression <em>never</em> evaluates to true and therfore
+            can elide code paths where it does evaluate to true.  In
+            other words, this is more similar
+            to <a href="#HEDLEY_UNREACHABLE"><code>HEDLEY_UNREACHABLE()</code></a>,
+            and many implementations of this macro do actually
+            use <code>__builtin_unreachable</code> and similar
+            constructs.
+          </p>
+
+					<dl class="dl-horizontal">
+						<dt>expr</dt>
+						<dd>
+							Expression which is required to evaluate to true.
+						</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+void sum(int x,
+         int s[HEDLEY_ARRAY_PARAM(x),
+         int a[HEDLEY_ARRAY_PARAM(x),
+         int b[HEDLEY_ARRAY_PARAM(x)) {
+  HEDLEY_ASSUME((x % 8) == 0);
+  for (int i = 0 ; i < x ; i++) {
+    s[i] = a[i] + b[i];
+  }
+}</pre>
+						</div>
+					</div>
+				</section>
+
 				<section id="HEDLEY_NON_NULL" class="container">
 					<h3><code>HEDLEY_NON_NULL(...)</code> <a href="#HEDLEY_NON_NULL"><i class="fa fa-link"></i></a></h3>
 
@@ -1007,6 +1055,35 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 						</div>
 					</div>
 				</section>
+
+				<section id="HEDLEY_FLAGS_CAST" class="container">
+					<h3><code>HEDLEY_FLAGS_CAST</code> <a href="#HEDLEY_FLAGS_CAST"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Cast <em>to</em> a flags enumeration type.
+					</p>
+
+          <p>
+            This will attempt to quiet any warnings the C/C++ compiler
+            may emit because you are casting a value which may not
+            appear in the enumeration.
+          </p>
+
+					<dl class="dl-horizontal">
+						<dt>T</dt>
+						<dd>Type to cast to.</dd>
+
+						<dt>expr</dt>
+						<dd>Expression to cast.</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">const enum Foo foo = HEDLEY_FLAGS_CAST(enum Foo, FOO_BAR | FOO_BAZ);</pre>
+						</div>
+					</div>
+				</section>
 			</div>
 		</section>
 
@@ -1181,6 +1258,142 @@ ctx-&gt;foo = bar;</pre>
 						adding <code>HEDLEY_UNLIKELY</code> to all your
 						assertions.
 					</p>
+				</section>
+
+				<section id="HEDLEY_PREDICT" class="container">
+					<h3><code>HEDLEY_PREDICT</code> <a href="#HEDLEY_PREDICT"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Tell the compiler to expect an expression to evaluate to a
+						supplied value with a specified probability.
+					</p>
+
+					<dl class="dl-horizontal">
+						<dt>long expr</dt>
+						<dd>Expression for which to predict the value.</dd>
+
+						<dt>long expected</dt>
+						<dd>Value to which the expression is predicted to evaluate to.</dd>
+
+						<dt>double probability</dt>
+						<dd>Probability of the expression evaluating to the expected value.</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+if (HEDLEY_PREDICT(foo, 1, 0.67)) {
+  do_things();
+}
+              </pre>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_PREDICT_TRUE" class="container">
+					<h3><code>HEDLEY_PREDICT_TRUE</code> <a href="#HEDLEY_PREDICT_TRUE"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Tell the compiler to expect an expression to evaluate to TRUE
+						with a provided probability.
+					</p>
+
+					<dl class="dl-horizontal">
+						<dt>expr</dt>
+						<dd>Expression for which to predict the value.</dd>
+
+						<dt>double probability</dt>
+						<dd>Probability of the expression evaluating to TRUE.</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+if (HEDLEY_PREDICT_TRUE(foo, 0.67)) {
+  do_things();
+}
+              </pre>
+						</div>
+					</div>
+
+          <p>
+            This macro is similar
+            to <a href="#HEDLEY_LIKELY"><code>HEDLEY_LIKELY</code></a>,
+            but with a stated probability.
+          </p>
+				</section>
+
+				<section id="HEDLEY_PREDICT_FALSE" class="container">
+					<h3><code>HEDLEY_PREDICT_FALSE</code> <a href="#HEDLEY_PREDICT_FALSE"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Tell the compiler to expect an expression to evaluate to FALSE
+						with a provided probability.
+					</p>
+
+					<dl class="dl-horizontal">
+						<dt>expr</dt>
+						<dd>Expression for which to predict the value.</dd>
+
+						<dt>double probability</dt>
+						<dd>Probability of the expression evaluating to FALSE.</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+if (HEDLEY_PREDICT_FALSE(foo, 0.67)) {
+  do_things();
+}
+              </pre>
+						</div>
+					</div>
+
+          <p>
+            This macro is similar
+            to <a href="#HEDLEY_UNLIKELY"><code>HEDLEY_UNLIKELY</code></a>,
+            but with a stated probability.
+          </p>
+				</section>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+if (HEDLEY_PREDICT_FALSE(foo, 1, 0.67)) {
+  do_things();
+}
+              </pre>
+						</div>
+					</div>
+				</section>
+
+				<section id="HEDLEY_UNPREDICTABLE" class="container">
+					<h3><code>HEDLEY_UNPREDICTABLE</code> <a href="#HEDLEY_UNPREDICTABLE"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+						Tell the compiler to expect an expression to evaluate to a
+						supplied value with a specified probability.
+					</p>
+
+					<dl class="dl-horizontal">
+						<dt>expr</dt>
+						<dd>Unpredictable expression.</dd>
+					</dl>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">
+if (HEDLEY_UNPREDICTABLE(foo)) {
+  do_things();
+}
+              </pre>
+						</div>
+					</div>
 				</section>
 
 				<section id="HEDLEY_MALLOC" class="container">
@@ -1440,7 +1653,7 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
-										<td><code>__restrict</code></td>
+										<td><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0472k/chr1359124957131.html"><code>__restrict</code></a></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
@@ -1450,7 +1663,7 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 									<tr>
 										<th>ODS</th>
 										<td>5.3+ (Forte Developer 6) in C mode</td>
-										<td><code>_Restrict</code></td>
+										<td><a href="https://docs.oracle.com/cd/E19059-01/fortec6u2/806-7984/806-7984.pdf"><code>_Restrict</code></a></td>
 									</tr>
 									<tr>
 										<th>ODS</th>
@@ -1460,12 +1673,12 @@ void do_something(int* HEDLEY_RESTRICT a, int* HEDLEY_RESTRICT b);</pre>
 									<tr>
 										<th>TI</th>
 										<td>7.3+</td>
-										<td><code>__restrict</code></td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>__restrict</code></a></td>
 									</tr>
 								<tr>
 									<th>IAR</th>
 									<td>8.0+</td>
-									<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#STDZ0555514"><code>__restrict</code></a></td>
+									<td><code>__restrict</code></td>
 								</tr>
 								</tbody>
 							</table>
@@ -2268,6 +2481,7 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_STATIC_CAST">HEDLEY_STATIC_CAST(T,expr)</a></code></li>
 					<li><code><a href="#HEDLEY_IS_CONSTANT">HEDLEY_IS_CONSTANT(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_REQUIRE_CONSTEXPR">HEDLEY_REQUIRE_CONSTEXPR(expr)</a></code></li>
+					<li><code><a href="#HEDLEY_CONSTEXPR">HEDLEY_CONSTEXPR</a></code></li>
 				</ul>
 			</div>
 
@@ -3284,6 +3498,25 @@ int main(void) {
 					<div class="panel-heading">Example</div>
 					<div class="panel-body">
 						<pre class="prettyprint">char foo[HEDLEY_REQUIRE_CONSTEXPR()];</pre>
+					</div>
+				</div>
+			</section>
+
+			<section id="HEDLEY_CONSTEXPR" class="container">
+				<h3><code>HEDLEY_CONSTEXPR(expr)</code> <a href="#HEDLEY_CONSTEXPR"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					The C++ <code>constexpr</code> qualifier if it is supported.
+				</p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">HEDLEY_CONSTEXPR
+static int foo(int bar) {
+  /* Do stuff */
+}
+            </pre>
 					</div>
 				</div>
 			</section>
