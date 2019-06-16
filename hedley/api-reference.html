@@ -1791,22 +1791,27 @@ void do_something_quickly(void);</pre>
 									<tr>
 										<th>GCC</th>
 										<td>4.0.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>__attribute__((__always_inline__))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007balways_005finline_007d-function-attribute-3194"><code>__attribute__((__always_inline__)) HEDLEY_INLINE</code></a></td>
 									</tr>
 									<tr>
 										<th>Intel</th>
 										<td>16.0+</td>
-										<td><code>__attribute__((__always_inline__))</code></td>
+										<td><code>__attribute__((__always_inline__)) HEDLEY_INLINE</code></td>
 									</tr>
 									<tr>
 										<th>Oracle</th>
 										<td>5.11+ (<abbr title="Oracle Developer Studio">ODS</abbr> 12.2)</td>
-										<td><code>__attribute__((__always_inline__))</code></td>
+										<td><code>__attribute__((__always_inline__)) HEDLEY_INLINE</code></td>
 									</tr>
 									<tr>
 										<th>ARM</th>
 										<td>4.1+</td>
-										<td><code>__attribute__((__always_inline__))</code></td>
+										<td><code>__attribute__((__always_inline__)) HEDLEY_INLINE</code></td>
+									</tr>
+									<tr>
+										<th>IBM</th>
+										<td>10.1.0++</td>
+										<td><code>__attribute__((__always_inline__)) HEDLEY_INLINE</code></td>
 									</tr>
 									<tr>
 										<th>MSVC</th>
