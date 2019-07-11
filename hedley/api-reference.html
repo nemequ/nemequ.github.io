@@ -264,17 +264,17 @@ bool do_something(void);</pre>
 									<tr>
 										<th>GCC</th>
 										<td>3.4.0+</td>
-										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bwarn_005funused_005fresult_007d-function-attribute-3260"><code>__attribute__((warn_unused_result))</code></a></td>
+										<td><a href="https://gcc.gnu.org/onlinedocs/gcc-6.1.0/gcc/Common-Function-Attributes.html#index-g_t_0040code_007bwarn_005funused_005fresult_007d-function-attribute-3260"><code>__attribute__((__warn_unused_result__))</code></a></td>
 									</tr>
 									<tr>
 										<th>Intel</th>
-										<td>16.0+</td>
-										<td><code>__attribute__((warn_unused_result))</code></td>
+										<td>13.0+</td>
+										<td><code>__attribute__((__warn_unused_result__))</code></td>
 									</tr>
 									<tr>
-										<th><abbr title="Source Annotation Language">SAL</abbr> (MSVC)</th>
-										<td>2.0 (MSVC 11.0 / VS 2012)</td>
-										<td><a href="https://docs.microsoft.com/en-us/visualstudio/code-quality/annotating-function-behavior"><code>_Check_return_</code></a></td>
+										<th>TI</th>
+										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
+										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((__warn_unused_result__))</code></a></td>
 									</tr>
 									<tr>
 										<th>Oracle</th>
@@ -282,14 +282,14 @@ bool do_something(void);</pre>
 										<td><code>__attribute__((__warn_unused_result__))</code></td>
 									</tr>
 									<tr>
-										<th>ODS</th>
-										<td>12.6+</td>
-										<td><code>__attribute__((__warn_unused_result__)</code></td>
+										<th>PGI</th>
+										<td>17.10</td>
+										<td><code>__attribute__((__warn_unused_result__))</code></td>
 									</tr>
 									<tr>
-										<th>TI</th>
-										<td>8.0+ (7.3+ if <code>defined(__TI_GNU_ATTRIBUTE_SUPPORT__)</code>)</td>
-										<td><a href="http://downloads.ti.com/docs/esd/SPRUI04/index.html#SPRUI04B_HTML/tms320c6000-c-c-language-implementation.html#7.14.2_Function_Attributes%3FTocPath%3D7%2520TMS320C6000%2520C%252FC%252B%252B%2520Language%2520Implementation%7C7.14%2520GNU%2520Language%2520Extensions%7C_____2"><code>__attribute__((__warn_unused_result__)</code></a></td>
+										<th><abbr title="Source Annotation Language">SAL</abbr> (MSVC)</th>
+										<td>2.0 (MSVC 11.0 / VS 2012)</td>
+										<td><a href="https://docs.microsoft.com/en-us/visualstudio/code-quality/annotating-function-behavior"><code>_Check_return_</code></a></td>
 									</tr>
 								</tbody>
 							</table>
