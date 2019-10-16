@@ -721,19 +721,19 @@ void* foo(void);</pre>
 						should always evaluate to a non-false value.
 					</p>
 
-          <p>
-            Note that,
-            unlike <a href="#HEDLEY_PREDICT_TRUE"><code>HEDLEY_PREDICT_TRUE</code></a>
-            and <a href="#HEDLEY_LIKELY"><code>HEDLEY_LIKELY</code></a>,
-            the compiler is free to assume that the
-            expression <em>never</em> evaluates to true and therfore
-            can elide code paths where it does evaluate to true.  In
-            other words, this is more similar
-            to <a href="#HEDLEY_UNREACHABLE"><code>HEDLEY_UNREACHABLE()</code></a>,
-            and many implementations of this macro do actually
-            use <code>__builtin_unreachable</code> and similar
-            constructs.
-          </p>
+					<p>
+					  Note that,
+					  unlike <a href="#HEDLEY_PREDICT_TRUE"><code>HEDLEY_PREDICT_TRUE</code></a>
+					  and <a href="#HEDLEY_LIKELY"><code>HEDLEY_LIKELY</code></a>,
+					  the compiler is free to assume that the
+					  expression <em>never</em> evaluates to true and therfore
+					  can elide code paths where it does evaluate to true.  In
+					  other words, this is more similar
+					  to <a href="#HEDLEY_UNREACHABLE"><code>HEDLEY_UNREACHABLE()</code></a>,
+					  and many implementations of this macro do actually
+					  use <code>__builtin_unreachable</code> and similar
+					  constructs.
+					</p>
 
 					<dl class="dl-horizontal">
 						<dt>expr</dt>
@@ -1063,11 +1063,11 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 						Cast <em>to</em> a flags enumeration type.
 					</p>
 
-          <p>
-            This will attempt to quiet any warnings the C/C++ compiler
-            may emit because you are casting a value which may not
-            appear in the enumeration.
-          </p>
+					<p>
+					  This will attempt to quiet any warnings the C/C++ compiler
+					  may emit because you are casting a value which may not
+					  appear in the enumeration.
+					</p>
 
 					<dl class="dl-horizontal">
 						<dt>T</dt>
@@ -1107,6 +1107,7 @@ void print_warning(Context* ctx, const char* fmt, ...);</pre>
 					<li><code><a href="#HEDLEY_ALWAYS_INLINE">HEDLEY_ALWAYS_INLINE</a></code></li>
 					<li><code><a href="#HEDLEY_NEVER_INLINE">HEDLEY_NEVER_INLINE</a></code></li>
 					<li><code><a href="#HEDLEY_NO_THROW">HEDLEY_NO_THROW</a></code></li>
+					<li><code><a href="#HEDLEY_NO_ESCAPE">HEDLEY_NO_ESCAPE</a></code></li>
 				</ul>
 
 				<section id="HEDLEY_LIKELY" class="container">
@@ -1986,6 +1987,52 @@ void do_something(void);</pre>
 						</div>
 					</div>
 				</section>
+
+				<section id="HEDLEY_NO_ESCAPE" class="container">
+					<h3><code>HEDLEY_NO_ESCAPE</code> <a href="#HEDLEY_NO_ESCAPE"><i class="fa fa-link"></i></a></h3>
+
+					<p>
+					  Tell the compiler that the pointer will not escape the
+					  function call.  For more information, see the
+					  documentation
+					  for <a href="https://clang.llvm.org/docs/AttributeReference.html#noescape">clang's <code>noescape</code>
+					    attribute</a>.
+					</p>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Example</div>
+						<div class="panel-body">
+							<pre class="prettyprint">void foo(HEDLEY_NO_ESCAPE Bar* baz);</pre>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">Compiler Support</div>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Platform</th>
+										<th>Version</th>
+										<th>Implementation</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>C</th>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th>clang</th>
+										<td><code>__has_attribute(noesecape)</code> (clang 6.0+)</td>
+										<td><a href="https://clang.llvm.org/docs/AttributeReference.html#noescape"><code>__attribute__((__noescape__))</code></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
 			</div>
 		</section>
 
@@ -2487,6 +2534,7 @@ void do_something(void);</pre>
 					<li><code><a href="#HEDLEY_IS_CONSTANT">HEDLEY_IS_CONSTANT(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_REQUIRE_CONSTEXPR">HEDLEY_REQUIRE_CONSTEXPR(expr)</a></code></li>
 					<li><code><a href="#HEDLEY_CONSTEXPR">HEDLEY_CONSTEXPR</a></code></li>
+					<li><code><a href="#HEDLEY_NULL">HEDLEY_NULL</a></code></li>
 				</ul>
 			</div>
 
@@ -3526,6 +3574,45 @@ static int foo(int bar) {
 				</div>
 			</section>
 
+			<section id="HEDLEY_NULL" class="container">
+				<h3><code>HEDLEY_NULL</code> <a href="#HEDLEY_NULL"><i class="fa fa-link"></i></a></h3>
+
+				<p>
+					For C++11+, this macro is defined to <code>nullptr</code>.
+					Otherwise, it is <code>NULL</code>.
+				</p>
+
+        <p>
+          This macro is used to help maintain portability between C,
+          C++ &lt; C++11, and C++11+.  If your project requires C++11,
+          you should probably be using <code>nullptr</code> directly.
+          If you don't care about C++11 and want to stick to C++98 or
+          C, you should be using <code>NULL</code>.  Even if you do
+          want your code to be portable across C++11, you can still
+          generally just use <code>NULL</code> unless you're worried
+          about clang's <code>-Wzero-as-null-pointer-constant</code>
+          diagnostic (which is disabled by default but enabled
+          by <code>-Weverything</code>).
+        </p>
+
+        <p>
+          Basically, you should only use this if you understand
+          exactly what it does and why (<i>i.e.</i>, the difference
+          between <code>nullptr</code> and <code>NULL</code>), and
+          want to make absolutely certain people can compile your code
+          in diverse environments without any warnings even
+          when <em>very</em> aggressive warning settings are being
+          used.
+        </p>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Example</div>
+					<div class="panel-body">
+						<pre class="prettyprint">foo(HEDLEY_NULL);</pre>
+					</div>
+				</div>
+			</section>
+
 			<section id="HEDLEY_MESSAGE" class="container">
 				<h3><code>HEDLEY_MESSAGE(msg)</code> <a href="#HEDLEY_MESSAGE"><i class="fa fa-link"></i></a></h3>
 
@@ -3790,6 +3877,7 @@ __declspec(deprecated)
 					<ul>
 						<li id="HEDLEY_HAS_ATTRIBUTE"><code>HEDLEY_HAS_ATTRIBUTE(attribute)</code></li>
 						<li id="HEDLEY_HAS_CPP_ATTRIBUTE"><code>HEDLEY_HAS_CPP_ATTRIBUTE(cpp_attribute)</code></li>
+						<li id="HEDLEY_HAS_CPP_ATTRIBUTE_NS"><code>HEDLEY_HAS_CPP_ATTRIBUTES_NS(ns,cpp_attribute)</code></li>
 						<li id="HEDLEY_HAS_BUILTIN"><code>HEDLEY_HAS_BUILTIN(builtin)</code></li>
 						<li id="HEDLEY_HAS_FEATURE"><code>HEDLEY_HAS_FEATURE(feature)</code></li>
 						<li id="HEDLEY_HAS_EXTENSION"><code>HEDLEY_HAS_EXTENSION(extension)</code></li>
