@@ -25,6 +25,22 @@ h2 {
     margin-top: 0
 }
 
+.social-links {
+    margin: 0.5em 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 1.25em;
+}
+
+.social-links > li {
+    display: inline;
+}
+
+.social-links a:visited,
+.social-links a {
+    color: black;
+}
+
 .project-list > dt {
     display: table-row;
 }
