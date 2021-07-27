@@ -66,7 +66,7 @@
 					<h2><a href="#static-analysis">Static Analysis</a></h2>
 
 					<p>
-						Macros which help you descibe your API to the compiler
+						Macros which help you describe your API to the compiler
 						and/or static analyzers, giving your users helpful
 						warnings when the misuse your API, without false
 						positives.
@@ -726,7 +726,7 @@ void* foo(void);</pre>
 					  unlike <a href="#HEDLEY_PREDICT_TRUE"><code>HEDLEY_PREDICT_TRUE</code></a>
 					  and <a href="#HEDLEY_LIKELY"><code>HEDLEY_LIKELY</code></a>,
 					  the compiler is free to assume that the
-					  expression <em>never</em> evaluates to true and therfore
+					  expression <em>never</em> evaluates to true and therefore
 					  can elide code paths where it does evaluate to true.  In
 					  other words, this is more similar
 					  to <a href="#HEDLEY_UNREACHABLE"><code>HEDLEY_UNREACHABLE()</code></a>,
@@ -2937,7 +2937,7 @@ unsigned int bar = HEDLEY_STATIC_CAST(unsigned int, foo);</pre>
 
 				<dl class="dl-horizontal">
 					<dt>expr</dt>
-					<dd>An experssion the compiler can evaluate at compile-time.</dd>
+					<dd>An expression the compiler can evaluate at compile-time.</dd>
 
 					<dt>message</dt>
 					<dd>Error message to be emitted if the assertion fails.</dd>
@@ -3948,7 +3948,7 @@ __declspec(deprecated)
 					</table>
 
 					<p>
-						If you encouter additional examples,
+						If you encounter additional examples,
 						please <a href="https://github.com/nemequ/hedley/issues">let
 						us know</a> so we can add them to the list.
 					</p>
